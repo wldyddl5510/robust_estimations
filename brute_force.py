@@ -11,6 +11,14 @@ import numpy as np
 from utils import cutting_plane, mom_initialization
 
 
+class NetSizeError(ValueError):
+    """The full covering net exceeds the allocation limit."""
+
+    def __init__(self, size, max_points):
+        self.size = size
+        super().__init__(f"Net has {size:,} points; exceeds max_points={max_points:,}.")
+
+
 @lru_cache(maxsize=None)
 def _lattice_count(dimension, budget):
     if dimension == 0:
@@ -51,8 +59,8 @@ def discretized_net(d, s, radius=0.25, max_points=200_000):
         raise ValueError("d must be a positive integer")
     if not isinstance(s, (int, np.integer)) or not 1 <= s <= d:
         raise ValueError("s must be an integer with 1 <= s <= d")
-    if not 0 < radius < 1:
-        raise ValueError("radius must satisfy 0 < radius < 1")
+    if not 0 < radius <= 1:
+        raise ValueError("radius must satisfy 0 < radius <= 1")
 
     k = min(2 * s, d)
     step = 2 * radius / np.sqrt(k)
@@ -60,10 +68,8 @@ def discretized_net(d, s, radius=0.25, max_points=200_000):
     size = 1 + 2 * d
     for dimension in range(1, k + 1):
         size += comb(d, dimension) * _lattice_count(dimension, budget)
-        if max_points is not None and size > max_points:
-            raise ValueError(
-                f"Net exceeds max_points={max_points:,} (at least {size:,} points)."
-            )
+    if max_points is not None and size > max_points:
+        raise NetSizeError(size, max_points)
 
     net = np.zeros((size, d))
     net[1:d + 1] = np.eye(d)
@@ -103,16 +109,16 @@ def solve_fixed_support_lp(net, medians, support, M, *, env=None):
 
 
 def brute_force_estimation(
-    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=2,
+    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=1,
     net_radius=0.25, max_net_points=200_000, max_iter=1000,
 ):
     """Return (mu_hat, info) using a full direction net and outer cutting planes.
 
     lambda_upper is a supplied covariance eigenvalue bound (initial choice:
     2*lambda_max(Sigma)). K is the smallest odd integer >=
-    C*max(s*log(d/s), epsilon*n, log(1/delta)), with C=2 by default. Samples enter balanced,
+    C*max(s*log(d/s), epsilon*n, log(1/delta)), with C=1 by default. Samples enter balanced,
     randomly permuted blocks; using the same seed reproduces the partition.
-    tol defaults to sqrt(K*lambda_upper/n).
+    tol defaults to sqrt(K*lambda_upper/n)/100.
 
     Both the fixed-support LPs and outer support MILP use Gurobi.
 
@@ -151,6 +157,7 @@ def brute_force_estimation(
             s, current_support, best_mu, best_value, solve_support, tol, max_iter=max_iter,
         )
     info.update({
-        "C": C, "K": K, "net_size": len(net), "runtime": perf_counter() - start,
+        "C": C, "K": K, "net_radius": net_radius, "net_size": len(net),
+        "runtime": perf_counter() - start,
     })
     return best_mu, info

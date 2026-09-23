@@ -12,10 +12,7 @@ from brute_force import brute_force_estimation, discretized_net, solve_fixed_sup
 
 class BruteForceTests(unittest.TestCase):
     def test_net_covering(self):
-        d, s, radius = 5, 2, 0.25
-        net = discretized_net(d, s, radius)
-        self.assertTrue(np.all(np.linalg.norm(net, axis=1) <= 1 + 1e-12))
-        self.assertTrue(np.all(np.count_nonzero(net, axis=1) <= 2 * s))
+        d, s = 5, 2
         rng = np.random.default_rng(7)
         points = np.zeros((500, d))
         for i in range(len(points)):
@@ -23,10 +20,15 @@ class BruteForceTests(unittest.TestCase):
             v = rng.normal(size=len(support))
             v /= np.linalg.norm(v)
             points[i, support] = v * (1 if i % 2 else rng.random())
-        distances, _ = cKDTree(net).query(points)
-        self.assertLessEqual(distances.max(), radius + 1e-12)
-        np.testing.assert_array_equal(net, discretized_net(d, s, radius))
-        np.testing.assert_array_equal(cKDTree(net).query(np.eye(d))[0], 0)
+        for radius in (0.25, 1):
+            with self.subTest(radius=radius):
+                net = discretized_net(d, s, radius)
+                self.assertTrue(np.all(np.linalg.norm(net, axis=1) <= 1 + 1e-12))
+                self.assertTrue(np.all(np.count_nonzero(net, axis=1) <= 2 * s))
+                distances, _ = cKDTree(net).query(points)
+                self.assertLessEqual(distances.max(), radius + 1e-12)
+                np.testing.assert_array_equal(net, discretized_net(d, s, radius))
+                np.testing.assert_array_equal(cKDTree(net).query(np.vstack((np.eye(d), -np.eye(d))))[0], 0)
 
     def test_against_all_supports(self):
         for d, s in [(3, 1), (4, 2), (3, 3)]:
@@ -41,7 +43,7 @@ class BruteForceTests(unittest.TestCase):
                 self.assertTrue(info["converged"])
                 self.assertLessEqual(np.count_nonzero(estimate), s)
                 self.assertLessEqual(info["gap"], info["tol"])
-                self.assertEqual(info["K"], 9)
+                self.assertEqual(info["K"], 5)
                 self.assertGreater(info["runtime"], 0)
 
                 blocks = np.array_split(np.random.default_rng(4).permutation(80), info["K"])
@@ -102,13 +104,16 @@ class BruteForceTests(unittest.TestCase):
         np.testing.assert_array_equal(estimate, truth)
         self.assertTrue(info["converged"])
         self.assertEqual(info["objective"], 0)
+        self.assertEqual(info["C"], 1)
+        self.assertEqual(info["K"], 3)
+        self.assertAlmostEqual(info["tol"], np.sqrt(3 * 2 / 40) / 100)
         data = np.random.default_rng(9).standard_t(5, size=(80, 3)) + [2, 0, 0]
         _, info = brute_force_estimation(data, 1, 0.05, 10 / 3, seed=4, tol=1e-6, max_iter=1)
         self.assertFalse(info["converged"])
         with self.assertRaisesRegex(ValueError, "max_points"):
             discretized_net(100, 5, max_points=100)
         with self.assertRaisesRegex(ValueError, "exceeds n"):
-            brute_force_estimation(np.ones((3, 2)), 1, 0, 2)
+            brute_force_estimation(np.ones((2, 2)), 1, 0, 2)
 
 
 if __name__ == "__main__":

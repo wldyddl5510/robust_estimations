@@ -103,9 +103,9 @@ class IPAlgorithmTests(unittest.TestCase):
                 data[:, :s] += 1
                 original = data.copy()
                 estimate, info = ip_estimation(
-                    data, s, 0, 10 / 3, delta=0.4, tol=0.01, seed=4,
+                    data, s, 0, 10 / 3, delta=0.4, tol=0.01, seed=4, C=2,
                 )
-                means, _, _, _, _ = mom_initialization(data, s, 0, 10 / 3, delta=0.4, seed=4)
+                means, _, _, _, _ = mom_initialization(data, s, 0, 10 / 3, delta=0.4, seed=4, C=2)
                 optimum = self.full_optimum(means, s)
                 np.testing.assert_array_equal(data, original)
                 self.assertTrue(info["converged"])
@@ -125,11 +125,14 @@ class IPAlgorithmTests(unittest.TestCase):
         np.testing.assert_allclose(estimate, truth, atol=1e-8)
         self.assertTrue(info["converged"])
         self.assertAlmostEqual(info["objective"], 0, places=7)
+        self.assertEqual(info["C"], 1)
+        self.assertEqual(info["K"], 3)
+        self.assertAlmostEqual(info["tol"], np.sqrt(3 * 2 / 35) / 100)
         data = np.random.default_rng(2).standard_t(5, size=(35, 3)) + [1, 0, 0]
-        _, info = ip_estimation(data, 1, 0, 10 / 3, delta=0.4, tol=0.01, seed=4, max_iter=1)
+        _, info = ip_estimation(data, 1, 0, 10 / 3, delta=0.4, tol=0.01, seed=4, C=2, max_iter=1)
         self.assertFalse(info["converged"])
         with self.assertRaisesRegex(RuntimeError, "max_inner_iter"):
-            ip_estimation(data, 1, 0, 10 / 3, delta=0.4, tol=0.01, seed=4, max_inner_iter=1)
+            ip_estimation(data, 1, 0, 10 / 3, delta=0.4, tol=0.01, seed=4, C=2, max_inner_iter=1)
 
 
 if __name__ == "__main__":

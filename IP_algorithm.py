@@ -109,13 +109,13 @@ def solve_restricted_socp(block_means, support, M, pairs, *, env=None):
 
 
 def ip_estimation(
-    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=2,
+    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=1,
     max_iter=1000, max_inner_iter=1000,
 ):
     """Return (mu_hat, info) using Algorithm 1 and the shared outer cutting plane.
 
-    Initialization matches brute_force_estimation: C=2 by default, the same block seed,
-    and tol=sqrt(K*lambda_upper/n) by default. inner_tol=tol/4 and sep_tol=tol/8.
+    Initialization matches brute_force_estimation: C=1 by default, the same block seed,
+    and tol=sqrt(K*lambda_upper/n)/100 by default. inner_tol=tol/4 and sep_tol=tol/8.
     The inner loop requires upper_F - L <= inner_tol. Generated (S,B) pairs
     persist across outer iterations. Bounds concern the continuous-direction
     objective, within solver tolerances; info['objective'] is an upper bound.

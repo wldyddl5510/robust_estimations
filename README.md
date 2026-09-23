@@ -3,7 +3,7 @@
 Use the `robust_ip_estimation` conda environment and install dependencies with
 `python -m pip install -r requirements.txt`.
 
-The net baseline uses all constraints from a deterministic Euclidean 1/4-net,
+The net baseline uses all constraints from a deterministic Euclidean net (radius 1/4 by default),
 solves each fixed-support LP with Gurobi, and searches supports with the
 draft's dual cutting planes and a Gurobi MILP. Gurobi requires a working license.
 All optimization programs, including the test reference models, use Gurobi.
@@ -53,8 +53,8 @@ ip_estimate, ip_info = ip_estimation(
 ```
 
 `lambda_upper` bounds the covariance eigenvalue, not the t-distribution's scale
-matrix eigenvalue. The default block count uses C=2 and the default absolute
-stopping tolerance is `sqrt(K * lambda_upper / n)`. Blocks are balanced and use
+matrix eigenvalue. The default block count uses C=1 and the default absolute
+stopping tolerance is `sqrt(K * lambda_upper / n) / 100`. Blocks are balanced and use
 all samples. Use the same block seed for both estimators. If the required odd
 K exceeds n, the function raises an error instead of changing the rule.
 Both estimators call `utils.mom_initialization` to share exactly this setup.
@@ -87,6 +87,9 @@ distance to any point in that ball. All supports of size at most k are included.
 This is a covering guarantee, not a claim of minimum net cardinality. Net size
 is combinatorial; `max_net_points` (default 200,000) stops oversized allocations
 without silently substituting random directions or changing the radius.
+The experiment runner records such a baseline as `skipped`, reports the full
+net size, and continues the other estimators. A skipped run has no error or
+runtime measurement; other solver failures still raise.
 
 Run a single comparison with:
 
@@ -103,12 +106,21 @@ use the same K rule and block seed. Dimension is required via `--d` (or `--dim`)
 Each experiment draws one `loc` from Uniform(1, 3) and uses it on all s randomly
 chosen active coordinates. The seed controls loc, support, data, and block
 partition, so the same seed reproduces a run. The optional defaults are scale=1,
-seed=42, and C=2; n, epsilon, nu, s, delta, and d are required. Here `scale` is a scalar:
+seed=42, C=1, and strength=3; n, epsilon, nu, s, delta, and d are required.
+Use `--strength` to set the adversarial contamination strength. Here `scale` is a scalar:
 the t shape matrix is `scale * I_d`, so for finite nu > 2 the experiment sets
 `lambda_upper = 2 * nu / (nu - 2) * scale` using the clean covariance.
 Use `--tol` to override the optimization tolerance, with
 `0 < tol <= sqrt(K*lambda_upper/n)`. Algorithm 1 uses inner tolerance `tol/4`
 and separation tolerance `tol/8`; the coordinate-wise MoM estimate is unaffected.
+The default is now `sqrt(K*lambda_upper/n)/100`; older results record the
+different C and tolerance settings used for those runs.
+
+Use `--net-radius` (Python: `net_radius`) to change only the brute-force net's
+covering radius, with `0 < net_radius <= 1`. Increasing it reduces the grid size
+and weakens the covering guarantee. Radius 1 does not preserve the draft's
+1/4-net guarantee; the implementation still includes +/- coordinate directions
+and the full projected lattice for the chosen radius.
 
 The output contains L2 error, support recovery (fraction of true active
 coordinates with estimated magnitude above 1e-8), and runtime in seconds.
@@ -122,6 +134,4 @@ Run correctness checks with `python -m unittest discover -v`. The checks include
 exhaustive support/(S,B) reference models and analytic distance-to-box examples
 that validate LP/SOCP objectives and dual cutting planes.
 
-Earlier entries in `results.md` used HiGHS for the net LP and Clarabel for the
-restricted SOCP. Those are historical measurements; solver changes can affect
-runtime and which solution is returned when optima are not unique.
+`results.md` records the clean-data comparison at d=10, epsilon=0, and s=2 or 3.
