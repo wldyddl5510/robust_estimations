@@ -50,6 +50,9 @@ stopping tolerance is `sqrt(K * lambda_upper / n)`. Blocks are balanced and use
 all samples. Use the same block seed for both estimators. If the required odd
 K exceeds n, the function raises an error instead of changing the rule.
 Both estimators call `utils.mom_initialization` to share exactly this setup.
+The multiplier is configurable with the keyword argument `C` in all three
+estimators and `run_experiment`, or with `experiments.py --C 1`.
+K is the smallest odd integer at least `C * max(s*log(d/s), epsilon*n, log(1/delta))`.
 
 `info` reports convergence, the net objective, its global lower bound and gap,
 iterations, K, net size, and end-to-end runtime in seconds (including net
@@ -89,10 +92,13 @@ and coordinate-wise MoM with top-s hard thresholding on the same data. All three
 use the same K rule and block seed. Dimension is required via `--d` (or `--dim`).
 Each experiment draws one `loc` from Uniform(1, 3) and uses it on all s randomly
 chosen active coordinates. The seed controls loc, support, data, and block
-partition, so the same seed reproduces a run. The optional defaults are scale=1
-and seed=42; n, epsilon, nu, s, delta, and d are required. Here `scale` is a scalar:
+partition, so the same seed reproduces a run. The optional defaults are scale=1,
+seed=42, and C=2; n, epsilon, nu, s, delta, and d are required. Here `scale` is a scalar:
 the t shape matrix is `scale * I_d`, so for finite nu > 2 the experiment sets
 `lambda_upper = 2 * nu / (nu - 2) * scale` using the clean covariance.
+Use `--tol` to override the optimization tolerance, with
+`0 < tol <= sqrt(K*lambda_upper/n)`. Algorithm 1 uses inner tolerance `tol/4`
+and separation tolerance `tol/8`; the coordinate-wise MoM estimate is unaffected.
 
 The output contains L2 error, support recovery (fraction of true active
 coordinates with estimated magnitude above 1e-8), and runtime in seconds.

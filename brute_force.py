@@ -80,14 +80,14 @@ def discretized_net(d, s, radius=0.25, max_points=200_000):
 
 
 def brute_force_estimation(
-    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None,
+    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=2,
     net_radius=0.25, max_net_points=200_000, max_iter=1000,
 ):
     """Return (mu_hat, info) using a full direction net and outer cutting planes.
 
     lambda_upper is a supplied covariance eigenvalue bound (initial choice:
     2*lambda_max(Sigma)). K is the smallest odd integer >=
-    2*max(s*log(d/s), epsilon*n, log(1/delta)). All samples enter balanced,
+    C*max(s*log(d/s), epsilon*n, log(1/delta)), with C=2 by default. Samples enter balanced,
     randomly permuted blocks; using the same seed reproduces the partition.
     tol defaults to sqrt(K*lambda_upper/n).
 
@@ -102,7 +102,7 @@ def brute_force_estimation(
     if not isinstance(max_iter, (int, np.integer)) or max_iter < 1:
         raise ValueError("max_iter must be a positive integer")
     block_means, center, current_support, best_mu, tol = mom_initialization(
-        data, s, epsilon, lambda_upper, delta, tol, seed,
+        data, s, epsilon, lambda_upper, delta, tol, seed, C=C,
     )
     K, d = block_means.shape
 
@@ -143,6 +143,6 @@ def brute_force_estimation(
         s, current_support, best_mu, best_value, solve_support, tol, max_iter=max_iter,
     )
     info.update({
-        "K": K, "net_size": len(net), "runtime": perf_counter() - start,
+        "C": C, "K": K, "net_size": len(net), "runtime": perf_counter() - start,
     })
     return best_mu, info

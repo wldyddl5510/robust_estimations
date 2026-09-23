@@ -100,10 +100,10 @@ def adversarial_sparse_contamination(data, epsilon, s, strength=3):
     return contaminated
 
 
-def mom_initialization(data, s, epsilon, lambda_upper, delta=0.05, tol=None, seed=None):
+def mom_initialization(data, s, epsilon, lambda_upper, delta=0.05, tol=None, seed=None, *, C=2):
     """Return block means, coordinate medians, initial support/mean, and tolerance.
 
-    Both estimators use C=2, balanced random blocks, and the same seed convention.
+    C is the block-count multiplier (default 2). Blocks are balanced and seeded.
     lambda_upper bounds the covariance eigenvalue, not the t scale matrix.
     """
     data = np.asarray(data, dtype=float)
@@ -116,7 +116,9 @@ def mom_initialization(data, s, epsilon, lambda_upper, delta=0.05, tol=None, see
         raise ValueError("require 0 <= epsilon < 0.5 and 0 < delta < 1")
     if not np.isfinite(lambda_upper) or lambda_upper <= 0:
         raise ValueError("lambda_upper must be positive and finite")
-    K = int(np.ceil(2 * max(s * np.log(d / s), epsilon * n, np.log(1 / delta))))
+    if not np.isfinite(C) or C <= 0:
+        raise ValueError("C must be positive and finite")
+    K = int(np.ceil(C * max(s * np.log(d / s), epsilon * n, np.log(1 / delta))))
     K += K % 2 == 0
     if K > n:
         raise ValueError(f"Required K={K} exceeds n={n}; change the experiment settings.")

@@ -14,21 +14,22 @@ from utils import (
 )
 
 
-def coordinate_mom_estimation(data, s, epsilon, lambda_upper, delta=0.05, *, seed=None):
+def coordinate_mom_estimation(data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=2):
     """Coordinate-wise MoM followed by hard thresholding to the largest s entries."""
     start = perf_counter()
-    _, _, _, estimate, _ = mom_initialization(
-        data, s, epsilon, lambda_upper, delta, seed=seed,
+    block_means, _, _, estimate, _ = mom_initialization(
+        data, s, epsilon, lambda_upper, delta, tol=tol, seed=seed, C=C,
     )
-    return estimate, {"converged": True, "runtime": perf_counter() - start}
+    return estimate, {"converged": True, "C": C, "K": len(block_means), "runtime": perf_counter() - start}
 
 
-def run_experiment(n, epsilon, nu, s, delta, *, d, scale=1, seed=42):
+def run_experiment(n, epsilon, nu, s, delta, *, d, scale=1, seed=42, tol=None, C=2):
     """Return per-method error, support recovery, and runtime in seconds.
 
     The t shape matrix is scale * I_d. Draw one loc ~ Uniform(1, 3) per run
     and put it on s randomly chosen mean coordinates; the others are zero.
-    All methods use the same contaminated data, K rule, and seeded block split.
+    All methods use the same contaminated data, block multiplier C, and seeded split.
+    tol overrides the optimization tolerance; the MoM estimate does not depend on it.
     Runtime includes estimator preprocessing, but excludes shared data generation
     and metric calculation. Support recovery uses an absolute threshold of 1e-8.
     """
@@ -54,7 +55,7 @@ def run_experiment(n, epsilon, nu, s, delta, *, d, scale=1, seed=42):
         ("algorithm_1", ip_estimation),
         ("coordinate_mom", coordinate_mom_estimation),
     ):
-        estimate, info = estimator(data, s, epsilon, lambda_upper, delta, seed=seed)
+        estimate, info = estimator(data, s, epsilon, lambda_upper, delta, tol=tol, seed=seed, C=C)
         if not info["converged"]:
             raise RuntimeError(f"{name} did not converge")
         results[name] = {
@@ -75,6 +76,8 @@ def main():
     parser.add_argument("--d", "--dim", "-d", type=int, required=True, help="dimension")
     parser.add_argument("--scale", type=float, default=1, help="t shape = scale * I_d (default: 1)")
     parser.add_argument("--seed", type=int, default=42, help="data and block seed (default: 42)")
+    parser.add_argument("--tol", type=float, help="optimization tolerance (default: sqrt(K*lambda_upper/n))")
+    parser.add_argument("--C", type=float, default=2, help="block-count multiplier (default: 2)")
     args = parser.parse_args()
     try:
         results = run_experiment(**vars(args))

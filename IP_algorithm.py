@@ -101,12 +101,12 @@ def solve_restricted_socp(block_means, support, M, pairs):
 
 
 def ip_estimation(
-    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None,
+    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=2,
     max_iter=1000, max_inner_iter=1000,
 ):
     """Return (mu_hat, info) using Algorithm 1 and the shared outer cutting plane.
 
-    Initialization matches brute_force_estimation: C=2, the same block seed,
+    Initialization matches brute_force_estimation: C=2 by default, the same block seed,
     and tol=sqrt(K*lambda_upper/n) by default. inner_tol=tol/4 and sep_tol=tol/8.
     The inner loop requires upper_F - L <= inner_tol. Generated (S,B) pairs
     persist across outer iterations. Bounds concern the continuous-direction
@@ -119,7 +119,7 @@ def ip_estimation(
         if not isinstance(value, (int, np.integer)) or value < 1:
             raise ValueError(f"{name} must be a positive integer")
     block_means, center, support, initial_mu, tol = mom_initialization(
-        data, s, epsilon, lambda_upper, delta, tol, seed,
+        data, s, epsilon, lambda_upper, delta, tol, seed, C=C,
     )
     inner_tol, sep_tol = tol / 4, tol / 8
     stats = {"oracle_calls": 1, "inner_iterations": 0}
@@ -154,7 +154,7 @@ def ip_estimation(
 
     info.update(stats)
     info.update({
-        "K": len(block_means), "constraints": len(pairs),
+        "C": C, "K": len(block_means), "constraints": len(pairs),
         "inner_tol": inner_tol, "sep_tol": sep_tol, "runtime": perf_counter() - start,
     })
     return estimate, info
