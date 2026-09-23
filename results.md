@@ -9,7 +9,7 @@ The outer tolerance was the default e_tol = sqrt(K * lambda_upper / n) / 100 = 0
 Results for $(d, s, \delta, \epsilon, n) = (10, 2, 0.05, 0.0, 200)$:
 
 | Method | L2 error | Support recovery | Runtime (s) |
-| ---: | --- | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: |
 | Brute-force, radius 1 | 0.241929416 | 1.000000 | 0.079839666 |
 | Algorithm 1 | 0.163102700 | 1.000000 | 0.201522750 |
 | Coordinate-wise MoM with hard thresholding | 0.241929416 | 1.000000 | 0.000142750 |
@@ -17,7 +17,7 @@ Results for $(d, s, \delta, \epsilon, n) = (10, 2, 0.05, 0.0, 200)$:
 Results for $(d, s, \delta, \epsilon, n) = (10, 3, 0.05, 0.0, 200)$:
 
 | Method | L2 error | Support recovery | Runtime (s) |
-| ---: | --- | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: |
 | Brute-force, radius 1 | 0.279062020 | 1.000000 | 0.168647875 |
 | Algorithm 1 | 0.172566815 | 1.000000 | 0.238805834 |
 | Coordinate-wise MoM with hard thresholding | 0.279062020 | 1.000000 | 0.000126667 |
