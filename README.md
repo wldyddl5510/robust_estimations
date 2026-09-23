@@ -3,7 +3,7 @@
 Use the `robust_ip_estimation` conda environment and install dependencies with
 `python -m pip install -r requirements.txt`.
 
-The net baseline uses all constraints from a deterministic Euclidean net (radius 1/4 by default),
+The net baseline evaluates a deterministic Euclidean net (radius 1/4 by default),
 solves each fixed-support LP with Gurobi, and searches supports with the
 draft's dual cutting planes and a Gurobi MILP. Gurobi requires a working license.
 All optimization programs, including the test reference models, use Gurobi.
@@ -90,6 +90,11 @@ without silently substituting random directions or changing the radius.
 The experiment runner records such a baseline as `skipped`, reports the full
 net size, and continues the other estimators. A skipped run has no error or
 runtime measurement; other solver failures still raise.
+Use `--max-net-points` to raise the allocation limit when memory allows it.
+For nets above 200,000 points, each fixed-support LP keeps the minimum and
+maximum directional medians for every distinct projection onto its active
+coordinates. This preserves the fixed-support objective while avoiding millions
+of redundant LP constraints; net creation and all projections remain timed.
 
 Run a single comparison with:
 

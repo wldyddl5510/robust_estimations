@@ -7,7 +7,7 @@ import gurobipy as gp
 import numpy as np
 from scipy.spatial import cKDTree
 
-from brute_force import brute_force_estimation, discretized_net, solve_fixed_support_lp
+from brute_force import _support_extremes, brute_force_estimation, discretized_net, solve_fixed_support_lp
 
 
 class BruteForceTests(unittest.TestCase):
@@ -97,6 +97,26 @@ class BruteForceTests(unittest.TestCase):
                 for z in product((0, 0.25, 0.5, 1), repeat=2):
                     z = np.array(z)
                     self.assertLessEqual(value + gradient @ (z - support), exact(z) + 1e-8)
+
+    def test_support_projection_reduction(self):
+        net = np.array([(x, y, 0) for x in (-1, -0.5, 0, 0.5, 1)
+                        for y in (-1, 0, 1)], dtype=float)
+        medians = np.random.default_rng(8).normal(size=len(net))
+        support = np.array([1, 0, 0])
+        reduced_net, reduced_medians = _support_extremes(net, medians, support)
+        self.assertEqual(len(reduced_net), 10)
+        with gp.Env(empty=True) as env:
+            env.setParam("OutputFlag", 0)
+            env.start()
+            _, full_value, _ = solve_fixed_support_lp(net, medians, support, np.ones(3) * 4, env=env)
+            estimate, reduced_value, gradient = solve_fixed_support_lp(
+                reduced_net, reduced_medians, support, np.ones(3) * 4, env=env,
+            )
+            self.assertAlmostEqual(reduced_value, full_value, places=8)
+            self.assertAlmostEqual(np.max(np.abs(medians - net @ estimate)), full_value, places=8)
+            for z in product((0, 0.5, 1), repeat=3):
+                _, value, _ = solve_fixed_support_lp(net, medians, np.array(z), np.ones(3) * 4, env=env)
+                self.assertLessEqual(reduced_value + gradient @ (np.array(z) - support), value + 1e-8)
 
     def test_constant_data_and_limits(self):
         truth = np.array([3.0, 0.0, -2.0])

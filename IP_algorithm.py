@@ -20,6 +20,7 @@ def separation_oracle(block_means, mu, s, tol, *, env=None):
     if block_means.ndim != 2 or min(block_means.shape) == 0:
         raise ValueError("block_means must be a nonempty (K, d) array")
     K, d = block_means.shape
+    # Ensure the block size is odds.
     if K % 2 != 1 or mu.shape != (d,):
         raise ValueError("require odd K and a length-d mu")
     if not np.isfinite(block_means).all() or not np.isfinite(mu).all():
@@ -43,12 +44,14 @@ def separation_oracle(block_means, mu, s, tol, *, env=None):
         model.Params.OptimalityTol = 1e-9
         model.Params.BarQCPConvTol = 1e-8
         model.Params.NonConvex = 0
+        # direction v.
         v = model.addMVar(d, lb=-1, ub=1)
-        zeta = model.addMVar(d, vtype=gp.GRB.BINARY)
-        b = model.addMVar(K, vtype=gp.GRB.BINARY)
+        zeta = model.addMVar(d, vtype=gp.GRB.BINARY) # direction v's support
+        b = model.addMVar(K, vtype=gp.GRB.BINARY) # computing median block
         t = model.addVar(lb=0, ub=float(np.median(row_bounds)))
-        model.addConstr(v @ v <= 1)
-        model.addConstr(v <= zeta)
+        model.addConstr(v @ v <= 1) # quadratic constraint
+        # support restriction of v
+        model.addConstr(v <= zeta) 
         model.addConstr(-v <= zeta)
         model.addConstr(zeta.sum() <= k)
         model.addConstr(b.sum() == h)

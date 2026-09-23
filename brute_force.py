@@ -84,8 +84,25 @@ def discretized_net(d, s, radius=0.25, max_points=200_000):
     return net
 
 
+def _support_extremes(net, medians, support):
+    """Keep the median extrema for each distinct active-coordinate direction."""
+    active = np.flatnonzero(support)
+    groups = (np.unique(net[:, active], axis=0, return_inverse=True)[1]
+              if len(active) else np.zeros(len(net), dtype=int))
+    order = np.lexsort((medians, groups))
+    starts = np.r_[0, np.flatnonzero(np.diff(groups[order])) + 1]
+    ends = np.r_[starts[1:] - 1, len(net) - 1]
+    indices = np.r_[order[starts], order[ends]]
+    return net[indices], medians[indices]
+
+
 def solve_fixed_support_lp(net, medians, support, M, *, env=None):
     """Solve the net LP, returning (feasible_mu, L, cut_gradient)."""
+    if len(net) > 200_000:
+        # The retained inequalities give the same value at this support.
+        # Their dual cut remains a lower bound for the full-net objective.
+        net, medians = _support_extremes(net, medians, support)
+
     with gp.Model(env=env) as model:
         model.Params.OutputFlag = 0
         model.Params.Threads = 1

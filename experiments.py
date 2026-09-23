@@ -25,7 +25,7 @@ def coordinate_mom_estimation(data, s, epsilon, lambda_upper, delta=0.05, *, tol
 
 def run_experiment(
     n, epsilon, nu, s, delta, *, d, scale=1, seed=42, tol=None, C=1,
-    strength=3, net_radius=0.25,
+    strength=3, net_radius=0.25, max_net_points=200_000,
 ):
     """Return per-method error, support recovery, and runtime in seconds.
 
@@ -34,6 +34,7 @@ def run_experiment(
     All methods use the same contaminated data, block multiplier C, and seeded split.
     tol overrides the optimization tolerance; the MoM estimate does not depend on it.
     net_radius controls only the brute-force covering net (default: 1/4).
+    max_net_points limits the full net before allocation (default: 200,000).
     Oversized nets are recorded as skipped; other solver failures still raise.
     Runtime includes estimator preprocessing, but excludes shared data generation
     and metric calculation. Support recovery uses an absolute threshold of 1e-8.
@@ -60,7 +61,8 @@ def run_experiment(
         ("algorithm_1", ip_estimation),
         ("coordinate_mom", coordinate_mom_estimation),
     ):
-        options = {"net_radius": net_radius} if name == "brute_force" else {}
+        options = ({"net_radius": net_radius, "max_net_points": max_net_points}
+                   if name == "brute_force" else {})
         try:
             estimate, info = estimator(
                 data, s, epsilon, lambda_upper, delta, tol=tol, seed=seed, C=C, **options,
@@ -95,6 +97,7 @@ def main():
     parser.add_argument("--C", type=float, default=1, help="block-count multiplier (default: 1)")
     parser.add_argument("--strength", type=float, default=3, help="adversarial contamination strength (default: 3)")
     parser.add_argument("--net-radius", type=float, default=0.25, help="brute-force covering radius in (0, 1] (default: 0.25)")
+    parser.add_argument("--max-net-points", type=int, default=200_000, help="brute-force net size limit (default: 200,000)")
     args = parser.parse_args()
     try:
         results = run_experiment(**vars(args))
