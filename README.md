@@ -1,1 +1,105 @@
 # Robust estimation via Integer Programming
+
+Use the `robust_ip_estimation` conda environment and install dependencies with
+`python -m pip install -r requirements.txt`.
+
+The net baseline uses all constraints from a deterministic Euclidean 1/4-net,
+solves each fixed-support LP with SciPy/HiGHS, and searches supports with the
+draft's dual cutting planes and a Gurobi MILP. Gurobi requires a working license.
+Using HiGHS for the LP avoids the current Gurobi license's 2,000-constraint limit
+on the full net; Gurobi license limits still apply to the outer MILP.
+
+The shared outer loop is `utils.cutting_plane`. Each estimator supplies a
+`solve_support(z)` callback returning `(mu, L, U, gradient)`: a feasible estimate,
+the cut value, its objective upper bound, and the cut slope. The helper maintains
+the incumbent, accumulates cuts, solves the support MILP, and checks the global
+gap. Separate L and U also allow Algorithm 1 to use an approximate inner oracle.
+
+`IP_algorithm.ip_estimation` implements Algorithm 1: Gurobi solves the mixed
+integer conic separation problem (10), and CVXPY/Clarabel solves the restricted
+SOCP (17). Generated (S,B) constraints are retained across support searches.
+The oracle uses an absolute gap, and the inner stopping condition uses its
+global upper bound: `upper_F - L <= tol/4`, with separation tolerance `tol/8`.
+
+```python
+import numpy as np
+from utils import sparse_t_dist_data_generation, adversarial_sparse_contamination
+from brute_force import brute_force_estimation
+
+np.random.seed(42)
+data, truth = sparse_t_dist_data_generation(200, loc=3, nu=5, d=4, s=2)
+data = adversarial_sparse_contamination(data, epsilon=0.05, s=2)
+estimate, info = brute_force_estimation(
+    data, s=2, epsilon=0.05, lambda_upper=2 * 5 / (5 - 2), seed=42,
+)
+if info["converged"]:
+    error = np.linalg.norm(estimate - truth)
+    recovered = (np.abs(estimate) > 1e-8) & (truth != 0)
+    support_recovery = recovered.sum() / np.count_nonzero(truth)
+    print(error, support_recovery, info["runtime"])
+
+from IP_algorithm import ip_estimation
+ip_estimate, ip_info = ip_estimation(
+    data, s=2, epsilon=0.05, lambda_upper=2 * 5 / (5 - 2), seed=42,
+)
+```
+
+`lambda_upper` bounds the covariance eigenvalue, not the t-distribution's scale
+matrix eigenvalue. The default block count uses C=2 and the default absolute
+stopping tolerance is `sqrt(K * lambda_upper / n)`. Blocks are balanced and use
+all samples. Use the same block seed for both estimators. If the required odd
+K exceeds n, the function raises an error instead of changing the rule.
+Both estimators call `utils.mom_initialization` to share exactly this setup.
+
+`info` reports convergence, the net objective, its global lower bound and gap,
+iterations, K, net size, and end-to-end runtime in seconds (including net
+construction and projections). A run reaching `max_iter` returns
+`converged=False`. The gap concerns the finite-net objective, within solver
+tolerances; it is not a certificate for the continuous supremum.
+
+For Algorithm 1, `info['objective']` is an upper bound for the returned
+estimate's continuous-direction objective, and the gap uses that bound.
+Its info additionally reports oracle calls, total inner solves, and the number
+of generated (S,B) constraints. An inner iteration limit or an uncertified
+solver result raises an error; an outer iteration limit returns
+`converged=False`. Runtime includes initialization and all oracle/SOCP/MILP work.
+The current size-limited Gurobi license also rejects quadratic models above
+200 variables. The separation model has 2*d+K+1 variables, so larger experiments
+require a Gurobi license that supports that model size.
+
+The covering is constructive: for k=min(2s,d), a grid of spacing
+2*radius/sqrt(k) gives rounding error at most radius. All grid points within
+radius 1+radius are projected onto the unit ball, which cannot increase the
+distance to any point in that ball. All supports of size at most k are included.
+This is a covering guarantee, not a claim of minimum net cardinality. Net size
+is combinatorial; `max_net_points` (default 200,000) stops oversized allocations
+without silently substituting random directions or changing the radius.
+
+Run a single comparison with:
+
+```sh
+conda run -n robust_ip_estimation python experiments.py \
+    --n 200 --epsilon 0.05 --nu 5 --s 2 --delta 0.05 \
+    --d 4 --scale 1 --seed 42
+```
+
+`experiments.py` generates a sparse-mean multivariate t sample and applies
+`adversarial_sparse_contamination` once, then runs the net baseline, Algorithm 1,
+and coordinate-wise MoM with top-s hard thresholding on the same data. All three
+use the same K rule and block seed. Dimension is required via `--d` (or `--dim`).
+Each experiment draws one `loc` from Uniform(1, 3) and uses it on all s randomly
+chosen active coordinates. The seed controls loc, support, data, and block
+partition, so the same seed reproduces a run. The optional defaults are scale=1
+and seed=42; n, epsilon, nu, s, delta, and d are required. Here `scale` is a scalar:
+the t shape matrix is `scale * I_d`, so for finite nu > 2 the experiment sets
+`lambda_upper = 2 * nu / (nu - 2) * scale` using the clean covariance.
+
+The output contains L2 error, support recovery (fraction of true active
+coordinates with estimated magnitude above 1e-8), and runtime in seconds.
+Runtime includes each estimator's block construction and optimization, including
+the net and projections, and excludes shared data generation and metric
+calculation. Nonconverged runs raise an error. For Python use,
+`experiments.run_experiment(n, epsilon, nu, s, delta, d=d, **options)` returns a dict
+keyed by method, with `error`, `support_recovery`, and `runtime` for each method.
+
+Run correctness checks with `python -m unittest discover -v`.
