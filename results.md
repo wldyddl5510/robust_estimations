@@ -323,3 +323,42 @@ Algorithm 1의 runtime은 약 119.76초에서 8.18초로 줄었다.
 위 block 수는 실제 교체된 행을 추적해 계산했다.
 Metric과 runtime 측정 범위는 앞선 실험과 동일하며, Algorithm 1 실행에는
 진행 확인을 위한 oracle 완료 로그 출력이 포함되었다.
+
+---
+
+**모든 최적화 solver를 Gurobi로 통일한 뒤의 검증 실행**
+
+2026-09-23에 brute-force의 LP를 HiGHS에서 Gurobi로, Algorithm 1의
+restricted SOCP를 Clarabel에서 Gurobi로 변경했다. Separation oracle과
+outer cutting-plane MILP는 기존부터 Gurobi를 사용했다. 앞선 결과는 변경 전
+solver의 기록이며, 아래는 변경 후 `experiments.py`를 한 번 실행한 결과다.
+
+`n=200, d=6, s=2, epsilon=0.2, nu=5, delta=0.05, scale=1, seed=42,
+C=1`, `strength=3`을 사용했다. K=41, `lambda_upper=10/3`,
+`e_tol=sqrt(K*lambda_upper/n)/10=0.08266397845091497`로 직전 실험과
+같은 데이터, block 분할과 종료 기준이다. 각 Gurobi 모델은 thread 1개를 사용했다.
+
+```sh
+conda run -n robust_ip_estimation python experiments.py \
+    --n 200 --epsilon 0.2 --nu 5 --s 2 --delta 0.05 \
+    --dim 6 --scale 1 --seed 42 --C 1 --tol 0.08266397845091497
+```
+
+| Method | L2 error | Support recovery ratio | Runtime (seconds) |
+| --- | ---: | ---: | ---: |
+| Brute-force (Gurobi LP) | 0.643197 | 1.000000 | 0.440143 |
+| Algorithm 1 (Gurobi SOCP) | 0.513567 | 1.000000 | 6.122471 |
+| Coordinate-wise MoM + hard thresholding | 0.714112 | 1.000000 | 0.000209 |
+
+두 최적화 방법 모두 수렴했다. Brute-force의 반환 추정치가 solver 변경에 따라
+달라져 별도로 목적값을 확인했다. 이전 HiGHS 해는
+`(0, 1.4506100143907676, 0, 0, 0, 1.4697354061884196)`이고,
+새 Gurobi 해는 `(0, 1.129382011801307, 0, 0, 0, 1.5768114070515733)`이다.
+두 해의 net 목적값은 수치 허용오차 내에서 모두 0.638635075702이며,
+Gurobi가 계산한 global lower bound 역시 0.638635075702였다.
+따라서 같은 최적 목적값을 갖는 다른 추정치가 선택되어 L2 error가 달라진 경우다.
+
+변경한 구현은 기존 HiGHS/Clarabel 전수 열거 기준의 테스트 8개를 통과했다.
+이후 테스트용 최적화 코드도 Gurobi로 변환하고, 해석적으로 계산한
+distance-to-box 문제와 비교하는 LP/SOCP dual 검증을 추가했다.
+최종 테스트 10개가 모두 통과했다. 위 runtime은 개별 실행 측정값이다.

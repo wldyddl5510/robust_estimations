@@ -1,13 +1,12 @@
 """Compare Algorithm 1 with exhaustive (S,B) and mean-support enumeration."""
 
-from itertools import combinations
+from itertools import combinations, product
 import unittest
 
-import cvxpy as cp
 import gurobipy as gp
 import numpy as np
 
-from IP_algorithm import ip_estimation, separation_oracle
+from IP_algorithm import ip_estimation, separation_oracle, solve_restricted_socp
 from utils import mom_initialization
 
 
@@ -43,26 +42,59 @@ class IPAlgorithmTests(unittest.TestCase):
     @staticmethod
     def full_optimum(means, s):
         K, d = means.shape
-        mu = cp.Variable(d)
-        r = cp.Variable(nonneg=True)
-        constraints = []
-        for S in combinations(range(d), min(2 * s, d)):
-            for B in combinations(range(K), (K + 1) // 2):
-                alpha = cp.Variable(len(B), nonneg=True)
-                constraints += [cp.sum(alpha) == 1,
-                                cp.SOC(r, means[np.ix_(B, S)].T @ alpha - mu[list(S)])]
         optimum = np.inf
-        for size in range(s + 1):
-            for support in combinations(range(d), size):
-                inactive = sorted(set(range(d)) - set(support))
-                zeros = [mu[inactive] == 0] if inactive else []
-                # No M bound and all direction/block pairs: independent reference.
-                problem = cp.Problem(cp.Minimize(r), constraints + zeros)
-                problem.solve(solver=cp.CLARABEL, tol_gap_abs=1e-9, tol_feas=1e-9, tol_gap_rel=1e-9)
-                if problem.status != cp.OPTIMAL:
-                    raise AssertionError(problem.status)
-                optimum = min(optimum, problem.value)
+        with gp.Env(empty=True) as env:
+            env.setParam("OutputFlag", 0)
+            env.setParam("Threads", 1)
+            env.start()
+            with gp.Model(env=env) as model:
+                model.Params.NonConvex = 0
+                model.Params.BarQCPConvTol = 1e-9
+                mu = model.addMVar(d, lb=-gp.GRB.INFINITY)
+                r = model.addVar(lb=0)
+                for S in combinations(range(d), min(2 * s, d)):
+                    for B in combinations(range(K), (K + 1) // 2):
+                        alpha = model.addMVar(len(B), lb=0)
+                        residual = model.addMVar(len(S), lb=-gp.GRB.INFINITY)
+                        model.addConstr(alpha.sum() == 1)
+                        model.addConstr(residual == mu[list(S)] - means[np.ix_(B, S)].T @ alpha)
+                        model.addConstr(residual @ residual <= r * r)
+                model.setObjective(r)
+                for size in range(s + 1):
+                    for support in combinations(range(d), size):
+                        # No M bound and all (S,B) pairs; no cutting-plane loop.
+                        bounds = np.zeros(d)
+                        bounds[list(support)] = gp.GRB.INFINITY
+                        mu.LB, mu.UB = -bounds, bounds
+                        model.optimize()
+                        if model.Status != gp.GRB.OPTIMAL:
+                            raise AssertionError(model.Status)
+                        optimum = min(optimum, model.ObjVal)
         return optimum
+
+    def test_socp_duals_against_distance_to_box(self):
+        target = np.array([2.0, -3.0])
+        M = np.array([4.0, 5.0])
+        means = np.tile(target, (3, 1))
+        pairs = [((0, 1), (0, 1))]
+
+        def exact(z):
+            return np.linalg.norm(np.maximum(np.abs(target) - M * z, 0))
+
+        with gp.Env(empty=True) as env:
+            env.setParam("OutputFlag", 0)
+            env.start()
+            for support in (np.zeros(2), np.array([0.2, 0.1]), np.ones(2)):
+                mu, value, gradient = solve_restricted_socp(means, support, M, pairs, env=env)
+                self.assertAlmostEqual(value, exact(support), places=6)
+                self.assertLessEqual(np.linalg.norm(mu - target), value + 1e-6)
+                self.assertTrue(np.all(np.abs(mu) <= M * support + 1e-9))
+                if np.all(support > 0) and value > 1e-6:
+                    expected = -M * np.maximum(np.abs(target) - M * support, 0) / exact(support)
+                    np.testing.assert_allclose(gradient, expected, atol=1e-5)
+                for z in product((0, 0.25, 0.5, 1), repeat=2):
+                    z = np.array(z)
+                    self.assertLessEqual(value + gradient @ (z - support), exact(z) + 1e-6)
 
     def test_against_full_enumeration(self):
         for d, s in ((3, 1), (3, 2)):

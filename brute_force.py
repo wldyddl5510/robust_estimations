@@ -5,9 +5,8 @@ from itertools import combinations
 from math import comb, isqrt
 from time import perf_counter
 
+import gurobipy as gp
 import numpy as np
-from scipy.optimize import linprog
-from scipy.sparse import eye, hstack, vstack
 
 from utils import cutting_plane, mom_initialization
 
@@ -79,6 +78,30 @@ def discretized_net(d, s, radius=0.25, max_points=200_000):
     return net
 
 
+def solve_fixed_support_lp(net, medians, support, M, *, env=None):
+    """Solve the net LP, returning (feasible_mu, L, cut_gradient)."""
+    with gp.Model(env=env) as model:
+        model.Params.OutputFlag = 0
+        model.Params.Threads = 1
+        model.Params.Method = 1  # Dual simplex.
+        model.Params.FeasibilityTol = 1e-9
+        model.Params.OptimalityTol = 1e-9
+        mu = model.addMVar(len(support), lb=-gp.GRB.INFINITY)
+        r = model.addVar(lb=0)
+        upper = model.addConstr(mu <= M * support)
+        lower = model.addConstr(-mu <= M * support)
+        model.addConstr(net @ mu - r <= medians)
+        model.addConstr(-net @ mu - r <= -medians)
+        model.setObjective(r, gp.GRB.MINIMIZE)
+        model.optimize()
+        if model.Status != gp.GRB.OPTIMAL:
+            raise RuntimeError(f"Fixed-support LP failed: Gurobi status {model.Status}")
+        candidate = np.clip(mu.X, -M * support, M * support)
+        # Pi is the RHS derivative, i.e. the negative Lagrange multiplier.
+        gradient = M * (upper.Pi + lower.Pi)
+        return candidate, float(model.ObjVal), gradient
+
+
 def brute_force_estimation(
     data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=2,
     net_radius=0.25, max_net_points=200_000, max_iter=1000,
@@ -91,7 +114,7 @@ def brute_force_estimation(
     randomly permuted blocks; using the same seed reproduces the partition.
     tol defaults to sqrt(K*lambda_upper/n).
 
-    Fixed-support LPs use SciPy/HiGHS; the outer support MILP uses Gurobi.
+    Both the fixed-support LPs and outer support MILP use Gurobi.
 
     The reported gap certifies the finite-net objective, within solver
     tolerances, not the continuous-direction objective. Check info['converged']
@@ -115,33 +138,18 @@ def brute_force_estimation(
     best_value = float(np.max(np.abs(medians - net @ best_mu)))
     # Coordinate directions imply |mu_j| <= |center_j| + F_net(mu).
     M = np.abs(center) + best_value + 1e-8 * max(1, np.max(np.abs(center)), best_value)
-    # Sparse LP matrix: both signs of each net constraint, then the box bounds.
-    A = hstack((
-        vstack((net, -net, eye(d), -eye(d))),
-        np.r_[-np.ones(2 * len(net)), np.zeros(2 * d)][:, None],
-    ), format="csc")
-    objective = np.r_[np.zeros(d), 1.0]
+    with gp.Env(empty=True) as env:
+        env.setParam("OutputFlag", 0)
+        env.start()
 
-    def solve_support(support):
-        lp = linprog(
-            objective, A_ub=A,
-            b_ub=np.r_[medians, -medians, M * support, M * support],
-            bounds=[(None, None)] * d + [(0, None)], method="highs-ds",
-            options={"primal_feasibility_tolerance": 1e-9,
-                     "dual_feasibility_tolerance": 1e-9},
+        def solve_support(support):
+            candidate, L, gradient = solve_fixed_support_lp(net, medians, support, M, env=env)
+            value = float(np.max(np.abs(medians - net @ candidate)))
+            return candidate, L, value, gradient
+
+        best_mu, info = cutting_plane(
+            s, current_support, best_mu, best_value, solve_support, tol, max_iter=max_iter,
         )
-        if not lp.success:
-            raise RuntimeError(f"Fixed-support LP failed: {lp.message}")
-        candidate = np.clip(lp.x[:d], -M, M) * support
-        value = float(np.max(np.abs(medians - net @ candidate)))
-        # HiGHS marginals for <= constraints are the negative multipliers.
-        duals = lp.ineqlin.marginals[-2 * d:]
-        gradient = M * (duals[:d] + duals[d:])
-        return candidate, lp.fun, value, gradient
-
-    best_mu, info = cutting_plane(
-        s, current_support, best_mu, best_value, solve_support, tol, max_iter=max_iter,
-    )
     info.update({
         "C": C, "K": K, "net_size": len(net), "runtime": perf_counter() - start,
     })

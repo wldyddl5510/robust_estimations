@@ -4,10 +4,10 @@ Use the `robust_ip_estimation` conda environment and install dependencies with
 `python -m pip install -r requirements.txt`.
 
 The net baseline uses all constraints from a deterministic Euclidean 1/4-net,
-solves each fixed-support LP with SciPy/HiGHS, and searches supports with the
+solves each fixed-support LP with Gurobi, and searches supports with the
 draft's dual cutting planes and a Gurobi MILP. Gurobi requires a working license.
-Using HiGHS for the LP avoids the current Gurobi license's 2,000-constraint limit
-on the full net; Gurobi license limits still apply to the outer MILP.
+All optimization programs, including the test reference models, use Gurobi.
+SciPy is used for t-distribution sampling and a nearest-neighbor check of the net.
 
 The shared outer loop is `utils.cutting_plane`. Each estimator supplies a
 `solve_support(z)` callback returning `(mu, L, U, gradient)`: a feasible estimate,
@@ -15,11 +15,19 @@ the cut value, its objective upper bound, and the cut slope. The helper maintain
 the incumbent, accumulates cuts, solves the support MILP, and checks the global
 gap. Separate L and U also allow Algorithm 1 to use an approximate inner oracle.
 
-`IP_algorithm.ip_estimation` implements Algorithm 1: Gurobi solves the mixed
-integer conic separation problem (10), and CVXPY/Clarabel solves the restricted
-SOCP (17). Generated (S,B) constraints are retained across support searches.
+`IP_algorithm.ip_estimation` implements Algorithm 1: Gurobi solves both the mixed
+integer conic separation problem (10) and the restricted SOCP (17).
+Generated (S,B) constraints are retained across support searches.
 The oracle uses an absolute gap, and the inner stopping condition uses its
 global upper bound: `upper_F - L <= tol/4`, with separation tolerance `tol/8`.
+The programs have separate wrappers: `brute_force.solve_fixed_support_lp`,
+`IP_algorithm.separation_oracle`, and `IP_algorithm.solve_restricted_socp`.
+The SOCP uses convex quadratic cone constraints and `QCPDual=1` to obtain the
+linear box-constraint duals. For both LP and SOCP, the cut gradient is
+`M * (upper.Pi + lower.Pi)`, using Gurobi's nonpositive duals for <= constraints
+in a minimization problem (see the
+[Gurobi Pi documentation](https://docs.gurobi.com/projects/optimizer/en/current/reference/attributes/constraintlinear.html#pi)).
+Models use one Gurobi thread.
 
 ```python
 import numpy as np
@@ -66,9 +74,11 @@ Its info additionally reports oracle calls, total inner solves, and the number
 of generated (S,B) constraints. An inner iteration limit or an uncertified
 solver result raises an error; an outer iteration limit returns
 `converged=False`. Runtime includes initialization and all oracle/SOCP/MILP work.
-The current size-limited Gurobi license also rejects quadratic models above
-200 variables. The separation model has 2*d+K+1 variables, so larger experiments
-require a Gurobi license that supports that model size.
+The separation model has 2*d+K+1 variables. On 2026-09-23, after installing the
+new license at `~/gurobi.lic`, Gurobi 13.0.3 in `robust_ip_estimation` solved
+a 201-variable quadratic model and a 2,001-variable linear model to optimality.
+The previous size-limited-license restrictions no longer blocked these checks;
+no `GRB_LICENSE_FILE` environment variable was needed.
 
 The covering is constructive: for k=min(2s,d), a grid of spacing
 2*radius/sqrt(k) gives rounding error at most radius. All grid points within
@@ -108,4 +118,10 @@ calculation. Nonconverged runs raise an error. For Python use,
 `experiments.run_experiment(n, epsilon, nu, s, delta, d=d, **options)` returns a dict
 keyed by method, with `error`, `support_recovery`, and `runtime` for each method.
 
-Run correctness checks with `python -m unittest discover -v`.
+Run correctness checks with `python -m unittest discover -v`. The checks include
+exhaustive support/(S,B) reference models and analytic distance-to-box examples
+that validate LP/SOCP objectives and dual cutting planes.
+
+Earlier entries in `results.md` used HiGHS for the net LP and Clarabel for the
+restricted SOCP. Those are historical measurements; solver changes can affect
+runtime and which solution is returned when optima are not unique.

@@ -1,13 +1,13 @@
 """Small correctness checks; run with python -m unittest test_brute_force."""
 
-from itertools import combinations
+from itertools import combinations, product
 import unittest
 
+import gurobipy as gp
 import numpy as np
-from scipy.optimize import linprog
 from scipy.spatial import cKDTree
 
-from brute_force import brute_force_estimation, discretized_net
+from brute_force import brute_force_estimation, discretized_net, solve_fixed_support_lp
 
 
 class BruteForceTests(unittest.TestCase):
@@ -49,25 +49,52 @@ class BruteForceTests(unittest.TestCase):
                 net = discretized_net(d, s)
                 medians = np.median(means @ net.T, axis=0)
                 optimum = np.max(np.abs(medians))  # Empty support.
-                for size in range(1, s + 1):
-                    for support in combinations(range(d), size):
-                        directions = net[:, support]
-                        A = np.column_stack((
-                            np.vstack((directions, -directions)), -np.ones(2 * len(net)),
-                        ))
-                        # No M bounds: also checks that the baseline's M is valid.
-                        result = linprog(
-                            np.r_[np.zeros(size), 1], A_ub=A,
-                            b_ub=np.r_[medians, -medians],
-                            bounds=[(None, None)] * size + [(0, None)], method="highs",
-                        )
-                        self.assertTrue(result.success)
-                        optimum = min(optimum, result.fun)
+                with gp.Env(empty=True) as env:
+                    env.setParam("OutputFlag", 0)
+                    env.setParam("Threads", 1)
+                    env.start()
+                    for size in range(1, s + 1):
+                        for support in combinations(range(d), size):
+                            # Only active variables, without M bounds or cuts.
+                            with gp.Model(env=env) as model:
+                                model.Params.FeasibilityTol = 1e-9
+                                model.Params.OptimalityTol = 1e-9
+                                mu = model.addMVar(size, lb=-gp.GRB.INFINITY)
+                                r = model.addVar(lb=0)
+                                residual = net[:, support] @ mu - medians
+                                model.addConstr(residual <= r)
+                                model.addConstr(-residual <= r)
+                                model.setObjective(r)
+                                model.optimize()
+                                self.assertEqual(model.Status, gp.GRB.OPTIMAL)
+                                optimum = min(optimum, model.ObjVal)
                 self.assertLessEqual(info["lower_bound"], optimum + 1e-7)
                 self.assertLessEqual(abs(info["objective"] - optimum), info["tol"] + 1e-7)
                 self.assertAlmostEqual(
                     info["objective"], np.max(np.abs(medians - net @ estimate)), places=8,
                 )
+
+    def test_lp_duals_against_distance_to_box(self):
+        target = np.array([2.0, -3.0])
+        M = np.array([4.0, 5.0])
+        net = np.vstack((np.eye(2), -np.eye(2)))
+
+        def exact(z):
+            return np.max(np.maximum(np.abs(target) - M * z, 0))
+
+        with gp.Env(empty=True) as env:
+            env.setParam("OutputFlag", 0)
+            env.start()
+            for support in (np.zeros(2), np.array([0.2, 0.1]), np.ones(2)):
+                mu, value, gradient = solve_fixed_support_lp(net, net @ target, support, M, env=env)
+                self.assertAlmostEqual(value, exact(support), places=8)
+                self.assertLessEqual(np.max(np.abs(mu - target)), value + 1e-8)
+                self.assertTrue(np.all(np.abs(mu) <= M * support + 1e-9))
+                if np.all(support > 0) and value > 1e-6:
+                    np.testing.assert_allclose(gradient, [0, -5], atol=1e-8)
+                for z in product((0, 0.25, 0.5, 1), repeat=2):
+                    z = np.array(z)
+                    self.assertLessEqual(value + gradient @ (z - support), exact(z) + 1e-8)
 
     def test_constant_data_and_limits(self):
         truth = np.array([3.0, 0.0, -2.0])

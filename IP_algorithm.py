@@ -2,7 +2,6 @@
 
 from time import perf_counter
 
-import cvxpy as cp
 import gurobipy as gp
 import numpy as np
 
@@ -77,27 +76,36 @@ def separation_oracle(block_means, mu, s, tol, *, env=None):
     return lower, upper, (S, B)
 
 
-def solve_restricted_socp(block_means, support, M, pairs):
+def solve_restricted_socp(block_means, support, M, pairs, *, env=None):
     """Solve (17) over pairs, returning (feasible_mu, L, cut_gradient)."""
     d = len(support)
-    mu = cp.Variable(d)
-    r = cp.Variable(nonneg=True)
-    upper = mu <= M * support
-    lower = -mu <= M * support
-    constraints = [upper, lower]
-    for S, B in pairs:
-        alpha = cp.Variable(len(B), nonneg=True)
-        constraints += [
-            cp.sum(alpha) == 1,
-            cp.norm(block_means[np.ix_(B, S)].T @ alpha - mu[list(S)], 2) <= r,
-        ]
-    problem = cp.Problem(cp.Minimize(r), constraints)
-    problem.solve(solver=cp.CLARABEL, tol_gap_abs=1e-8, tol_gap_rel=1e-8, tol_feas=1e-8)
-    if problem.status != cp.OPTIMAL:
-        raise RuntimeError(f"Restricted SOCP failed: {problem.status}")
-    candidate = np.clip(mu.value, -M, M) * support
-    gradient = -M * (upper.dual_value + lower.dual_value)
-    return candidate, float(problem.value), gradient
+    with gp.Model(env=env) as model:
+        model.Params.OutputFlag = 0
+        model.Params.Threads = 1
+        model.Params.QCPDual = 1
+        model.Params.NonConvex = 0
+        model.Params.FeasibilityTol = 1e-9
+        model.Params.OptimalityTol = 1e-9
+        model.Params.BarQCPConvTol = 1e-8
+        mu = model.addMVar(d, lb=-gp.GRB.INFINITY)
+        r = model.addVar(lb=0)
+        upper = model.addConstr(mu <= M * support)
+        lower = model.addConstr(-mu <= M * support)
+        for S, B in pairs:
+            alpha = model.addMVar(len(B), lb=0)
+            residual = model.addMVar(len(S), lb=-gp.GRB.INFINITY)
+            model.addConstr(alpha.sum() == 1)
+            model.addConstr(residual == block_means[np.ix_(B, S)].T @ alpha - mu[list(S)])
+            # r >= 0 makes this a convex second-order cone.
+            model.addConstr(residual @ residual <= r * r)
+        model.setObjective(r, gp.GRB.MINIMIZE)
+        model.optimize()
+        if model.Status != gp.GRB.OPTIMAL:
+            raise RuntimeError(f"Restricted SOCP failed: Gurobi status {model.Status}")
+        candidate = np.clip(mu.X, -M * support, M * support)
+        # Gurobi Pi for a <= constraint in a minimization problem is nonpositive.
+        gradient = M * (upper.Pi + lower.Pi)
+        return candidate, float(model.ObjVal), gradient
 
 
 def ip_estimation(
@@ -136,7 +144,9 @@ def ip_estimation(
 
         def solve_support(current_support):
             for _ in range(max_inner_iter):
-                candidate, L, gradient = solve_restricted_socp(block_means, current_support, M, pairs)
+                candidate, L, gradient = solve_restricted_socp(
+                    block_means, current_support, M, pairs, env=env,
+                )
                 stats["inner_iterations"] += 1
                 _, U, pair = separation_oracle(block_means, candidate, s, sep_tol, env=env)
                 stats["oracle_calls"] += 1
