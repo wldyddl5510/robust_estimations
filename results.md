@@ -1,6 +1,6 @@
 # Experiments
 
-Experiments setup: multivariate $t_3$ with shape $I_{20}$ and a 5-sparse mean. Each seed draws one amplitude from Uniform$(1,3)$ and a random support. Seeds 0–9 use the same clean samples in both experiments. Defaults: $C=2$, $\delta=0.05$, attack strength $30$, $\overline\lambda=6$, and $e_{\mathrm{tol}}=\sqrt{K\overline\lambda/n}/4$. Runtimes include estimator preprocessing but exclude shared data generation; up to four one-thread runs were processed concurrently. Support recovery is the fraction of true active coordinates selected; it is not defined for the dense sample mean. Both figures use identical 0.5-wide bins and x/y limits.
+Experiments setup: multivariate $t_3$ with shape $I_d$ and a 5-sparse mean. Each seed draws one amplitude from Uniform$(1,3)$ and a random support. For fixed $(n,d)$, seeds 0–9 use the same clean samples across contamination settings. Defaults: $C=2$, $\delta=0.05$, attack strength $30$, $\overline\lambda=6$, and $e_{\mathrm{tol}}=\sqrt{K\overline\lambda/n}/4$. Runtimes include estimator preprocessing but exclude shared data generation; up to four one-thread runs were processed concurrently. Support recovery is the fraction of true active coordinates selected; it is not defined for the dense sample mean. Within each figure, all three methods use identical bins and x/y limits; the limits may differ between experiments.
 
 ## Experiments 1
 
@@ -29,3 +29,33 @@ Brute-force skipped: same 408,076,993-direction, 65.3 GB radius-1 net.
 | Sample mean | 2.878923 | 0.000007 | — |
 
 ![L2 error histograms for Experiment 2](experiment2_error_histograms.png)
+
+## Experiments 3
+
+Results for $(d, s, \delta, \epsilon, n) = (30, 5, 0.05, 0, 150)$; $K=19$:
+
+Brute-force skipped: radius-1 net 41,972,797,833 directions; 10.1 TB array > 16 GB RAM.
+
+| Method | Mean L2 error | Mean runtime (s) | Mean support recovery |
+| --- | ---: | ---: | ---: |
+| Algorithm 1 | 0.246961 | 49.298941 | 1.000 |
+| Coordinate-wise MoM | 0.255429 | 0.000129 | 1.000 |
+| Sample mean | 0.782199 | 0.000005 | — |
+
+![L2 error histograms for Experiment 3](experiment3_error_histograms.png)
+
+## Experiments 4
+
+Results for $(d, s, \delta, \epsilon, n) = (30, 5, 0.05, 0.1, 150)$; $K=31$:
+
+Brute-force skipped: radius-1 net 41,972,797,833 directions; 10.1 TB array > 16 GB RAM.
+
+| Method | Mean L2 error | Mean runtime (s) | Mean support recovery |
+| --- | ---: | ---: | ---: |
+| Algorithm 1 (7/10 completed) | 1.740224 | 1001.043614 | 0.857 |
+| Coordinate-wise MoM (10/10) | 1.686140 | 0.000163 | 0.820 |
+| Sample mean (10/10) | 2.837271 | 0.000005 | — |
+
+Algorithm 1 timed out after 30 minutes for seeds 2, 5, and 7, including solo retries. Its means use only the seven completed seeds and are not 10-seed estimates.
+
+![L2 error histograms for Experiment 4](experiment4_error_histograms.png)
