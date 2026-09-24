@@ -23,6 +23,42 @@ def coordinate_mom_estimation(data, s, epsilon, lambda_upper, delta=0.05, *, tol
     return estimate, {"converged": True, "C": C, "K": len(block_means), "runtime": perf_counter() - start}
 
 
+def geometric_mom_estimation(data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=2):
+    """Geometric median of the shared block means, then top-s hard thresholding."""
+    start = perf_counter()
+    block_means, *_ = mom_initialization(
+        data, s, epsilon, lambda_upper, delta, tol=tol, seed=seed, C=C,
+    )
+    K, d = block_means.shape
+    median = block_means.mean(axis=0)
+    for _ in range(10_000):
+        residuals = block_means - median
+        distances = np.linalg.norm(residuals, axis=1)
+        at_point = distances < 1e-12
+        weights = 1 / distances[~at_point]
+        if at_point.any():
+            if not len(weights):
+                break
+            direction = np.sum(residuals[~at_point] * weights[:, None], axis=0)
+            length = np.linalg.norm(direction)
+            if length <= at_point.sum():
+                break
+            step = (1 - at_point.sum() / length) * direction / weights.sum()
+            updated = median + step
+        else:
+            updated = np.average(block_means, axis=0, weights=weights)
+        if np.linalg.norm(updated - median) <= 1e-10 * max(1, np.linalg.norm(median)):
+            median = updated
+            break
+        median = updated
+    else:
+        raise RuntimeError("Geometric median iteration did not converge")
+    estimate = np.zeros(d)
+    active = np.argsort(-np.abs(median))[:s]
+    estimate[active] = median[active]
+    return estimate, {"converged": True, "C": C, "K": K, "runtime": perf_counter() - start}
+
+
 def plain_sample_mean_estimation(data):
     """Return the coordinate-wise average of every observed row."""
     start = perf_counter()
@@ -68,6 +104,7 @@ def run_experiment(
         ("brute_force", brute_force_estimation),
         ("algorithm_1", ip_estimation),
         ("coordinate_mom", coordinate_mom_estimation),
+        ("geometric_mom", geometric_mom_estimation),
         ("sample_mean", plain_sample_mean_estimation),
     ):
         options = ({"net_radius": net_radius, "max_net_points": max_net_points}
