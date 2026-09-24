@@ -126,16 +126,16 @@ def solve_fixed_support_lp(net, medians, support, M, *, env=None):
 
 
 def brute_force_estimation(
-    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=1,
+    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=2,
     net_radius=0.25, max_net_points=200_000, max_iter=1000,
 ):
     """Return (mu_hat, info) using a full direction net and outer cutting planes.
 
     lambda_upper is a supplied covariance eigenvalue bound (initial choice:
     2*lambda_max(Sigma)). K is the smallest odd integer >=
-    C*max(s*log(d/s), epsilon*n, log(1/delta)), with C=1 by default. Samples enter balanced,
+    C*max(s*log(d/s), epsilon*n, log(1/delta)), with C=2 by default. Samples enter balanced,
     randomly permuted blocks; using the same seed reproduces the partition.
-    tol defaults to sqrt(K*lambda_upper/n)/100.
+    tol defaults to sqrt(K*lambda_upper/n)/4.
 
     Both the fixed-support LPs and outer support MILP use Gurobi.
 

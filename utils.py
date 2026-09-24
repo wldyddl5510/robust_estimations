@@ -57,7 +57,7 @@ def huber_contamination(data, epsilon, outlier_loc=10, outlier_std=1):
     return contaminated
 
 
-def adversarial_sparse_contamination(data, epsilon, s, strength=3):
+def adversarial_sparse_contamination(data, epsilon, s, strength=30):
     """Return a copy with at most floor(epsilon * n) adaptively replaced rows.
 
     Coordinate medians estimate the support. The attack weakens its top-s
@@ -100,11 +100,11 @@ def adversarial_sparse_contamination(data, epsilon, s, strength=3):
     return contaminated
 
 
-def mom_initialization(data, s, epsilon, lambda_upper, delta=0.05, tol=None, seed=None, *, C=1):
+def mom_initialization(data, s, epsilon, lambda_upper, delta=0.05, tol=None, seed=None, *, C=2):
     """Return block means, coordinate medians, initial support/mean, and tolerance.
 
-    C is the block-count multiplier (default 1). Blocks are balanced and seeded.
-    Default tolerance is sqrt(K*lambda_upper/n)/100.
+    C is the block-count multiplier (default 2). Blocks are balanced and seeded.
+    Default tolerance is sqrt(K*lambda_upper/n)/4.
     lambda_upper bounds the covariance eigenvalue, not the t scale matrix.
     """
     data = np.asarray(data, dtype=float)
@@ -124,7 +124,7 @@ def mom_initialization(data, s, epsilon, lambda_upper, delta=0.05, tol=None, see
     if K > n:
         raise ValueError(f"Required K={K} exceeds n={n}; change the experiment settings.")
     statistical_tol = np.sqrt(K * lambda_upper / n)
-    tol = statistical_tol / 100 if tol is None else tol
+    tol = statistical_tol / 4 if tol is None else tol
     if not 0 < tol <= statistical_tol:
         raise ValueError("tol must satisfy 0 < tol <= sqrt(K*lambda_upper/n)")
 

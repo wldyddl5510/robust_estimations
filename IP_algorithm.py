@@ -8,12 +8,14 @@ import numpy as np
 from utils import cutting_plane, mom_initialization
 
 
-def separation_oracle(block_means, mu, s, tol, *, env=None):
+def separation_oracle(block_means, mu, s, tol, *, decision_threshold=None, env=None):
     """Solve (10), returning (lower_F, upper_F, (S, B)).
 
     The incumbent direction gives lower_F; Gurobi's global maximization bound
     gives upper_F. Symmetry in v makes maximizing the signed median equivalent
-    to maximizing its absolute value. tol is an absolute objective gap.
+    to maximizing its absolute value. Without a decision_threshold, tol is an
+    absolute objective gap. With one, stop as soon as either the incumbent
+    exceeds it (a violated cut) or the global bound falls below it (certified).
     """
     block_means = np.asarray(block_means, dtype=float)
     mu = np.asarray(mu, dtype=float)
@@ -29,6 +31,8 @@ def separation_oracle(block_means, mu, s, tol, *, env=None):
         raise ValueError("s must be an integer with 1 <= s <= d")
     if not np.isfinite(tol) or tol <= 0:
         raise ValueError("tol must be positive and finite")
+    if decision_threshold is not None and not np.isfinite(decision_threshold):
+        raise ValueError("decision_threshold must be finite")
 
     residuals = block_means - mu
     k, h = min(2 * s, d), (K + 1) // 2
@@ -43,7 +47,7 @@ def separation_oracle(block_means, mu, s, tol, *, env=None):
         model.Params.IntFeasTol = 1e-9
         model.Params.OptimalityTol = 1e-9
         model.Params.BarQCPConvTol = 1e-8
-        model.Params.NonConvex = 0
+        model.Params.NonConvex = -1
         # direction v.
         v = model.addMVar(d, lb=-1, ub=1)
         zeta = model.addMVar(d, vtype=gp.GRB.BINARY) # direction v's support
@@ -58,9 +62,38 @@ def separation_oracle(block_means, mu, s, tol, *, env=None):
         for i in range(K):
             model.addConstr((b[i] == 1) >> (residuals[i] @ v >= t))
         model.setObjective(t, gp.GRB.MAXIMIZE)
-        model.optimize()
-        if model.Status != gp.GRB.OPTIMAL or model.SolCount == 0:
+
+        stopped = False
+
+        def stop_when_decided(model, where):
+            nonlocal stopped
+            if where != gp.GRB.Callback.MIP:
+                return
+            incumbent = model.cbGet(gp.GRB.Callback.MIP_OBJBST)
+            bound = model.cbGet(gp.GRB.Callback.MIP_OBJBND)
+            margin = 1e-5 * max(1.0, abs(decision_threshold))
+            if (abs(incumbent) < gp.GRB.INFINITY / 2
+                    and incumbent > decision_threshold + margin):
+                stopped = True
+                model.terminate()
+            elif (abs(bound) < gp.GRB.INFINITY / 2
+                  and bound < decision_threshold - margin):
+                stopped = True
+                model.terminate()
+
+        if decision_threshold is None:
+            model.optimize()
+        else:
+            model.optimize(stop_when_decided)
+        if model.Status != gp.GRB.OPTIMAL and not (stopped and model.Status == gp.GRB.INTERRUPTED):
             raise RuntimeError(f"Separation oracle failed: Gurobi status {model.Status}")
+
+        # A dual-bound certificate needs no incumbent or separating pair.
+        if model.SolCount == 0:
+            upper = max(0.0, float(model.ObjBound))
+            if decision_threshold is None or upper > decision_threshold:
+                raise RuntimeError("Separation oracle stopped without a certificate or incumbent")
+            return 0.0, upper, ((0,), tuple(range(h)))
 
         S = np.flatnonzero(zeta.X > 0.5)
         direction = np.zeros(d)
@@ -71,7 +104,10 @@ def separation_oracle(block_means, mu, s, tol, *, env=None):
             projections = -projections
         lower = float(np.median(projections))
         upper = max(lower, 0.0, float(model.ObjBound))
-        if upper - lower > tol:
+        if model.Status == gp.GRB.INTERRUPTED:
+            if not (lower > decision_threshold or upper <= decision_threshold):
+                raise RuntimeError("Separation oracle stopped without a valid cut or certificate")
+        elif upper - lower > tol:
             raise RuntimeError("Separation oracle did not certify the requested absolute gap")
         # Any nonempty support works when the incumbent direction is zero.
         S = tuple(map(int, S)) if len(S) else (0,)
@@ -112,13 +148,13 @@ def solve_restricted_socp(block_means, support, M, pairs, *, env=None):
 
 
 def ip_estimation(
-    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=1,
+    data, s, epsilon, lambda_upper, delta=0.05, *, tol=None, seed=None, C=2,
     max_iter=1000, max_inner_iter=1000,
 ):
     """Return (mu_hat, info) using Algorithm 1 and the shared outer cutting plane.
 
-    Initialization matches brute_force_estimation: C=1 by default, the same block seed,
-    and tol=sqrt(K*lambda_upper/n)/100 by default. inner_tol=tol/4 and sep_tol=tol/8.
+    Initialization matches brute_force_estimation: C=2 by default, the same block seed,
+    and tol=sqrt(K*lambda_upper/n)/4 by default. inner_tol=tol/4 and sep_tol=tol/8.
     The inner loop requires upper_F - L <= inner_tol. Generated (S,B) pairs
     persist across outer iterations. Bounds concern the continuous-direction
     objective, within solver tolerances; info['objective'] is an upper bound.
@@ -151,10 +187,15 @@ def ip_estimation(
                     block_means, current_support, M, pairs, env=env,
                 )
                 stats["inner_iterations"] += 1
-                _, U, pair = separation_oracle(block_means, candidate, s, sep_tol, env=env)
+                lower, U, pair = separation_oracle(
+                    block_means, candidate, s, sep_tol,
+                    decision_threshold=L + inner_tol, env=env,
+                )
                 stats["oracle_calls"] += 1
                 if U - L <= inner_tol:
                     return candidate, L, U, gradient
+                if lower <= L:
+                    raise RuntimeError("Separation oracle did not find a violated constraint")
                 if pair in seen:
                     raise RuntimeError("An existing (S,B) constraint is still violated; check solver tolerances")
                 pairs.append(pair)

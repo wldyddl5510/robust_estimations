@@ -32,6 +32,16 @@ class IPAlgorithmTests(unittest.TestCase):
             self.assertLessEqual(upper - lower, 1e-4)
             self.assertTrue(1 <= len(S) <= 2)
             self.assertEqual(len(B), 2)
+            cut_lower, cut_upper, _ = separation_oracle(
+                means, mu, 1, 1e-4, decision_threshold=exact / 2, env=env,
+            )
+            self.assertGreater(cut_lower, exact / 2)
+            self.assertGreaterEqual(cut_upper, exact - 1e-7)
+            _, certified_upper, _ = separation_oracle(
+                means, mu, 1, 1e-4, decision_threshold=exact + 1, env=env,
+            )
+            self.assertGreaterEqual(certified_upper, exact - 1e-7)
+            self.assertLessEqual(certified_upper, exact + 1)
             # A negative median must still give a positive absolute objective.
             lower, upper, _ = separation_oracle(
                 np.array([[-4.0], [-3.0], [-2.0], [1.0], [5.0]]), np.zeros(1), 1, 1e-4, env=env,
@@ -125,9 +135,9 @@ class IPAlgorithmTests(unittest.TestCase):
         np.testing.assert_allclose(estimate, truth, atol=1e-8)
         self.assertTrue(info["converged"])
         self.assertAlmostEqual(info["objective"], 0, places=7)
-        self.assertEqual(info["C"], 1)
-        self.assertEqual(info["K"], 3)
-        self.assertAlmostEqual(info["tol"], np.sqrt(3 * 2 / 35) / 100)
+        self.assertEqual(info["C"], 2)
+        self.assertEqual(info["K"], 7)
+        self.assertAlmostEqual(info["tol"], np.sqrt(7 * 2 / 35) / 4)
         data = np.random.default_rng(2).standard_t(5, size=(35, 3)) + [1, 0, 0]
         _, info = ip_estimation(data, 1, 0, 10 / 3, delta=0.4, tol=0.01, seed=4, C=2, max_iter=1)
         self.assertFalse(info["converged"])

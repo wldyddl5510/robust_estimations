@@ -37,7 +37,7 @@ class BruteForceTests(unittest.TestCase):
                 data[:, :s] += 2
                 original = data.copy()
                 estimate, info = brute_force_estimation(
-                    data, s, 0.05, 10 / 3, seed=4, tol=1e-6,
+                    data, s, 0.05, 10 / 3, seed=4, tol=1e-6, C=1,
                 )
                 np.testing.assert_array_equal(data, original)
                 self.assertTrue(info["converged"])
@@ -124,9 +124,9 @@ class BruteForceTests(unittest.TestCase):
         np.testing.assert_array_equal(estimate, truth)
         self.assertTrue(info["converged"])
         self.assertEqual(info["objective"], 0)
-        self.assertEqual(info["C"], 1)
-        self.assertEqual(info["K"], 3)
-        self.assertAlmostEqual(info["tol"], np.sqrt(3 * 2 / 40) / 100)
+        self.assertEqual(info["C"], 2)
+        self.assertEqual(info["K"], 7)
+        self.assertAlmostEqual(info["tol"], np.sqrt(7 * 2 / 40) / 4)
         data = np.random.default_rng(9).standard_t(5, size=(80, 3)) + [2, 0, 0]
         _, info = brute_force_estimation(data, 1, 0.05, 10 / 3, seed=4, tol=1e-6, max_iter=1)
         self.assertFalse(info["converged"])

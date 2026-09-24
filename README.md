@@ -18,8 +18,10 @@ gap. Separate L and U also allow Algorithm 1 to use an approximate inner oracle.
 `IP_algorithm.ip_estimation` implements Algorithm 1: Gurobi solves both the mixed
 integer conic separation problem (10) and the restricted SOCP (17).
 Generated (S,B) constraints are retained across support searches.
-The oracle uses an absolute gap, and the inner stopping condition uses its
-global upper bound: `upper_F - L <= tol/4`, with separation tolerance `tol/8`.
+The initial separation oracle solves (10) to an absolute gap of `tol/8` and
+sets the initial upper bound and first `(S,B)` constraint. Later oracle calls
+stop when an incumbent provides a violated cut or the global bound certifies
+`upper_F - L <= tol/4`.
 The programs have separate wrappers: `brute_force.solve_fixed_support_lp`,
 `IP_algorithm.separation_oracle`, and `IP_algorithm.solve_restricted_socp`.
 The SOCP uses convex quadratic cone constraints and `QCPDual=1` to obtain the
@@ -53,8 +55,8 @@ ip_estimate, ip_info = ip_estimation(
 ```
 
 `lambda_upper` bounds the covariance eigenvalue, not the t-distribution's scale
-matrix eigenvalue. The default block count uses C=1 and the default absolute
-stopping tolerance is `sqrt(K * lambda_upper / n) / 100`. Blocks are balanced and use
+matrix eigenvalue. The default block count uses C=2 and the default absolute
+stopping tolerance is `sqrt(K * lambda_upper / n) / 4`. Blocks are balanced and use
 all samples. Use the same block seed for both estimators. If the required odd
 K exceeds n, the function raises an error instead of changing the rule.
 Both estimators call `utils.mom_initialization` to share exactly this setup.
@@ -106,19 +108,20 @@ conda run -n robust_ip_estimation python experiments.py \
 
 `experiments.py` generates a sparse-mean multivariate t sample and applies
 `adversarial_sparse_contamination` once, then runs the net baseline, Algorithm 1,
-and coordinate-wise MoM with top-s hard thresholding on the same data. All three
-use the same K rule and block seed. Dimension is required via `--d` (or `--dim`).
+coordinate-wise MoM with top-s hard thresholding, and the plain sample mean on
+the same data. The sparse estimators use the same K rule and block seed.
+Dimension is required via `--d` (or `--dim`).
 Each experiment draws one `loc` from Uniform(1, 3) and uses it on all s randomly
 chosen active coordinates. The seed controls loc, support, data, and block
 partition, so the same seed reproduces a run. The optional defaults are scale=1,
-seed=42, C=1, and strength=3; n, epsilon, nu, s, delta, and d are required.
+seed=42, C=2, delta=0.05, and strength=30; n, epsilon, nu, s, and d are required.
 Use `--strength` to set the adversarial contamination strength. Here `scale` is a scalar:
 the t shape matrix is `scale * I_d`, so for finite nu > 2 the experiment sets
 `lambda_upper = 2 * nu / (nu - 2) * scale` using the clean covariance.
 Use `--tol` to override the optimization tolerance, with
 `0 < tol <= sqrt(K*lambda_upper/n)`. Algorithm 1 uses inner tolerance `tol/4`
 and separation tolerance `tol/8`; the coordinate-wise MoM estimate is unaffected.
-The default is now `sqrt(K*lambda_upper/n)/100`; older results record the
+The default is now `sqrt(K*lambda_upper/n)/4`; older results record the
 different C and tolerance settings used for those runs.
 
 Use `--net-radius` (Python: `net_radius`) to change only the brute-force net's
@@ -129,9 +132,10 @@ and the full projected lattice for the chosen radius.
 
 The output contains L2 error, support recovery (fraction of true active
 coordinates with estimated magnitude above 1e-8), and runtime in seconds.
-Runtime includes each estimator's block construction and optimization, including
-the net and projections, and excludes shared data generation and metric
-calculation. Nonconverged runs raise an error. For Python use,
+Runtime includes each estimator's computation, including the net, projections,
+and optimization where applicable, and excludes shared data generation and metric
+calculation. The dense sample mean has no meaningful support recovery value, so
+that field is `None`. Nonconverged runs raise an error. For Python use,
 `experiments.run_experiment(n, epsilon, nu, s, delta, d=d, **options)` returns a dict
 keyed by method, with `error`, `support_recovery`, and `runtime` for each method.
 
@@ -139,4 +143,4 @@ Run correctness checks with `python -m unittest discover -v`. The checks include
 exhaustive support/(S,B) reference models and analytic distance-to-box examples
 that validate LP/SOCP objectives and dual cutting planes.
 
-`results.md` records the clean-data comparison at d=10, epsilon=0, and s=2 or 3.
+`results.md` records the experiments in order.
