@@ -517,7 +517,7 @@ Four fresh worker processes, one solver/BLAS thread each, no wall-clock timeout.
 
 | Method | C=1 | C=2 | C=3 | C=4 | C=5 |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Algorithm 1 | 5.735910 (100/100) | 2.519079 (100/100) | 2.001469 (100/100) | 1.903120 (100/100) | 1.576987 (9/100) |
+| Algorithm 1 | 5.735910 (100/100) | 2.519079 (100/100) | 2.001469 (100/100) | 1.903120 (100/100) | 1.605167 (11/100) |
 | Block subsampling | Same blocks as Algorithm 1 (11/11) | Same blocks as Algorithm 1 (21/21) | Same blocks as Algorithm 1 (31/31) | Same blocks as Algorithm 1 (41/41) | Same blocks as Algorithm 1 (51/51) |
 | DL / Clarabel | 5.765526 (100/100) | 2.475265 (100/100) | 1.999758 (100/100) | 1.859548 (100/100) | 1.811836 (100/100) |
 | Coordinate-wise MoM | 5.747789 (100/100) | 2.568332 (100/100) | 2.072396 (100/100) | 1.946158 (100/100) | 1.836242 (100/100) |
@@ -527,7 +527,7 @@ Four fresh worker processes, one solver/BLAS thread each, no wall-clock timeout.
 
 | Method | C=1 | C=2 | C=3 | C=4 | C=5 |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Algorithm 1 | 0.204960 (100/100) | 0.995678 (100/100) | 14.064349 (100/100) | 132.673614 (100/100) | 595.495798 (9/100) |
+| Algorithm 1 | 0.204960 (100/100) | 0.995678 (100/100) | 14.064349 (100/100) | 132.673614 (100/100) | 499.686684 (11/100) |
 | Block subsampling | Same blocks as Algorithm 1 (11/11) | Same blocks as Algorithm 1 (21/21) | Same blocks as Algorithm 1 (31/31) | Same blocks as Algorithm 1 (41/41) | Same blocks as Algorithm 1 (51/51) |
 | DL / Clarabel | 0.808097 (100/100) | 1.401927 (100/100) | 1.774570 (100/100) | 2.301394 (100/100) | 2.558906 (100/100) |
 | Coordinate-wise MoM | 0.000244 (100/100) | 0.000216 (100/100) | 0.000314 (100/100) | 0.000339 (100/100) | 0.000390 (100/100) |
@@ -539,11 +539,11 @@ Four fresh worker processes, one solver/BLAS thread each, no wall-clock timeout.
 | 2 | 400/400 | 0 | 0 |
 | 3 | 400/400 | 0 | 0 |
 | 4 | 400/400 | 0 | 0 |
-| 5 | 309/400 | 0 | 0 |
+| 5 | 311/400 | 0 | 0 |
 
-Batch status: **running**, 1909/2000 attempts recorded, including 400 reused records. Subsampling provides 500 equivalent target outcomes through Algorithm 1 and has no separate fits/timings. Averages use completed estimates only. Per-seed support recovery is also recorded; at s=d, the fraction of nonzero coordinates is not informative about sparse variable selection.
+Batch status: **running**, 1911/2000 attempts recorded, including 400 reused records. Subsampling provides 500 equivalent target outcomes through Algorithm 1 and has no separate fits/timings. Averages use completed estimates only. Per-seed support recovery is also recorded; at s=d, the fraction of nonzero coordinates is not informative about sparse variable selection.
 
 [Settings](experiment14_dense_d10_block_scale/config.json). [Current records](experiment14_dense_d10_block_scale/progress.json). [Validation](experiment14_dense_d10_block_scale/validation.json). [Contaminated-block diagnostics](experiment14_dense_d10_block_scale/contamination_diagnostics.json).
 
-![Experiment 14: error and runtime versus C](experiment14_dense_d10_block_scale/comparison_1909_e490928aa2.png)
+![Experiment 14: error and runtime versus C](experiment14_dense_d10_block_scale/comparison_1911_5de8458c3b.png)
 <!-- experiment14-block-scale:end -->
