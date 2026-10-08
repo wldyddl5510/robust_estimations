@@ -1,0 +1,29 @@
+{
+  "state": "ptz_attempts_complete_cfb_continues",
+  "parent_pid": 55038,
+  "children": [
+    {
+      "pid": 56137,
+      "command": "/opt/homebrew/anaconda3/envs/robust_ip_estimation/bin/python -u /Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment9_dense_comparison/run.py --worker --seed 25 --method cfb"
+    },
+    {
+      "pid": 56157,
+      "command": "/opt/homebrew/anaconda3/envs/robust_ip_estimation/bin/python -u /Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment9_dense_comparison/run.py --worker --seed 26 --method cfb"
+    },
+    {
+      "pid": 56175,
+      "command": "/opt/homebrew/anaconda3/envs/robust_ip_estimation/bin/python -u /Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment9_dense_comparison/run.py --worker --seed 27 --method cfb"
+    },
+    {
+      "pid": 56252,
+      "command": "/opt/homebrew/anaconda3/envs/robust_ip_estimation/bin/python -u /Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment9_dense_comparison/run.py --worker --seed 28 --method cfb"
+    }
+  ],
+  "requested_epoch": 1791345383.4725509,
+  "method": "dl_ptz",
+  "new_parent_pid": 56356,
+  "updated_epoch": 1791345983.2943969,
+  "preserved_cfb_seeds": 29,
+  "ptz_attempts": 100,
+  "ptz_converged": 0
+}

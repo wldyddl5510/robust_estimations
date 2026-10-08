@@ -1,0 +1,50 @@
+{
+  "checks": [
+    "Frozen source files match SHA256 manifest; Algorithm 2 excluded.",
+    "All datasets regenerate exactly; one replaced row per seed; shared data/truth and metrics verified.",
+    "Actual block counts match each method configuration.",
+    "Completed literature SDP gaps/residuals/radius brackets pass tolerances; PTZ bounds checked against general SDP at matching calls."
+  ],
+  "random_block_full_pairs": [
+    {
+      "seed": 0,
+      "max_coordinate_difference": 0.0
+    },
+    {
+      "seed": 1,
+      "max_coordinate_difference": 0.0
+    },
+    {
+      "seed": 2,
+      "max_coordinate_difference": 0.0
+    },
+    {
+      "seed": 3,
+      "max_coordinate_difference": 0.0
+    },
+    {
+      "seed": 4,
+      "max_coordinate_difference": 0.0
+    },
+    {
+      "seed": 5,
+      "max_coordinate_difference": 0.0
+    },
+    {
+      "seed": 6,
+      "max_coordinate_difference": 0.0
+    },
+    {
+      "seed": 7,
+      "max_coordinate_difference": 0.0
+    },
+    {
+      "seed": 8,
+      "max_coordinate_difference": 0.0
+    },
+    {
+      "seed": 9,
+      "max_coordinate_difference": 0.0
+    }
+  ]
+}

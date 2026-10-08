@@ -1,0 +1,6 @@
+{
+  "passed": 8,
+  "command": "python -m unittest -v test_non_sparse",
+  "added_check": "Uncapped PTZ exits on feasible packing/covering certificates for analytic zero-residual cases",
+  "existing_checks": "Independent SDP bounds, matrix exponential, CFB analytic cases, dense block-rule regression"
+}

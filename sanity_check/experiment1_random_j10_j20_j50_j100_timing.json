@@ -1,0 +1,2876 @@
+{
+  "settings": {
+    "warmup": true,
+    "repeats_per_seed": 5,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "order": "rotate J=10/20/50/100 order by seed and repeat",
+    "workers": 1,
+    "solver_threads": 1,
+    "tol": 1e-05
+  },
+  "summary": {
+    "random_mom": {
+      "10": {
+        "mean": 0.02543616744223982,
+        "median": 0.02598166698589921,
+        "count": 50
+      },
+      "20": {
+        "mean": 0.025477950016502292,
+        "median": 0.026036082999780774,
+        "count": 50
+      },
+      "50": {
+        "mean": 0.025996308450121432,
+        "median": 0.02617639594245702,
+        "count": 50
+      },
+      "100": {
+        "mean": 0.029750381547492,
+        "median": 0.026347270468249917,
+        "count": 50
+      },
+      "mean_ratio_20_over_10": 1.0016426442528086,
+      "mean_ratio_50_over_10": 1.0220214389276048,
+      "mean_ratio_100_over_10": 1.1696094395922205
+    },
+    "random_trimmed": {
+      "10": {
+        "mean": 0.025638064155355095,
+        "median": 0.025931228999979794,
+        "count": 50
+      },
+      "20": {
+        "mean": 0.025406970053445548,
+        "median": 0.026004229031968862,
+        "count": 50
+      },
+      "50": {
+        "mean": 0.025755285839550196,
+        "median": 0.026132645492907614,
+        "count": 50
+      },
+      "100": {
+        "mean": 0.02568700164090842,
+        "median": 0.026370500039774925,
+        "count": 50
+      },
+      "mean_ratio_20_over_10": 0.9909862889604605,
+      "mean_ratio_50_over_10": 1.0045721737602649,
+      "mean_ratio_100_over_10": 1.0019087823970168
+    }
+  },
+  "measurements": [
+    {
+      "repeat": 0,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025908290990628302
+    },
+    {
+      "repeat": 0,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025922583998180926
+    },
+    {
+      "repeat": 0,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026031082961708307
+    },
+    {
+      "repeat": 0,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02603916695807129
+    },
+    {
+      "repeat": 0,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02618170902132988
+    },
+    {
+      "repeat": 0,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.0262633339734748
+    },
+    {
+      "repeat": 0,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.03909812506753951
+    },
+    {
+      "repeat": 0,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.02662741602398455
+    },
+    {
+      "repeat": 0,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026098583010025322
+    },
+    {
+      "repeat": 0,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02607979206368327
+    },
+    {
+      "repeat": 0,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026254415977746248
+    },
+    {
+      "repeat": 0,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026253083953633904
+    },
+    {
+      "repeat": 0,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.03898687497712672
+    },
+    {
+      "repeat": 0,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026482832967303693
+    },
+    {
+      "repeat": 0,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025994249968789518
+    },
+    {
+      "repeat": 0,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025949375005438924
+    },
+    {
+      "repeat": 0,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02602616709191352
+    },
+    {
+      "repeat": 0,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02616858296096325
+    },
+    {
+      "repeat": 0,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.02635270799510181
+    },
+    {
+      "repeat": 0,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.02469629200641066
+    },
+    {
+      "repeat": 0,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026134708081372082
+    },
+    {
+      "repeat": 0,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.026039332966320217
+    },
+    {
+      "repeat": 0,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02603575005196035
+    },
+    {
+      "repeat": 0,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02597412490285933
+    },
+    {
+      "repeat": 0,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026341707911342382
+    },
+    {
+      "repeat": 0,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.02613412495702505
+    },
+    {
+      "repeat": 0,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026096832938492298
+    },
+    {
+      "repeat": 0,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02600349998101592
+    },
+    {
+      "repeat": 0,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026176625047810376
+    },
+    {
+      "repeat": 0,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025896708015352488
+    },
+    {
+      "repeat": 0,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.013600000063888729
+    },
+    {
+      "repeat": 0,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026014165952801704
+    },
+    {
+      "repeat": 0,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025904250098392367
+    },
+    {
+      "repeat": 0,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02582295797765255
+    },
+    {
+      "repeat": 0,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.025903542060405016
+    },
+    {
+      "repeat": 0,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.013421499985270202
+    },
+    {
+      "repeat": 0,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026083042030222714
+    },
+    {
+      "repeat": 0,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.025990166002884507
+    },
+    {
+      "repeat": 0,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.02637629199307412
+    },
+    {
+      "repeat": 0,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026103249983862042
+    },
+    {
+      "repeat": 0,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02601458295248449
+    },
+    {
+      "repeat": 0,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.013374874950386584
+    },
+    {
+      "repeat": 0,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02598970802500844
+    },
+    {
+      "repeat": 0,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.0249891250859946
+    },
+    {
+      "repeat": 0,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026337791001424193
+    },
+    {
+      "repeat": 0,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.0264076660387218
+    },
+    {
+      "repeat": 0,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.0259549580514431
+    },
+    {
+      "repeat": 0,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02584254101384431
+    },
+    {
+      "repeat": 0,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026085417019203305
+    },
+    {
+      "repeat": 0,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026084124925546348
+    },
+    {
+      "repeat": 0,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.02636579202953726
+    },
+    {
+      "repeat": 0,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026505333022214472
+    },
+    {
+      "repeat": 0,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026075542089529335
+    },
+    {
+      "repeat": 0,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025877875043079257
+    },
+    {
+      "repeat": 0,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02598766703158617
+    },
+    {
+      "repeat": 0,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025940624997019768
+    },
+    {
+      "repeat": 0,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.0388375410111621
+    },
+    {
+      "repeat": 0,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026406084070913494
+    },
+    {
+      "repeat": 0,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025926750036887825
+    },
+    {
+      "repeat": 0,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02603062498383224
+    },
+    {
+      "repeat": 0,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02600566705223173
+    },
+    {
+      "repeat": 0,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025990583933889866
+    },
+    {
+      "repeat": 0,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026113708037883043
+    },
+    {
+      "repeat": 0,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026260791113600135
+    },
+    {
+      "repeat": 0,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026038667070679367
+    },
+    {
+      "repeat": 0,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.026194792008027434
+    },
+    {
+      "repeat": 0,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026136750006116927
+    },
+    {
+      "repeat": 0,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025951832998543978
+    },
+    {
+      "repeat": 0,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026111291954293847
+    },
+    {
+      "repeat": 0,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026235290919430554
+    },
+    {
+      "repeat": 0,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026341832941398025
+    },
+    {
+      "repeat": 0,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.02629983297083527
+    },
+    {
+      "repeat": 0,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.025860458961687982
+    },
+    {
+      "repeat": 0,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025876000057905912
+    },
+    {
+      "repeat": 0,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026088332990184426
+    },
+    {
+      "repeat": 0,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.025993750081397593
+    },
+    {
+      "repeat": 0,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.02626070799306035
+    },
+    {
+      "repeat": 0,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.013708999962545931
+    },
+    {
+      "repeat": 0,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.02592708298470825
+    },
+    {
+      "repeat": 0,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02572587493341416
+    },
+    {
+      "repeat": 1,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.025729208020493388
+    },
+    {
+      "repeat": 1,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02267729106824845
+    },
+    {
+      "repeat": 1,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026253916090354323
+    },
+    {
+      "repeat": 1,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.013745667063631117
+    },
+    {
+      "repeat": 1,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.038481583003886044
+    },
+    {
+      "repeat": 1,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.02645395800936967
+    },
+    {
+      "repeat": 1,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026091082952916622
+    },
+    {
+      "repeat": 1,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.026022415957413614
+    },
+    {
+      "repeat": 1,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026179749984294176
+    },
+    {
+      "repeat": 1,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026339625008404255
+    },
+    {
+      "repeat": 1,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.03885079198516905
+    },
+    {
+      "repeat": 1,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.02651058288756758
+    },
+    {
+      "repeat": 1,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025960291037335992
+    },
+    {
+      "repeat": 1,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025886667077429593
+    },
+    {
+      "repeat": 1,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02608091605361551
+    },
+    {
+      "repeat": 1,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025895792059600353
+    },
+    {
+      "repeat": 1,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.02623429091181606
+    },
+    {
+      "repeat": 1,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026304707978852093
+    },
+    {
+      "repeat": 1,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026200040942057967
+    },
+    {
+      "repeat": 1,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.026014999952167273
+    },
+    {
+      "repeat": 1,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026187875075265765
+    },
+    {
+      "repeat": 1,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026141416979953647
+    },
+    {
+      "repeat": 1,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02633012505248189
+    },
+    {
+      "repeat": 1,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026335916947573423
+    },
+    {
+      "repeat": 1,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026065125013701618
+    },
+    {
+      "repeat": 1,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02609320799820125
+    },
+    {
+      "repeat": 1,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026073207962326705
+    },
+    {
+      "repeat": 1,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026130042038857937
+    },
+    {
+      "repeat": 1,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026173041900619864
+    },
+    {
+      "repeat": 1,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026076083071529865
+    },
+    {
+      "repeat": 1,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.02632279193494469
+    },
+    {
+      "repeat": 1,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026323625002987683
+    },
+    {
+      "repeat": 1,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026010792003944516
+    },
+    {
+      "repeat": 1,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025949958013370633
+    },
+    {
+      "repeat": 1,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02618466701824218
+    },
+    {
+      "repeat": 1,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026035833987407386
+    },
+    {
+      "repeat": 1,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026308291940949857
+    },
+    {
+      "repeat": 1,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026363000040873885
+    },
+    {
+      "repeat": 1,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025842875009402633
+    },
+    {
+      "repeat": 1,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.026020791032351553
+    },
+    {
+      "repeat": 1,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.03876274998765439
+    },
+    {
+      "repeat": 1,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026349500054493546
+    },
+    {
+      "repeat": 1,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026419083937071264
+    },
+    {
+      "repeat": 1,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026430584024637938
+    },
+    {
+      "repeat": 1,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026059124968014657
+    },
+    {
+      "repeat": 1,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.013438125024549663
+    },
+    {
+      "repeat": 1,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02604666701517999
+    },
+    {
+      "repeat": 1,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02595733304042369
+    },
+    {
+      "repeat": 1,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026326916995458305
+    },
+    {
+      "repeat": 1,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026555250049568713
+    },
+    {
+      "repeat": 1,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026085958001203835
+    },
+    {
+      "repeat": 1,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025931207928806543
+    },
+    {
+      "repeat": 1,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.025960540981031954
+    },
+    {
+      "repeat": 1,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025929167051799595
+    },
+    {
+      "repeat": 1,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.023717292002402246
+    },
+    {
+      "repeat": 1,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026268000015988946
+    },
+    {
+      "repeat": 1,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026185624999925494
+    },
+    {
+      "repeat": 1,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.026166750001721084
+    },
+    {
+      "repeat": 1,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026087124948389828
+    },
+    {
+      "repeat": 1,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026150166988372803
+    },
+    {
+      "repeat": 1,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02626479195896536
+    },
+    {
+      "repeat": 1,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.024962958064861596
+    },
+    {
+      "repeat": 1,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.03797654097434133
+    },
+    {
+      "repeat": 1,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026563833002001047
+    },
+    {
+      "repeat": 1,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026146541931666434
+    },
+    {
+      "repeat": 1,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026079250033944845
+    },
+    {
+      "repeat": 1,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02465508400928229
+    },
+    {
+      "repeat": 1,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.024994750041514635
+    },
+    {
+      "repeat": 1,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.02632466598879546
+    },
+    {
+      "repeat": 1,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.0264336250256747
+    },
+    {
+      "repeat": 1,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025983083993196487
+    },
+    {
+      "repeat": 1,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025806042016483843
+    },
+    {
+      "repeat": 1,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026133500039577484
+    },
+    {
+      "repeat": 1,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026012749993242323
+    },
+    {
+      "repeat": 1,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026426207972690463
+    },
+    {
+      "repeat": 1,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.02643158391583711
+    },
+    {
+      "repeat": 1,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.02336983394343406
+    },
+    {
+      "repeat": 1,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025633124983869493
+    },
+    {
+      "repeat": 1,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.024495499907061458
+    },
+    {
+      "repeat": 1,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.0261513750301674
+    },
+    {
+      "repeat": 2,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02629420894663781
+    },
+    {
+      "repeat": 2,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02625854196958244
+    },
+    {
+      "repeat": 2,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.03878249996341765
+    },
+    {
+      "repeat": 2,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026575125055387616
+    },
+    {
+      "repeat": 2,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.02608491701539606
+    },
+    {
+      "repeat": 2,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.026073499931953847
+    },
+    {
+      "repeat": 2,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.0260245829122141
+    },
+    {
+      "repeat": 2,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02613387501332909
+    },
+    {
+      "repeat": 2,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.03888208291027695
+    },
+    {
+      "repeat": 2,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.025732208974659443
+    },
+    {
+      "repeat": 2,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025961042032577097
+    },
+    {
+      "repeat": 2,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02589116699527949
+    },
+    {
+      "repeat": 2,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.025945166940800846
+    },
+    {
+      "repeat": 2,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02607045799959451
+    },
+    {
+      "repeat": 2,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026228792034089565
+    },
+    {
+      "repeat": 2,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026044333004392684
+    },
+    {
+      "repeat": 2,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026028749998658895
+    },
+    {
+      "repeat": 2,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025934207951650023
+    },
+    {
+      "repeat": 2,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026367584010586143
+    },
+    {
+      "repeat": 2,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026102749980054796
+    },
+    {
+      "repeat": 2,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02606895798817277
+    },
+    {
+      "repeat": 2,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02627950010355562
+    },
+    {
+      "repeat": 2,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026387333986349404
+    },
+    {
+      "repeat": 2,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026507999980822206
+    },
+    {
+      "repeat": 2,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.025958791957236826
+    },
+    {
+      "repeat": 2,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026002250029705465
+    },
+    {
+      "repeat": 2,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026131334016099572
+    },
+    {
+      "repeat": 2,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02613683301024139
+    },
+    {
+      "repeat": 2,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026218750048428774
+    },
+    {
+      "repeat": 2,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026234875083900988
+    },
+    {
+      "repeat": 2,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026011083042249084
+    },
+    {
+      "repeat": 2,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02584241598378867
+    },
+    {
+      "repeat": 2,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.024851083057001233
+    },
+    {
+      "repeat": 2,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02609929197933525
+    },
+    {
+      "repeat": 2,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026359999901615083
+    },
+    {
+      "repeat": 2,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026378000038675964
+    },
+    {
+      "repeat": 2,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026014458038844168
+    },
+    {
+      "repeat": 2,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.0260141670005396
+    },
+    {
+      "repeat": 2,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.013497290899977088
+    },
+    {
+      "repeat": 2,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02589712501503527
+    },
+    {
+      "repeat": 2,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026197582948952913
+    },
+    {
+      "repeat": 2,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.0262889169389382
+    },
+    {
+      "repeat": 2,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026120875030755997
+    },
+    {
+      "repeat": 2,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025933375000022352
+    },
+    {
+      "repeat": 2,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02609404199756682
+    },
+    {
+      "repeat": 2,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026055916910991073
+    },
+    {
+      "repeat": 2,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.038740042014978826
+    },
+    {
+      "repeat": 2,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026250583003275096
+    },
+    {
+      "repeat": 2,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.0260413340292871
+    },
+    {
+      "repeat": 2,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02594295796006918
+    },
+    {
+      "repeat": 2,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02409712492953986
+    },
+    {
+      "repeat": 2,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02590054098982364
+    },
+    {
+      "repeat": 2,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026066459016874433
+    },
+    {
+      "repeat": 2,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026006667059846222
+    },
+    {
+      "repeat": 2,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026282500009983778
+    },
+    {
+      "repeat": 2,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026631665998138487
+    },
+    {
+      "repeat": 2,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026135917054489255
+    },
+    {
+      "repeat": 2,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026237416896037757
+    },
+    {
+      "repeat": 2,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026247291010804474
+    },
+    {
+      "repeat": 2,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02628816699143499
+    },
+    {
+      "repeat": 2,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.0390038340119645
+    },
+    {
+      "repeat": 2,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026180041953921318
+    },
+    {
+      "repeat": 2,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.023616415914148092
+    },
+    {
+      "repeat": 2,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02598458295688033
+    },
+    {
+      "repeat": 2,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026028334046714008
+    },
+    {
+      "repeat": 2,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026125125004909933
+    },
+    {
+      "repeat": 2,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026262916973792017
+    },
+    {
+      "repeat": 2,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026087541016750038
+    },
+    {
+      "repeat": 2,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025824957992881536
+    },
+    {
+      "repeat": 2,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02591183304321021
+    },
+    {
+      "repeat": 2,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02602466708049178
+    },
+    {
+      "repeat": 2,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026009958935901523
+    },
+    {
+      "repeat": 2,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.02626791608054191
+    },
+    {
+      "repeat": 2,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026298874989151955
+    },
+    {
+      "repeat": 2,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026134125073440373
+    },
+    {
+      "repeat": 2,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.026067125028930604
+    },
+    {
+      "repeat": 2,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026107999961823225
+    },
+    {
+      "repeat": 2,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026062166085466743
+    },
+    {
+      "repeat": 2,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026257958030328155
+    },
+    {
+      "repeat": 2,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02611379197333008
+    },
+    {
+      "repeat": 3,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.03903287497814745
+    },
+    {
+      "repeat": 3,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026480084052309394
+    },
+    {
+      "repeat": 3,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.02599045797251165
+    },
+    {
+      "repeat": 3,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02599437499884516
+    },
+    {
+      "repeat": 3,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026097667054273188
+    },
+    {
+      "repeat": 3,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02596654195804149
+    },
+    {
+      "repeat": 3,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.01357383409049362
+    },
+    {
+      "repeat": 3,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026147541939280927
+    },
+    {
+      "repeat": 3,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.02588033303618431
+    },
+    {
+      "repeat": 3,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02635904191993177
+    },
+    {
+      "repeat": 3,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026158415945246816
+    },
+    {
+      "repeat": 3,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026176958926953375
+    },
+    {
+      "repeat": 3,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026205125031992793
+    },
+    {
+      "repeat": 3,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02622883301228285
+    },
+    {
+      "repeat": 3,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.03887083404697478
+    },
+    {
+      "repeat": 3,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026579624973237514
+    },
+    {
+      "repeat": 3,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026186875067651272
+    },
+    {
+      "repeat": 3,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.024300792021676898
+    },
+    {
+      "repeat": 3,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026465749950148165
+    },
+    {
+      "repeat": 3,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02614904206711799
+    },
+    {
+      "repeat": 3,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026444541988894343
+    },
+    {
+      "repeat": 3,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.0243084579706192
+    },
+    {
+      "repeat": 3,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.02603704109787941
+    },
+    {
+      "repeat": 3,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025988291949033737
+    },
+    {
+      "repeat": 3,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02608858293388039
+    },
+    {
+      "repeat": 3,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026178124942816794
+    },
+    {
+      "repeat": 3,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026233915938064456
+    },
+    {
+      "repeat": 3,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026355499983765185
+    },
+    {
+      "repeat": 3,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.023319208063185215
+    },
+    {
+      "repeat": 3,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.024532958981581032
+    },
+    {
+      "repeat": 3,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02599879098124802
+    },
+    {
+      "repeat": 3,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025997832999564707
+    },
+    {
+      "repeat": 3,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026316999923437834
+    },
+    {
+      "repeat": 3,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.025973625015467405
+    },
+    {
+      "repeat": 3,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.02397258300334215
+    },
+    {
+      "repeat": 3,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02597162500023842
+    },
+    {
+      "repeat": 3,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026024707942269742
+    },
+    {
+      "repeat": 3,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026097790920175612
+    },
+    {
+      "repeat": 3,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026298374985344708
+    },
+    {
+      "repeat": 3,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026071749976836145
+    },
+    {
+      "repeat": 3,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.0260291249724105
+    },
+    {
+      "repeat": 3,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02605045901145786
+    },
+    {
+      "repeat": 3,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026203625020571053
+    },
+    {
+      "repeat": 3,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02612795797176659
+    },
+    {
+      "repeat": 3,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026196292019449174
+    },
+    {
+      "repeat": 3,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026128457975573838
+    },
+    {
+      "repeat": 3,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026313666021451354
+    },
+    {
+      "repeat": 3,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026518958038650453
+    },
+    {
+      "repeat": 3,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026060083066113293
+    },
+    {
+      "repeat": 3,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026036666939035058
+    },
+    {
+      "repeat": 3,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026109416969120502
+    },
+    {
+      "repeat": 3,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.024288250016979873
+    },
+    {
+      "repeat": 3,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.024115500040352345
+    },
+    {
+      "repeat": 3,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.025486040976829827
+    },
+    {
+      "repeat": 3,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.024472584016621113
+    },
+    {
+      "repeat": 3,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025532042025588453
+    },
+    {
+      "repeat": 3,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.021868540905416012
+    },
+    {
+      "repeat": 3,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02629470801912248
+    },
+    {
+      "repeat": 3,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026426958036608994
+    },
+    {
+      "repeat": 3,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026407208060845733
+    },
+    {
+      "repeat": 3,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025980249978601933
+    },
+    {
+      "repeat": 3,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.0258437090087682
+    },
+    {
+      "repeat": 3,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.025962291983887553
+    },
+    {
+      "repeat": 3,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025871624937281013
+    },
+    {
+      "repeat": 3,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026300666038878262
+    },
+    {
+      "repeat": 3,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026349499938078225
+    },
+    {
+      "repeat": 3,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.013413500040769577
+    },
+    {
+      "repeat": 3,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025881208013743162
+    },
+    {
+      "repeat": 3,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.025931417010724545
+    },
+    {
+      "repeat": 3,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02588491700589657
+    },
+    {
+      "repeat": 3,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02613883395679295
+    },
+    {
+      "repeat": 3,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026320874923840165
+    },
+    {
+      "repeat": 3,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025978374993428588
+    },
+    {
+      "repeat": 3,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.026044541969895363
+    },
+    {
+      "repeat": 3,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.0261407500365749
+    },
+    {
+      "repeat": 3,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026030875043943524
+    },
+    {
+      "repeat": 3,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026285542058758438
+    },
+    {
+      "repeat": 3,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02625683299265802
+    },
+    {
+      "repeat": 3,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026332749985158443
+    },
+    {
+      "repeat": 3,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026355458074249327
+    },
+    {
+      "repeat": 4,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026010749978013337
+    },
+    {
+      "repeat": 4,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025845833937637508
+    },
+    {
+      "repeat": 4,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026058417046442628
+    },
+    {
+      "repeat": 4,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026020833989605308
+    },
+    {
+      "repeat": 4,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02616954199038446
+    },
+    {
+      "repeat": 4,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.013590499991551042
+    },
+    {
+      "repeat": 4,
+      "seed": 0,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.03874391701538116
+    },
+    {
+      "repeat": 4,
+      "seed": 0,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026422500028274953
+    },
+    {
+      "repeat": 4,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.025982582941651344
+    },
+    {
+      "repeat": 4,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025937958038412035
+    },
+    {
+      "repeat": 4,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026412084000185132
+    },
+    {
+      "repeat": 4,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026202750043012202
+    },
+    {
+      "repeat": 4,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.037550332956016064
+    },
+    {
+      "repeat": 4,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.02657741599250585
+    },
+    {
+      "repeat": 4,
+      "seed": 1,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026147999917156994
+    },
+    {
+      "repeat": 4,
+      "seed": 1,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025930124917067587
+    },
+    {
+      "repeat": 4,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026249874965287745
+    },
+    {
+      "repeat": 4,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026114958920516074
+    },
+    {
+      "repeat": 4,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026310957968235016
+    },
+    {
+      "repeat": 4,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.013838707935065031
+    },
+    {
+      "repeat": 4,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.02591224992647767
+    },
+    {
+      "repeat": 4,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025900375097990036
+    },
+    {
+      "repeat": 4,
+      "seed": 2,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.025851584039628506
+    },
+    {
+      "repeat": 4,
+      "seed": 2,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025847208919003606
+    },
+    {
+      "repeat": 4,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026231665979139507
+    },
+    {
+      "repeat": 4,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.024871667032130063
+    },
+    {
+      "repeat": 4,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.02480195800308138
+    },
+    {
+      "repeat": 4,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025865582982078195
+    },
+    {
+      "repeat": 4,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02608429198153317
+    },
+    {
+      "repeat": 4,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.025592208956368268
+    },
+    {
+      "repeat": 4,
+      "seed": 3,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.013718542060814798
+    },
+    {
+      "repeat": 4,
+      "seed": 3,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026149083976633847
+    },
+    {
+      "repeat": 4,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.02596658398397267
+    },
+    {
+      "repeat": 4,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025905832997523248
+    },
+    {
+      "repeat": 4,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026053917012177408
+    },
+    {
+      "repeat": 4,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02600620803423226
+    },
+    {
+      "repeat": 4,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026276541990227997
+    },
+    {
+      "repeat": 4,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02611666696611792
+    },
+    {
+      "repeat": 4,
+      "seed": 4,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026355499983765185
+    },
+    {
+      "repeat": 4,
+      "seed": 4,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.02649545797612518
+    },
+    {
+      "repeat": 4,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.0260364159476012
+    },
+    {
+      "repeat": 4,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026052874978631735
+    },
+    {
+      "repeat": 4,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.03875358309596777
+    },
+    {
+      "repeat": 4,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.03889049997087568
+    },
+    {
+      "repeat": 4,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.0390471660066396
+    },
+    {
+      "repeat": 4,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026549583999440074
+    },
+    {
+      "repeat": 4,
+      "seed": 5,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.026093291933648288
+    },
+    {
+      "repeat": 4,
+      "seed": 5,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025953833013772964
+    },
+    {
+      "repeat": 4,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02634966606274247
+    },
+    {
+      "repeat": 4,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.025329750031232834
+    },
+    {
+      "repeat": 4,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.013884915970265865
+    },
+    {
+      "repeat": 4,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.0247416669735685
+    },
+    {
+      "repeat": 4,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.024517749901860952
+    },
+    {
+      "repeat": 4,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02547800005413592
+    },
+    {
+      "repeat": 4,
+      "seed": 6,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026225709007121623
+    },
+    {
+      "repeat": 4,
+      "seed": 6,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02612258295994252
+    },
+    {
+      "repeat": 4,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.03878787509165704
+    },
+    {
+      "repeat": 4,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.02641791698988527
+    },
+    {
+      "repeat": 4,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.0259368330007419
+    },
+    {
+      "repeat": 4,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025882250047288835
+    },
+    {
+      "repeat": 4,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.013387624989263713
+    },
+    {
+      "repeat": 4,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02588125003967434
+    },
+    {
+      "repeat": 4,
+      "seed": 7,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.025972999981604517
+    },
+    {
+      "repeat": 4,
+      "seed": 7,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.02401320799253881
+    },
+    {
+      "repeat": 4,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.023792624939233065
+    },
+    {
+      "repeat": 4,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.02499375003390014
+    },
+    {
+      "repeat": 4,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.026008790940977633
+    },
+    {
+      "repeat": 4,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.02614750002976507
+    },
+    {
+      "repeat": 4,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.026363458018749952
+    },
+    {
+      "repeat": 4,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026089041959494352
+    },
+    {
+      "repeat": 4,
+      "seed": 8,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026322541991248727
+    },
+    {
+      "repeat": 4,
+      "seed": 8,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.026337667019106448
+    },
+    {
+      "repeat": 4,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 20,
+      "runtime": 0.02612129203043878
+    },
+    {
+      "repeat": 4,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 20,
+      "runtime": 0.026168458978645504
+    },
+    {
+      "repeat": 4,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 50,
+      "runtime": 0.02621566702146083
+    },
+    {
+      "repeat": 4,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 50,
+      "runtime": 0.026227082940749824
+    },
+    {
+      "repeat": 4,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 100,
+      "runtime": 0.026279542013071477
+    },
+    {
+      "repeat": 4,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 100,
+      "runtime": 0.024625209043733776
+    },
+    {
+      "repeat": 4,
+      "seed": 9,
+      "method": "random_mom",
+      "tilde_J": 10,
+      "runtime": 0.025912542012520134
+    },
+    {
+      "repeat": 4,
+      "seed": 9,
+      "method": "random_trimmed",
+      "tilde_J": 10,
+      "runtime": 0.025931250071153045
+    }
+  ]
+}

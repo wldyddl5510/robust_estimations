@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "All saved datasets are byte-identical to Experiment 9 and regenerate exactly.",
+    "Only the subsampling implementation and experiments wrapper/CLI changed; reused estimator functions are unchanged.",
+    "C scales both full and subset counts: K=K_sub=11,21,31,41,51; full sorted subsets equal Algorithm 1.",
+    "Sampling is without replacement, capped at K, and independent of the original partition stream.",
+    "C=2 reuses 400 unchanged records from Experiment 9; its subsampling is an explicit same-blocks alias, with no independent runtime.",
+    "Per-seed hashes, errors, support metrics, Algorithm 1 gaps and completed DL SDP certificates verified."
+  ],
+  "validated_attempts": 1909
+}

@@ -1,0 +1,9 @@
+{
+  "reason": "User stopped remaining CFB fits",
+  "epoch": 1791393778.557674,
+  "completed_cfb": {
+    "experiment9_dense_comparison": 41,
+    "experiment10_dense_eps002": 72
+  },
+  "resume_after_retry": "Experiment 8 only; never resume cancelled Experiment 9/10 CFB schedulers"
+}

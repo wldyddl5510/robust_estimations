@@ -1,0 +1,3341 @@
+{
+  "title": "Experiment 8 with projected support cutting planes",
+  "settings": {
+    "n": 1000,
+    "d": 10,
+    "s": 3,
+    "epsilon": 0.01,
+    "nu": 2.5,
+    "delta": 0.05,
+    "C": 2,
+    "strength": 30,
+    "shape": [
+      [
+        1.0,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        1.0,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        0.5,
+        1.0,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        0.5,
+        0.5,
+        1.0,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        1.0,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        1.0,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        1.0,
+        0.5,
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        1.0,
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        1.0,
+        0.5
+      ],
+      [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        1.0
+      ]
+    ],
+    "skew": [
+      3.162277660168379,
+      3.162277660168379,
+      3.162277660168379,
+      3.162277660168379,
+      3.162277660168379,
+      3.162277660168379,
+      3.162277660168379,
+      3.162277660168379,
+      3.162277660168379,
+      3.162277660168379
+    ],
+    "lambda_upper": 764.0987715913294,
+    "tol": 1e-05,
+    "J": 10,
+    "r": 5,
+    "aggregation_tol": 1e-05,
+    "aggregation_rtol": 1e-05,
+    "workers": 4,
+    "solver_threads": 1,
+    "net_radius": 1
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "summary": {
+    "Algorithm 1": {
+      "error": 0.5008943811716258,
+      "runtime": 3.032931775203906,
+      "support_recovery": 1.0
+    },
+    "Brute-force": {
+      "error": 0.496875538363214,
+      "runtime": 0.7381975666154176,
+      "support_recovery": 1.0
+    },
+    "Projected Algorithm 1 (LS)": {
+      "error": 0.40159043389937654,
+      "runtime": 5.964726895885542,
+      "support_recovery": 1.0
+    },
+    "Projected Algorithm 1 (max)": {
+      "error": 0.4109811372227936,
+      "runtime": 6.110854958184063,
+      "support_recovery": 1.0
+    },
+    "Coordinate-wise MoM": {
+      "error": 0.43763080849216174,
+      "runtime": 0.00016594588523730636,
+      "support_recovery": 1.0
+    },
+    "Geometric MoM + HT": {
+      "error": 0.37755042766481783,
+      "runtime": 0.003708458296023309,
+      "support_recovery": 1.0
+    },
+    "Sample mean + HT": {
+      "error": 0.43669184276936557,
+      "runtime": 1.8074968829751013e-05,
+      "support_recovery": 1.0,
+      "completed": 10
+    }
+  },
+  "runs": [
+    {
+      "seed": 0,
+      "loc": 2.0976270078546495,
+      "truth": [
+        0.0,
+        0.0,
+        2.0976270078546495,
+        0.0,
+        2.0976270078546495,
+        0.0,
+        0.0,
+        0.0,
+        2.0976270078546495,
+        0.0
+      ],
+      "data_sha256": "1527832ec3e73b5d01a506bea69be9602e56a3f5bc48660834ba369591fbfb3a",
+      "uncovered_coordinates": [],
+      "uncovered_true_coordinates": [],
+      "methods": {
+        "Coordinate-wise MoM": {
+          "error": 0.2169277249707017,
+          "runtime": 0.00016612489707767963,
+          "support_recovery": 1.0,
+          "estimate": [
+            -0.0,
+            0.0,
+            2.2486776215800384,
+            0.0,
+            2.160720901418947,
+            -0.0,
+            -0.0,
+            0.0,
+            2.2399664280763325,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.00016612489707767963
+          }
+        },
+        "Geometric MoM + HT": {
+          "error": 0.10565983976778616,
+          "runtime": 0.0006748340092599392,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            2.156162341703169,
+            0.0,
+            2.1577727181133945,
+            0.0,
+            0.0,
+            0.0,
+            2.161815090615141,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.0006748340092599392
+          }
+        },
+        "Brute-force": {
+          "error": 0.4213003255222423,
+          "runtime": 0.8450869170483202,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            2.103550845198821,
+            0.0,
+            2.46689033623961,
+            0.0,
+            0.0,
+            0.0,
+            2.3003669071007717,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.45652561096495353,
+            "lower_bound": 0.4565256109649418,
+            "gap": 1.1712852909795402e-14,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              1,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "C": 2,
+            "K": 21,
+            "net_radius": 1,
+            "net_size": 29305,
+            "runtime": 0.8450869170483202
+          }
+        },
+        "Algorithm 1": {
+          "error": 0.3653586172850477,
+          "runtime": 1.2932815829990432,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            2.1037841087873907,
+            0.0,
+            2.263428303953351,
+            0.0,
+            0.0,
+            0.0,
+            2.4231403555756557,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.5408630541884021,
+            "lower_bound": 0.5408630536020445,
+            "gap": 5.863576291176287e-10,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              1,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "oracle_calls": 16,
+            "inner_iterations": 15,
+            "C": 2,
+            "K": 21,
+            "constraints": 14,
+            "inner_tol": 2.5e-06,
+            "sep_tol": 1.25e-06,
+            "runtime": 1.2932815829990432
+          }
+        },
+        "Projected Algorithm 1 (LS)": {
+          "error": 0.14589893205087753,
+          "runtime": 6.181429959018715,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            2.1807562733248216,
+            0.0,
+            2.1850443150582812,
+            0.0,
+            0.0,
+            0.0,
+            2.179689410922328,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 139,
+            "inner_iterations": 129,
+            "constraints": 129,
+            "converged": true,
+            "objective": 0.6434776408415241,
+            "lower_bound": 0.6434776408415352,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              1,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "refined": false,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "least_squares",
+            "uncovered": 0,
+            "runtime": 6.181429959018715
+          }
+        },
+        "Projected Algorithm 1 (max)": {
+          "error": 0.14589893205087753,
+          "runtime": 6.439593750052154,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            2.1807562733248216,
+            0.0,
+            2.1850443150582812,
+            0.0,
+            0.0,
+            0.0,
+            2.179689410922328,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 139,
+            "inner_iterations": 129,
+            "constraints": 129,
+            "converged": true,
+            "objective": 0.10463191555530053,
+            "lower_bound": 0.10463191521134971,
+            "gap": 3.439508261537938e-10,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              1,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "refined": true,
+            "objective_before_refinement": 0.10463191555530053,
+            "refinement_max_slack": 1e-09,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "max",
+            "uncovered": 0,
+            "runtime": 6.439593750052154
+          }
+        },
+        "Sample mean + HT": {
+          "error": 0.18199106773649898,
+          "runtime": 1.5290919691324234e-05,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            2.203726613427619,
+            0.0,
+            2.2055234947709117,
+            0.0,
+            0.0,
+            0.0,
+            2.1987307691311724,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "runtime": 1.5290919691324234e-05,
+            "s": 3,
+            "thresholding": "top-s absolute value; stable coordinate order for ties"
+          },
+          "pre_hard_thresholding": {
+            "error": 0.3906579440700705,
+            "runtime": 1.2791948392987251e-05,
+            "support_recovery": null,
+            "estimate": [
+              0.036402461621005126,
+              0.20955538284833655,
+              2.203726613427619,
+              0.15588864418846046,
+              2.2055234947709117,
+              0.026236757273645585,
+              -0.046925649244892384,
+              0.15919988038131436,
+              2.1987307691311724,
+              0.14737037540418232
+            ],
+            "info": {
+              "converged": true,
+              "runtime": 1.2791948392987251e-05
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "loc": 1.834044009405148,
+      "truth": [
+        0.0,
+        0.0,
+        1.834044009405148,
+        1.834044009405148,
+        1.834044009405148,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "data_sha256": "107eac22f04269725333c9f4f2ca122f5d430858939ea499aca5daa1a806016d",
+      "uncovered_coordinates": [],
+      "uncovered_true_coordinates": [],
+      "methods": {
+        "Coordinate-wise MoM": {
+          "error": 0.39231117977126273,
+          "runtime": 0.00016133394092321396,
+          "support_recovery": 1.0,
+          "estimate": [
+            -0.0,
+            -0.0,
+            1.5688877243240533,
+            1.5880386000491418,
+            1.6821178930752125,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.00016133394092321396
+          }
+        },
+        "Geometric MoM + HT": {
+          "error": 0.47197128386043014,
+          "runtime": 0.0005614169640466571,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            1.5249449035310252,
+            1.5592899481079565,
+            1.6066130499089095,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.0005614169640466571
+          }
+        },
+        "Brute-force": {
+          "error": 0.39231117977126273,
+          "runtime": 1.3492832499323413,
+          "support_recovery": 1.0,
+          "estimate": [
+            -0.0,
+            -0.0,
+            1.5688877243240533,
+            1.5880386000491418,
+            1.6821178930752125,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.8675188342926298,
+            "lower_bound": 0.8675188342926212,
+            "gap": 8.548717289613705e-15,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "C": 2,
+            "K": 21,
+            "net_radius": 1,
+            "net_size": 29305,
+            "runtime": 1.3492832499323413
+          }
+        },
+        "Algorithm 1": {
+          "error": 0.39231117977126273,
+          "runtime": 2.3232669580029324,
+          "support_recovery": 1.0,
+          "estimate": [
+            -0.0,
+            -0.0,
+            1.5688877243240533,
+            1.5880386000491418,
+            1.6821178930752125,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.9362390627789782,
+            "lower_bound": 0.9362390605876748,
+            "gap": 2.1913033609877175e-09,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "oracle_calls": 41,
+            "inner_iterations": 40,
+            "C": 2,
+            "K": 21,
+            "constraints": 36,
+            "inner_tol": 2.5e-06,
+            "sep_tol": 1.25e-06,
+            "runtime": 2.3232669580029324
+          }
+        },
+        "Projected Algorithm 1 (LS)": {
+          "error": 0.45346443783906576,
+          "runtime": 9.791274458053522,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            1.512797570754335,
+            1.5966376941305398,
+            1.6194071917186132,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 143,
+            "inner_iterations": 133,
+            "constraints": 133,
+            "converged": true,
+            "objective": 3.68171480808006,
+            "lower_bound": 3.6817148080800592,
+            "gap": 8.881784197001252e-16,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 3.68171480808006e-05,
+            "support": [
+              0,
+              0,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "refined": false,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "least_squares",
+            "uncovered": 0,
+            "runtime": 9.791274458053522
+          }
+        },
+        "Projected Algorithm 1 (max)": {
+          "error": 0.46046853165023316,
+          "runtime": 10.63264241698198,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            1.5029842767265083,
+            1.5966376941305398,
+            1.6194071917186135,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 143,
+            "inner_iterations": 133,
+            "constraints": 133,
+            "converged": true,
+            "objective": 0.5326163898214807,
+            "lower_bound": 0.5326163894383465,
+            "gap": 3.831341910398578e-10,
+            "tol": 1e-05,
+            "iterations": 3,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "refined": true,
+            "objective_before_refinement": 0.5326163898214807,
+            "refinement_max_slack": 1e-09,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "max",
+            "uncovered": 0,
+            "runtime": 10.63264241698198
+          }
+        },
+        "Sample mean + HT": {
+          "error": 0.28147334868417284,
+          "runtime": 1.537497155368328e-05,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            1.6717192792339608,
+            1.650702824877288,
+            1.6952494199923962,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "runtime": 1.537497155368328e-05,
+            "s": 3,
+            "thresholding": "top-s absolute value; stable coordinate order for ties"
+          },
+          "pre_hard_thresholding": {
+            "error": 0.5815081664828795,
+            "runtime": 1.2208009138703346e-05,
+            "support_recovery": null,
+            "estimate": [
+              -0.09748613514726703,
+              -0.29425897091577585,
+              1.6717192792339608,
+              1.650702824877288,
+              1.6952494199923962,
+              -0.31249642130862204,
+              -0.0764020491326424,
+              -0.2099770975216269,
+              -0.057426752229142376,
+              -0.10933029479004885
+            ],
+            "info": {
+              "converged": true,
+              "runtime": 1.2208009138703346e-05
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "loc": 1.8719898042840075,
+      "truth": [
+        0.0,
+        1.8719898042840075,
+        0.0,
+        0.0,
+        1.8719898042840075,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.8719898042840075
+      ],
+      "data_sha256": "44cf7049945df31ef835fce819e4d8e1f96ca6d9edb03a474c2c88ac6b590a1b",
+      "uncovered_coordinates": [],
+      "uncovered_true_coordinates": [],
+      "methods": {
+        "Coordinate-wise MoM": {
+          "error": 0.3742004173477565,
+          "runtime": 0.00014379096683114767,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            1.6167069550299342,
+            0.0,
+            -0.0,
+            1.6292321448373233,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            1.7457941704454119
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.00014379096683114767
+          }
+        },
+        "Geometric MoM + HT": {
+          "error": 0.2643925188744411,
+          "runtime": 0.001527042011730373,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            1.7061356753828314,
+            0.0,
+            0.0,
+            1.7100601259068748,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.7448104379391396
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.001527042011730373
+          }
+        },
+        "Brute-force": {
+          "error": 0.3296006354629493,
+          "runtime": 0.7333116660593078,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            1.6184800461527624,
+            0.0,
+            0.0,
+            1.8799750209408128,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.6615008075531534
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.45174413421721993,
+            "lower_bound": 0.4517441342172199,
+            "gap": 5.551115123125783e-17,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "C": 2,
+            "K": 21,
+            "net_radius": 1,
+            "net_size": 29305,
+            "runtime": 0.7333116660593078
+          }
+        },
+        "Algorithm 1": {
+          "error": 0.3584632906067188,
+          "runtime": 2.9344137919833884,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            1.563263573859889,
+            0.0,
+            0.0,
+            1.856417541504233,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.6904917326892144
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.5602518295462932,
+            "lower_bound": 0.5602518349002016,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "oracle_calls": 39,
+            "inner_iterations": 38,
+            "C": 2,
+            "K": 21,
+            "constraints": 34,
+            "inner_tol": 2.5e-06,
+            "sep_tol": 1.25e-06,
+            "runtime": 2.9344137919833884
+          }
+        },
+        "Projected Algorithm 1 (LS)": {
+          "error": 0.29594467627064447,
+          "runtime": 6.425833499990404,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            1.6632729855487436,
+            0.0,
+            0.0,
+            1.7100745931040888,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.7385581536964132
+          ],
+          "info": {
+            "oracle_calls": 121,
+            "inner_iterations": 111,
+            "constraints": 111,
+            "converged": true,
+            "objective": 0.5044855165865698,
+            "lower_bound": 0.5044855165865627,
+            "gap": 7.105427357601002e-15,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "refined": false,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "least_squares",
+            "uncovered": 0,
+            "runtime": 6.425833499990404
+          }
+        },
+        "Projected Algorithm 1 (max)": {
+          "error": 0.2872804103970254,
+          "runtime": 6.8586137919919565,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            1.6757514461378087,
+            0.0,
+            0.0,
+            1.7100745931040888,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.7385581536964132
+          ],
+          "info": {
+            "oracle_calls": 121,
+            "inner_iterations": 111,
+            "constraints": 111,
+            "converged": true,
+            "objective": 0.11920338894147098,
+            "lower_bound": 0.1192033888213393,
+            "gap": 1.2013168237956506e-10,
+            "tol": 1e-05,
+            "iterations": 3,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "refined": true,
+            "objective_before_refinement": 0.11920338894147098,
+            "refinement_max_slack": 1e-09,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "max",
+            "uncovered": 0,
+            "runtime": 6.8586137919919565
+          }
+        },
+        "Sample mean + HT": {
+          "error": 0.041411882485299714,
+          "runtime": 1.4915945939719677e-05,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            1.840708625620799,
+            0.0,
+            0.0,
+            1.8458366655810752,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.8792317106906025
+          ],
+          "info": {
+            "converged": true,
+            "runtime": 1.4915945939719677e-05,
+            "s": 3,
+            "thresholding": "top-s absolute value; stable coordinate order for ties"
+          },
+          "pre_hard_thresholding": {
+            "error": 0.2277476596186586,
+            "runtime": 2.191704697906971e-05,
+            "support_recovery": null,
+            "estimate": [
+              0.0461756304578673,
+              1.840708625620799,
+              0.12985635207868637,
+              -0.04502252255745653,
+              1.8458366655810752,
+              0.11378082151235538,
+              -0.0778387204008938,
+              0.09894253830177545,
+              0.018373792932457972,
+              1.8792317106906025
+            ],
+            "info": {
+              "converged": true,
+              "runtime": 2.191704697906971e-05
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "loc": 2.101595805149151,
+      "truth": [
+        0.0,
+        2.101595805149151,
+        0.0,
+        0.0,
+        2.101595805149151,
+        2.101595805149151,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "data_sha256": "3ef37da39dca118c0b05a58f22488501f63a2b06bb82c0d3e9607a143ed72ce6",
+      "uncovered_coordinates": [],
+      "uncovered_true_coordinates": [],
+      "methods": {
+        "Coordinate-wise MoM": {
+          "error": 0.25615263723354326,
+          "runtime": 0.00014245894271880388,
+          "support_recovery": 1.0,
+          "estimate": [
+            -0.0,
+            2.027016691605864,
+            0.0,
+            -0.0,
+            2.0523197823432446,
+            1.8615458041884585,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.00014245894271880388
+          }
+        },
+        "Geometric MoM + HT": {
+          "error": 0.23451823878344766,
+          "runtime": 0.030189333017915487,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            1.9854572090752864,
+            0.0,
+            0.0,
+            2.057408154578323,
+            1.9027036676446425,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.030189333017915487
+          }
+        },
+        "Brute-force": {
+          "error": 0.5170823179993145,
+          "runtime": 1.2621837500482798,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            2.1036876192417586,
+            0.0,
+            0.0,
+            2.4455939829574787,
+            1.7155452882917113,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.5914015829493058,
+            "lower_bound": 0.5914015829493054,
+            "gap": 3.3306690738754696e-16,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "C": 2,
+            "K": 21,
+            "net_radius": 1,
+            "net_size": 29305,
+            "runtime": 1.2621837500482798
+          }
+        },
+        "Algorithm 1": {
+          "error": 0.3162362889909827,
+          "runtime": 3.025133250048384,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            2.145355057302424,
+            0.0,
+            0.0,
+            2.2953060110673578,
+            1.8554924235208188,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.6513626394107197,
+            "lower_bound": 0.6513626388679157,
+            "gap": 5.428040239507936e-10,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "oracle_calls": 44,
+            "inner_iterations": 43,
+            "C": 2,
+            "K": 21,
+            "constraints": 39,
+            "inner_tol": 2.5e-06,
+            "sep_tol": 1.25e-06,
+            "runtime": 3.025133250048384
+          }
+        },
+        "Projected Algorithm 1 (LS)": {
+          "error": 0.27265742041226143,
+          "runtime": 6.4725155419437215,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            1.9813645958028563,
+            0.0,
+            0.0,
+            2.0541349300218545,
+            1.8615250019740308,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 127,
+            "inner_iterations": 117,
+            "constraints": 117,
+            "converged": true,
+            "objective": 1.5284600482884894,
+            "lower_bound": 1.5284600482884887,
+            "gap": 6.661338147750939e-16,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 1.5284600482884894e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "refined": false,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "least_squares",
+            "uncovered": 0,
+            "runtime": 6.4725155419437215
+          }
+        },
+        "Projected Algorithm 1 (max)": {
+          "error": 0.28633256616429176,
+          "runtime": 7.0673459159443155,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            1.9813645958028563,
+            0.0,
+            0.0,
+            2.0541349300218545,
+            1.8460996993520036,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 127,
+            "inner_iterations": 117,
+            "constraints": 117,
+            "converged": true,
+            "objective": 0.23807657314481145,
+            "lower_bound": 0.2380765693164939,
+            "gap": 3.8283175518571966e-09,
+            "tol": 1e-05,
+            "iterations": 3,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "refined": true,
+            "objective_before_refinement": 0.23807657314481145,
+            "refinement_max_slack": 1e-09,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "max",
+            "uncovered": 0,
+            "runtime": 7.0673459159443155
+          }
+        },
+        "Sample mean + HT": {
+          "error": 0.052654227696707946,
+          "runtime": 1.6832957044243813e-05,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            2.105925221241405,
+            0.0,
+            0.0,
+            2.1471315653879546,
+            2.07551480842527,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "runtime": 1.6832957044243813e-05,
+            "s": 3,
+            "thresholding": "top-s absolute value; stable coordinate order for ties"
+          },
+          "pre_hard_thresholding": {
+            "error": 0.2558802082571867,
+            "runtime": 2.674991264939308e-05,
+            "support_recovery": null,
+            "estimate": [
+              0.0911217089837222,
+              2.105925221241405,
+              0.10525701471297874,
+              -0.14565450000593816,
+              2.1471315653879546,
+              2.07551480842527,
+              -0.12478936987526332,
+              -0.07834860017696268,
+              0.011983146912809233,
+              -0.015820528547853825
+            ],
+            "info": {
+              "converged": true,
+              "runtime": 2.674991264939308e-05
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 4,
+      "loc": 2.9340596780273533,
+      "truth": [
+        0.0,
+        0.0,
+        0.0,
+        2.9340596780273533,
+        2.9340596780273533,
+        0.0,
+        0.0,
+        0.0,
+        2.9340596780273533,
+        0.0
+      ],
+      "data_sha256": "8e252f4f60376605867b5421aaecb5bb0fab4420a35521e547184f6c6a66f452",
+      "uncovered_coordinates": [],
+      "uncovered_true_coordinates": [],
+      "methods": {
+        "Coordinate-wise MoM": {
+          "error": 1.157443430572816,
+          "runtime": 0.0001443750225007534,
+          "support_recovery": 1.0,
+          "estimate": [
+            -0.0,
+            0.0,
+            -0.0,
+            2.3389417460226323,
+            2.20724124833068,
+            -0.0,
+            0.0,
+            -0.0,
+            2.257860807697141,
+            -0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.0001443750225007534
+          }
+        },
+        "Geometric MoM + HT": {
+          "error": 1.0577607735983723,
+          "runtime": 0.000679458025842905,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            2.383319482221912,
+            2.293550591546854,
+            0.0,
+            0.0,
+            0.0,
+            2.2974348269387965,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.000679458025842905
+          }
+        },
+        "Brute-force": {
+          "error": 1.157443430572816,
+          "runtime": 0.5621033750940114,
+          "support_recovery": 1.0,
+          "estimate": [
+            -0.0,
+            0.0,
+            -0.0,
+            2.3389417460226323,
+            2.20724124833068,
+            -0.0,
+            0.0,
+            -0.0,
+            2.257860807697141,
+            -0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 1.2141166665047207,
+            "lower_bound": 1.2141166665047207,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "C": 2,
+            "K": 21,
+            "net_radius": 1,
+            "net_size": 29305,
+            "runtime": 0.5621033750940114
+          }
+        },
+        "Algorithm 1": {
+          "error": 1.0367191436498715,
+          "runtime": 2.9766766669927165,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            2.2208455518113523,
+            2.4410463012739836,
+            0.0,
+            0.0,
+            0.0,
+            2.365684798816186,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 1.2909683622287096,
+            "lower_bound": 1.2909683664241995,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "oracle_calls": 36,
+            "inner_iterations": 35,
+            "C": 2,
+            "K": 21,
+            "constraints": 31,
+            "inner_tol": 2.5e-06,
+            "sep_tol": 1.25e-06,
+            "runtime": 2.9766766669927165
+          }
+        },
+        "Projected Algorithm 1 (LS)": {
+          "error": 1.0613662813927116,
+          "runtime": 4.39985279191751,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            2.4317999055957626,
+            2.275232400893991,
+            0.0,
+            0.0,
+            0.0,
+            2.2705989608937776,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 97,
+            "inner_iterations": 87,
+            "constraints": 87,
+            "converged": true,
+            "objective": 5.7028687589607525,
+            "lower_bound": 5.702868758960765,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 5.702868758960753e-05,
+            "support": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "refined": false,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "least_squares",
+            "uncovered": 0,
+            "runtime": 4.39985279191751
+          }
+        },
+        "Projected Algorithm 1 (max)": {
+          "error": 1.0900655602242322,
+          "runtime": 4.54902733291965,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            2.373694242518872,
+            2.275232400893991,
+            0.0,
+            0.0,
+            0.0,
+            2.2705989608937776,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 97,
+            "inner_iterations": 87,
+            "constraints": 87,
+            "converged": true,
+            "objective": 0.8422932204419704,
+            "lower_bound": 0.8422932199704452,
+            "gap": 4.715252632792044e-10,
+            "tol": 1e-05,
+            "iterations": 3,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "refined": true,
+            "objective_before_refinement": 0.8422932204419704,
+            "refinement_max_slack": 1e-09,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "max",
+            "uncovered": 0,
+            "runtime": 4.54902733291965
+          }
+        },
+        "Sample mean + HT": {
+          "error": 1.3947251253967845,
+          "runtime": 1.708301715552807e-05,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            2.1670015944344034,
+            2.1357802877008663,
+            0.0,
+            0.0,
+            0.0,
+            2.085749542058344,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "runtime": 1.708301715552807e-05,
+            "s": 3,
+            "thresholding": "top-s absolute value; stable coordinate order for ties"
+          },
+          "pre_hard_thresholding": {
+            "error": 2.0054867930879947,
+            "runtime": 2.562499139457941e-05,
+            "support_recovery": null,
+            "estimate": [
+              -0.021166739958651325,
+              -0.013832931973311653,
+              -0.8257712995973315,
+              2.1670015944344034,
+              2.1357802877008663,
+              0.049444393583170376,
+              0.06339829682569502,
+              -0.7719329975574859,
+              2.085749542058344,
+              -0.8898521432776801
+            ],
+            "info": {
+              "converged": true,
+              "runtime": 2.562499139457941e-05
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 5,
+      "loc": 1.443986342179479,
+      "truth": [
+        0.0,
+        0.0,
+        1.443986342179479,
+        0.0,
+        0.0,
+        1.443986342179479,
+        0.0,
+        0.0,
+        1.443986342179479,
+        0.0
+      ],
+      "data_sha256": "2c734a368056e0b7ee305329fd2e261598f4072f6f4886f056960b23181a9da5",
+      "uncovered_coordinates": [],
+      "uncovered_true_coordinates": [],
+      "methods": {
+        "Coordinate-wise MoM": {
+          "error": 0.1914458837881155,
+          "runtime": 0.00014341692440211773,
+          "support_recovery": 1.0,
+          "estimate": [
+            -0.0,
+            -0.0,
+            1.324614214455283,
+            -0.0,
+            -0.0,
+            1.2943330483612487,
+            -0.0,
+            -0.0,
+            1.446376570487682,
+            -0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.00014341692440211773
+          }
+        },
+        "Geometric MoM + HT": {
+          "error": 0.25104923972373644,
+          "runtime": 0.0006941669853404164,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            1.2842732627358502,
+            0.0,
+            0.0,
+            1.3154927163444559,
+            0.0,
+            0.0,
+            1.2990489724632175,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.0006941669853404164
+          }
+        },
+        "Brute-force": {
+          "error": 0.2948844665698564,
+          "runtime": 0.5805003750137985,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            1.2020128355503508,
+            0.0,
+            0.0,
+            1.3141627132239555,
+            0.0,
+            0.0,
+            1.3365084557162135,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.5072367222912282,
+            "lower_bound": 0.5072367222912282,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "C": 2,
+            "K": 21,
+            "net_radius": 1,
+            "net_size": 29305,
+            "runtime": 0.5805003750137985
+          }
+        },
+        "Algorithm 1": {
+          "error": 0.3155419613115958,
+          "runtime": 2.5006570420227945,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            1.2585581274807234,
+            0.0,
+            0.0,
+            1.192604304047292,
+            0.0,
+            0.0,
+            1.4885977470722698,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.5789601654893617,
+            "lower_bound": 0.5789601651606389,
+            "gap": 3.2872282673679365e-10,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "oracle_calls": 30,
+            "inner_iterations": 29,
+            "C": 2,
+            "K": 21,
+            "constraints": 25,
+            "inner_tol": 2.5e-06,
+            "sep_tol": 1.25e-06,
+            "runtime": 2.5006570420227945
+          }
+        },
+        "Projected Algorithm 1 (LS)": {
+          "error": 0.2815488923118134,
+          "runtime": 4.450545290950686,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            1.2574936509909445,
+            0.0,
+            0.0,
+            1.2748959147563006,
+            0.0,
+            0.0,
+            1.317896365380711,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 104,
+            "inner_iterations": 94,
+            "constraints": 94,
+            "converged": true,
+            "objective": 1.758465948507122,
+            "lower_bound": 1.7584659485071228,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 1.758465948507122e-05,
+            "support": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "refined": false,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "least_squares",
+            "uncovered": 0,
+            "runtime": 4.450545290950686
+          }
+        },
+        "Projected Algorithm 1 (max)": {
+          "error": 0.2731000171040296,
+          "runtime": 4.557106624939479,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            1.2574936509909442,
+            0.0,
+            0.0,
+            1.2893725872080495,
+            0.0,
+            0.0,
+            1.317896365380711,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 104,
+            "inner_iterations": 94,
+            "constraints": 94,
+            "converged": true,
+            "objective": 0.24209518050448764,
+            "lower_bound": 0.24209517988818052,
+            "gap": 6.163071164522194e-10,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "refined": true,
+            "objective_before_refinement": 0.24209518050448764,
+            "refinement_max_slack": 1e-09,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "max",
+            "uncovered": 0,
+            "runtime": 4.557106624939479
+          }
+        },
+        "Sample mean + HT": {
+          "error": 0.09262247786185217,
+          "runtime": 3.63329891115427e-05,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            1.440678492086639,
+            0.0,
+            0.0,
+            1.530565127178278,
+            0.0,
+            0.0,
+            1.4112434724035368,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "runtime": 3.63329891115427e-05,
+            "s": 3,
+            "thresholding": "top-s absolute value; stable coordinate order for ties"
+          },
+          "pre_hard_thresholding": {
+            "error": 0.2690281453646199,
+            "runtime": 1.2416974641382694e-05,
+            "support_recovery": null,
+            "estimate": [
+              -0.03307040367066425,
+              0.10660125066721789,
+              1.440678492086639,
+              0.1549335958987179,
+              -0.019707064846972423,
+              1.530565127178278,
+              0.05776222753712194,
+              -0.07017993934909339,
+              1.4112434724035368,
+              0.13669401958468913
+            ],
+            "info": {
+              "converged": true,
+              "runtime": 1.2416974641382694e-05
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 6,
+      "loc": 2.7857203028720035,
+      "truth": [
+        0.0,
+        2.7857203028720035,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.7857203028720035,
+        2.7857203028720035
+      ],
+      "data_sha256": "0e6189ab151613e161a7c0065ec8ebe59878a99226651a745cf6fdbad8e09de8",
+      "uncovered_coordinates": [],
+      "uncovered_true_coordinates": [],
+      "methods": {
+        "Coordinate-wise MoM": {
+          "error": 0.8577334218143079,
+          "runtime": 0.0001341670285910368,
+          "support_recovery": 1.0,
+          "estimate": [
+            -0.0,
+            2.359665659002918,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            2.208621633920434,
+            2.3154637881598785
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.0001341670285910368
+          }
+        },
+        "Geometric MoM + HT": {
+          "error": 0.7269138890119001,
+          "runtime": 0.0006829580524936318,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            2.3750615257062857,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.33426762694346,
+            2.3908106269053087
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.0006829580524936318
+          }
+        },
+        "Brute-force": {
+          "error": 0.8577334218143079,
+          "runtime": 0.5638039580080658,
+          "support_recovery": 1.0,
+          "estimate": [
+            -0.0,
+            2.359665659002918,
+            0.0,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            2.208621633920434,
+            2.3154637881598785
+          ],
+          "info": {
+            "converged": true,
+            "objective": 1.0366573402258576,
+            "lower_bound": 1.0366573402258576,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            "C": 2,
+            "K": 21,
+            "net_radius": 1,
+            "net_size": 29305,
+            "runtime": 0.5638039580080658
+          }
+        },
+        "Algorithm 1": {
+          "error": 1.206647498372061,
+          "runtime": 2.9292478329734877,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            2.062371059898821,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.019917341849094,
+            2.1972393066569844
+          ],
+          "info": {
+            "converged": true,
+            "objective": 1.2996660965284568,
+            "lower_bound": 1.2996660913424563,
+            "gap": 5.186000517909406e-09,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            "oracle_calls": 33,
+            "inner_iterations": 32,
+            "C": 2,
+            "K": 21,
+            "constraints": 28,
+            "inner_tol": 2.5e-06,
+            "sep_tol": 1.25e-06,
+            "runtime": 2.9292478329734877
+          }
+        },
+        "Projected Algorithm 1 (LS)": {
+          "error": 0.6993527942105425,
+          "runtime": 3.2051942920079455,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            2.3610956612666216,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.335123002809388,
+            2.460527563580555
+          ],
+          "info": {
+            "oracle_calls": 80,
+            "inner_iterations": 70,
+            "constraints": 70,
+            "converged": true,
+            "objective": 4.3220140570844245,
+            "lower_bound": 4.3220140570844325,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 4.322014057084425e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            "refined": false,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "least_squares",
+            "uncovered": 0,
+            "runtime": 3.2051942920079455
+          }
+        },
+        "Projected Algorithm 1 (max)": {
+          "error": 0.744882282216798,
+          "runtime": 3.3029945000307634,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            2.3610956612666216,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.267267594889751,
+            2.460527563580555
+          ],
+          "info": {
+            "oracle_calls": 80,
+            "inner_iterations": 70,
+            "constraints": 70,
+            "converged": true,
+            "objective": 0.8062030465851079,
+            "lower_bound": 0.8062030403890251,
+            "gap": 6.196082757981003e-09,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            "refined": true,
+            "objective_before_refinement": 0.8062030465851079,
+            "refinement_max_slack": 1e-09,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "max",
+            "uncovered": 0,
+            "runtime": 3.3029945000307634
+          }
+        },
+        "Sample mean + HT": {
+          "error": 1.0482114039923762,
+          "runtime": 1.816696021705866e-05,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            2.187026716932106,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.1517198439711485,
+            2.204036062301915
+          ],
+          "info": {
+            "converged": true,
+            "runtime": 1.816696021705866e-05,
+            "s": 3,
+            "thresholding": "top-s absolute value; stable coordinate order for ties"
+          },
+          "pre_hard_thresholding": {
+            "error": 1.7182586201262802,
+            "runtime": 4.766695201396942e-05,
+            "support_recovery": null,
+            "estimate": [
+              -0.6543632501103606,
+              2.187026716932106,
+              0.44576576237756255,
+              0.3975922641487726,
+              -0.6332864149360106,
+              -0.656135860781501,
+              0.3577726619370119,
+              0.3303336538851699,
+              2.1517198439711485,
+              2.204036062301915
+            ],
+            "info": {
+              "converged": true,
+              "runtime": 4.766695201396942e-05
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 7,
+      "loc": 1.1526165787479143,
+      "truth": [
+        1.1526165787479143,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.1526165787479143,
+        0.0,
+        0.0,
+        1.1526165787479143,
+        0.0
+      ],
+      "data_sha256": "13788569f8010dadd3497831fde2b50f773ce9007517142bc870baa54be5423b",
+      "uncovered_coordinates": [],
+      "uncovered_true_coordinates": [],
+      "methods": {
+        "Coordinate-wise MoM": {
+          "error": 0.29432551285587844,
+          "runtime": 0.00016587506979703903,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.9503103178015108,
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.9452824217144379,
+            0.0,
+            -0.0,
+            1.2046956688607344,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.00016587506979703903
+          }
+        },
+        "Geometric MoM + HT": {
+          "error": 0.12228959470601687,
+          "runtime": 0.0007552499882876873,
+          "support_recovery": 1.0,
+          "estimate": [
+            1.154952384106896,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.058078430755636,
+            0.0,
+            0.0,
+            1.2301525546615306,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.0007552499882876873
+          }
+        },
+        "Brute-force": {
+          "error": 0.2683484714826844,
+          "runtime": 0.49592020793352276,
+          "support_recovery": 1.0,
+          "estimate": [
+            1.1096563345570742,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0170224721646335,
+            0.0,
+            0.0,
+            1.3801677989732481,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.40944554651840237,
+            "lower_bound": 0.4094455465184023,
+            "gap": 5.551115123125783e-17,
+            "tol": 1e-05,
+            "iterations": 4,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "C": 2,
+            "K": 21,
+            "net_radius": 1,
+            "net_size": 29305,
+            "runtime": 0.49592020793352276
+          }
+        },
+        "Algorithm 1": {
+          "error": 0.23101146863544259,
+          "runtime": 3.242112834006548,
+          "support_recovery": 1.0,
+          "estimate": [
+            1.1268552138930672,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.96179786507479,
+            0.0,
+            0.0,
+            1.2802522682475748,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.5150442181327036,
+            "lower_bound": 0.515044217907142,
+            "gap": 2.2556156942243888e-10,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "oracle_calls": 35,
+            "inner_iterations": 34,
+            "C": 2,
+            "K": 21,
+            "constraints": 30,
+            "inner_tol": 2.5e-06,
+            "sep_tol": 1.25e-06,
+            "runtime": 3.242112834006548
+          }
+        },
+        "Projected Algorithm 1 (LS)": {
+          "error": 0.2111840387999121,
+          "runtime": 5.653701832983643,
+          "support_recovery": 1.0,
+          "estimate": [
+            1.022421781256184,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0126544468017344,
+            0.0,
+            0.0,
+            1.2423863652632572,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 108,
+            "inner_iterations": 98,
+            "constraints": 98,
+            "converged": true,
+            "objective": 0.5211562432491769,
+            "lower_bound": 0.5211562432491839,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "refined": false,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "least_squares",
+            "uncovered": 0,
+            "runtime": 5.653701832983643
+          }
+        },
+        "Projected Algorithm 1 (max)": {
+          "error": 0.22729620671451212,
+          "runtime": 5.4100469580153,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.99764705710938,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0126544468017347,
+            0.0,
+            0.0,
+            1.2423863652632572,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 108,
+            "inner_iterations": 98,
+            "constraints": 98,
+            "converged": true,
+            "objective": 0.0727611994219491,
+            "lower_bound": 0.0727611959484619,
+            "gap": 3.473487206195891e-09,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "refined": true,
+            "objective_before_refinement": 0.0727611994219491,
+            "refinement_max_slack": 1e-09,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "max",
+            "uncovered": 0,
+            "runtime": 5.4100469580153
+          }
+        },
+        "Sample mean + HT": {
+          "error": 0.11947650625673235,
+          "runtime": 1.53339933604002e-05,
+          "support_recovery": 1.0,
+          "estimate": [
+            1.1122015882741918,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0489238925986104,
+            0.0,
+            0.0,
+            1.196080252447521,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "runtime": 1.53339933604002e-05,
+            "s": 3,
+            "thresholding": "top-s absolute value; stable coordinate order for ties"
+          },
+          "pre_hard_thresholding": {
+            "error": 0.3133526328896328,
+            "runtime": 1.3208948075771332e-05,
+            "support_recovery": null,
+            "estimate": [
+              1.1122015882741918,
+              0.09973903558291206,
+              -0.12789085392091834,
+              -0.10418369829703689,
+              -0.02006147272265598,
+              1.0489238925986104,
+              0.12520786567680764,
+              -0.1464747763050269,
+              1.196080252447521,
+              0.09603497204831091
+            ],
+            "info": {
+              "converged": true,
+              "runtime": 1.3208948075771332e-05
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 8,
+      "loc": 2.7468588055836323,
+      "truth": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.7468588055836323,
+        0.0,
+        0.0,
+        2.7468588055836323,
+        0.0,
+        2.7468588055836323
+      ],
+      "data_sha256": "b9d89960c7a61080c0d4af1ec93849fd06c6862c97857a781c2300834d17e4ea",
+      "uncovered_coordinates": [],
+      "uncovered_true_coordinates": [],
+      "methods": {
+        "Coordinate-wise MoM": {
+          "error": 0.5390165678114704,
+          "runtime": 0.000316083081997931,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            -0.0,
+            0.0,
+            0.0,
+            2.53402814000093,
+            0.0,
+            -0.0,
+            2.33246530381386,
+            -0.0,
+            2.4757130996359495
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.000316083081997931
+          }
+        },
+        "Geometric MoM + HT": {
+          "error": 0.5071815183129124,
+          "runtime": 0.0008616659324616194,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.5340019464950307,
+            0.0,
+            0.0,
+            2.3466842279111098,
+            0.0,
+            2.5192948421761003
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.0008616659324616194
+          }
+        },
+        "Brute-force": {
+          "error": 0.5390165678114704,
+          "runtime": 0.3965776249533519,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            -0.0,
+            0.0,
+            0.0,
+            2.53402814000093,
+            0.0,
+            -0.0,
+            2.33246530381386,
+            -0.0,
+            2.4757130996359495
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.6494189713885002,
+            "lower_bound": 0.6494189713884859,
+            "gap": 1.432187701766452e-14,
+            "tol": 1e-05,
+            "iterations": 3,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              1
+            ],
+            "C": 2,
+            "K": 21,
+            "net_radius": 1,
+            "net_size": 29305,
+            "runtime": 0.3965776249533519
+          }
+        },
+        "Algorithm 1": {
+          "error": 0.6132193288086524,
+          "runtime": 4.085372708970681,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.3499340392542885,
+            0.0,
+            0.0,
+            2.32798661619136,
+            0.0,
+            2.5394105854113342
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.6995403303309132,
+            "lower_bound": 0.6995403220424634,
+            "gap": 8.288449815374577e-09,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              1
+            ],
+            "oracle_calls": 40,
+            "inner_iterations": 39,
+            "C": 2,
+            "K": 21,
+            "constraints": 35,
+            "inner_tol": 2.5e-06,
+            "sep_tol": 1.25e-06,
+            "runtime": 4.085372708970681
+          }
+        },
+        "Projected Algorithm 1 (LS)": {
+          "error": 0.562811008271541,
+          "runtime": 4.203341749962419,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.4496881948977265,
+            0.0,
+            0.0,
+            2.3264626131316373,
+            0.0,
+            2.519454099062286
+          ],
+          "info": {
+            "oracle_calls": 90,
+            "inner_iterations": 80,
+            "constraints": 80,
+            "converged": true,
+            "objective": 1.1139358586353132,
+            "lower_bound": 1.1139358586352799,
+            "gap": 3.3306690738754696e-14,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 1.1139358586353132e-05,
+            "support": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              1
+            ],
+            "refined": false,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "least_squares",
+            "uncovered": 0,
+            "runtime": 4.203341749962419
+          }
+        },
+        "Projected Algorithm 1 (max)": {
+          "error": 0.562811008271541,
+          "runtime": 4.154530333005823,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.4496881948977265,
+            0.0,
+            0.0,
+            2.3264626131316373,
+            0.0,
+            2.519454099062286
+          ],
+          "info": {
+            "oracle_calls": 90,
+            "inner_iterations": 80,
+            "constraints": 80,
+            "converged": true,
+            "objective": 0.21411584904794795,
+            "lower_bound": 0.2141158417548894,
+            "gap": 7.293058545965181e-09,
+            "tol": 1e-05,
+            "iterations": 3,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0,
+              1
+            ],
+            "refined": true,
+            "objective_before_refinement": 0.21411584904794795,
+            "refinement_max_slack": 1e-09,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "max",
+            "uncovered": 0,
+            "runtime": 4.154530333005823
+          }
+        },
+        "Sample mean + HT": {
+          "error": 1.1347426463658534,
+          "runtime": 1.4708959497511387e-05,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.1546909578673823,
+            0.0,
+            0.0,
+            1.9947858417059015,
+            0.0,
+            2.1374620787983223
+          ],
+          "info": {
+            "converged": true,
+            "runtime": 1.4708959497511387e-05,
+            "s": 3,
+            "thresholding": "top-s absolute value; stable coordinate order for ties"
+          },
+          "pre_hard_thresholding": {
+            "error": 1.6183452557455809,
+            "runtime": 2.8749927878379822e-05,
+            "support_recovery": null,
+            "estimate": [
+              0.1508236432580744,
+              -0.6367406779041032,
+              0.2019514775397253,
+              0.25545381463429484,
+              2.1546909578673823,
+              0.21138979410477415,
+              -0.6089974196036031,
+              1.9947858417059015,
+              -0.6177454801309653,
+              2.1374620787983223
+            ],
+            "info": {
+              "converged": true,
+              "runtime": 2.8749927878379822e-05
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 9,
+      "loc": 1.0207483077714,
+      "truth": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0207483077714,
+        0.0,
+        0.0,
+        1.0207483077714,
+        1.0207483077714,
+        0.0
+      ],
+      "data_sha256": "e5400f775c92d031f747ac81a1d7c81249232ed7f4e24ba5347fb3efd4da02fe",
+      "uncovered_coordinates": [],
+      "uncovered_true_coordinates": [],
+      "methods": {
+        "Coordinate-wise MoM": {
+          "error": 0.09675130875576474,
+          "runtime": 0.00014183297753334045,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            1.0785451679436027,
+            -0.0,
+            0.0,
+            0.9725552994003133,
+            1.0815576215673353,
+            -0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.00014183297753334045
+          }
+        },
+        "Geometric MoM + HT": {
+          "error": 0.03376738000913537,
+          "runtime": 0.00045845797285437584,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0298418075336817,
+            0.0,
+            0.0,
+            1.0191861572980756,
+            1.0532306706881187,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "C": 2,
+            "K": 21,
+            "runtime": 0.00045845797285437584
+          }
+        },
+        "Brute-force": {
+          "error": 0.1910345666252363,
+          "runtime": 0.5932045420631766,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.066513883143126,
+            0.0,
+            0.0,
+            1.2061869254972921,
+            1.0242464233351178,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.33917621713071744,
+            "lower_bound": 0.3391762171307172,
+            "gap": 2.220446049250313e-16,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "C": 2,
+            "K": 21,
+            "net_radius": 1,
+            "net_size": 29305,
+            "runtime": 0.5932045420631766
+          }
+        },
+        "Algorithm 1": {
+          "error": 0.17343503428462348,
+          "runtime": 5.019155084039085,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0834460164936324,
+            0.0,
+            0.0,
+            1.172356992082739,
+            1.0769934433804047,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "objective": 0.39882038236269135,
+            "lower_bound": 0.3988203831333218,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 5,
+            "rtol": 0.0,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "oracle_calls": 41,
+            "inner_iterations": 40,
+            "C": 2,
+            "K": 21,
+            "constraints": 36,
+            "inner_tol": 2.5e-06,
+            "sep_tol": 1.25e-06,
+            "runtime": 5.019155084039085
+          }
+        },
+        "Projected Algorithm 1 (LS)": {
+          "error": 0.031675857434395174,
+          "runtime": 8.863579542026855,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0445916968668782,
+            0.0,
+            0.0,
+            1.0275038897155397,
+            1.0404768366887258,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 171,
+            "inner_iterations": 161,
+            "constraints": 161,
+            "converged": true,
+            "objective": 0.33818632627019024,
+            "lower_bound": 0.3381863262701925,
+            "gap": 0.0,
+            "tol": 1e-05,
+            "iterations": 2,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "refined": false,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "least_squares",
+            "uncovered": 0,
+            "runtime": 8.863579542026855
+          }
+        },
+        "Projected Algorithm 1 (max)": {
+          "error": 0.031675857434395174,
+          "runtime": 8.136647957959212,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0445916968668782,
+            0.0,
+            0.0,
+            1.0275038897155397,
+            1.0404768366887258,
+            0.0
+          ],
+          "info": {
+            "oracle_calls": 171,
+            "inner_iterations": 161,
+            "constraints": 161,
+            "converged": true,
+            "objective": 0.05933393360376579,
+            "lower_bound": 0.059333933150997,
+            "gap": 4.52768794678704e-10,
+            "tol": 1e-05,
+            "iterations": 3,
+            "rtol": 1e-05,
+            "gap_tolerance": 1e-05,
+            "support": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "refined": true,
+            "objective_before_refinement": 0.05933393360376579,
+            "refinement_max_slack": 1e-09,
+            "C": 2,
+            "K": 21,
+            "J": 10,
+            "r": 5,
+            "projection_tol": 1e-05,
+            "aggregation_tol": 1e-05,
+            "aggregation_rtol": 1e-05,
+            "aggregation": "cutting_plane",
+            "objective_type": "max",
+            "uncovered": 0,
+            "runtime": 8.136647957959212
+          }
+        },
+        "Sample mean + HT": {
+          "error": 0.019609741217377498,
+          "runtime": 1.6708974726498127e-05,
+          "support_recovery": 1.0,
+          "estimate": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0131155059417736,
+            0.0,
+            0.0,
+            1.0106109939925438,
+            1.0057978176058173,
+            0.0
+          ],
+          "info": {
+            "converged": true,
+            "runtime": 1.6708974726498127e-05,
+            "s": 3,
+            "thresholding": "top-s absolute value; stable coordinate order for ties"
+          },
+          "pre_hard_thresholding": {
+            "error": 0.22206497671837847,
+            "runtime": 1.3042008504271507e-05,
+            "support_recovery": null,
+            "estimate": [
+              0.14087329225138245,
+              0.005135602000981599,
+              -0.07080832083424189,
+              0.10059112448773344,
+              1.0131155059417736,
+              -0.07685986683680911,
+              0.08687669191637154,
+              1.0106109939925438,
+              1.0057978176058173,
+              -0.02166244914800185
+            ],
+            "info": {
+              "converged": true,
+              "runtime": 1.3042008504271507e-05
+            }
+          }
+        }
+      }
+    }
+  ],
+  "pre_hard_thresholding_summary": {
+    "error": 0.7602330402361283,
+    "runtime": 2.143767196685076e-05,
+    "support_recovery": null
+  },
+  "sample_mean_ht_update": {
+    "date": "2026-10-06",
+    "definition": "Keep the s largest absolute sample mean coordinates; set others to zero.",
+    "data_validation": "Regenerated data matches stored truth and dense estimates; checked data SHA256 where present.",
+    "runtime": "Fresh warmed fit per seed, including sample averaging and hard thresholding; data generation excluded. Other methods retain historical runtimes.",
+    "other_methods_rerun": false,
+    "estimator_source_sha256": "34be726a1a3ab7752fd9662dba3379cc3016dea5a38b2d3fac4238ce39e62fed"
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "seed": 37,
+  "method": "dl_ptz",
+  "variant": "eta20_200k",
+  "truth": [
+    2.8889932057146135,
+    2.8889932057146135,
+    2.8889932057146135,
+    2.8889932057146135,
+    2.8889932057146135,
+    2.8889932057146135,
+    2.8889932057146135,
+    2.8889932057146135,
+    2.8889932057146135,
+    2.8889932057146135
+  ],
+  "data_sha256": "307da92c1b90b7b1c0ceb4e426392b5ff036d581a7f53ec2900a8e5546b45df5",
+  "clean_data_sha256": "7c725a327b26e3cdd51f3cd91bbab4b86af3a3087530584c6bd5b90cdeb1b812",
+  "source_manifest_sha256": "cc580ad9ea3d08c3fa859cf785008f4d0ae4e3de057b476ecc45778eb485144a",
+  "status": "unconverged",
+  "estimate": [
+    1.611206259911259,
+    1.580045039292701,
+    1.5231419570236135,
+    1.7752201401487275,
+    1.5207362149464236,
+    1.6972163505208229,
+    1.5185395590410014,
+    1.4124702065913335,
+    1.7228874796874754,
+    1.7629131872861163
+  ],
+  "error": 4.053480758377345,
+  "support_recovery": 1.0,
+  "runtime": 29.344428749987856,
+  "info": {
+    "converged": false,
+    "termination": "sdp_iteration_limit_or_gap",
+    "K": 41,
+    "backend": "ptz",
+    "runtime": 29.344428749987856,
+    "iterations": 1,
+    "history": [
+      {
+        "lower": 0.04379649123425276,
+        "upper": 1.1111111111111112,
+        "relative_gap": 24.369865936705978,
+        "converged": false,
+        "iterations": 200000,
+        "calls": [
+          {
+            "lower": 0.04379649123425276,
+            "upper": 1.3715686184244458,
+            "relative_gap": 30.3168607751791,
+            "converged": false,
+            "termination": "iteration_limit",
+            "iterations": 200000,
+            "runtime": 29.34389491705224,
+            "eta": 0.0001,
+            "internal_epsilon": 5e-06,
+            "step_alpha": 5.303568017784823e-12,
+            "growth_threshold": 942714.4133408616,
+            "theoretical_iteration_bound": 4481296581321952256,
+            "minimum_iterations_to_growth_exit": 3259536978324,
+            "initial_weight_sum": 0.029285657020874895,
+            "final_weight_sum": 0.029285683045208857,
+            "max_taylor_degree": 24,
+            "history": [
+              {
+                "iteration": 1,
+                "lower": 0.04379645749007118,
+                "upper": 1.37156862775957,
+                "relative_gap": 30.31688511726113,
+                "elapsed": 0.00030158308800309896
+              },
+              {
+                "iteration": 100,
+                "lower": 0.043796457506774626,
+                "upper": 1.3715686277549493,
+                "relative_gap": 30.316885105211743,
+                "elapsed": 0.013713792082853615
+              },
+              {
+                "iteration": 20000,
+                "lower": 0.04379646086433337,
+                "upper": 1.3715686268261003,
+                "relative_gap": 30.31688268316374,
+                "elapsed": 2.9677945830626413
+              },
+              {
+                "iteration": 40000,
+                "lower": 0.04379646423876421,
+                "upper": 1.3715686258925819,
+                "relative_gap": 30.316880248945022,
+                "elapsed": 5.951802125084214
+              },
+              {
+                "iteration": 60000,
+                "lower": 0.04379646761319777,
+                "upper": 1.3715686249590646,
+                "relative_gap": 30.31687781472476,
+                "elapsed": 8.895885083009489
+              },
+              {
+                "iteration": 80000,
+                "lower": 0.04379647098763419,
+                "upper": 1.371568624025547,
+                "relative_gap": 30.316875380502815,
+                "elapsed": 11.838214625022374
+              },
+              {
+                "iteration": 100000,
+                "lower": 0.04379647436207055,
+                "upper": 1.3715686230920299,
+                "relative_gap": 30.316872946281304,
+                "elapsed": 14.794855417101644
+              },
+              {
+                "iteration": 120000,
+                "lower": 0.0437964777365068,
+                "upper": 1.3715686221585144,
+                "relative_gap": 30.31687051206028,
+                "elapsed": 17.721643250086345
+              },
+              {
+                "iteration": 140000,
+                "lower": 0.043796481110943,
+                "upper": 1.3715686212249971,
+                "relative_gap": 30.316868077839626,
+                "elapsed": 20.66117058310192
+              },
+              {
+                "iteration": 160000,
+                "lower": 0.043796484485379115,
+                "upper": 1.371568620291477,
+                "relative_gap": 30.316865643619348,
+                "elapsed": 23.58935525000561
+              },
+              {
+                "iteration": 180000,
+                "lower": 0.04379648785981515,
+                "upper": 1.3715686193579593,
+                "relative_gap": 30.316863209399553,
+                "elapsed": 26.494556792080402
+              },
+              {
+                "iteration": 200000,
+                "lower": 0.04379649123425276,
+                "upper": 1.3715686184244458,
+                "relative_gap": 30.3168607751791,
+                "elapsed": 29.343870792072266
+              }
+            ],
+            "kernel": "factorized_taylor_identity_sketch",
+            "dense_certificate_dimension": 10,
+            "full_nearly_linear_kernel": false
+          }
+        ],
+        "runtime": 29.343976250034757,
+        "termination": "iteration_limit",
+        "outer": 0,
+        "rho": 0.2807237346348701
+      }
+    ],
+    "sdp_calls": 1,
+    "sdp_iterations": 200000,
+    "tol": 1e-05,
+    "sdp_eta": 0.0001,
+    "sdp_max_iter": 200000,
+    "max_outer": 31,
+    "max_bisect": 44,
+    "theorem_conditions_verified": false,
+    "nearly_linear_runtime_claim": false
+  }
+}

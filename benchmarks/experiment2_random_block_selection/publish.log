@@ -1,0 +1,26 @@
+Matplotlib is building the font cache; this may take a moment.
+{
+  "summary": {
+    "completed": 96,
+    "unconverged": 4,
+    "failed": 0,
+    "runtime": 253.95054951695784,
+    "error": 2.534882359233974,
+    "support_recovery": 0.8083333333333332,
+    "runtime_median": 64.95384952099994,
+    "runtime_max": 1831.773548875004,
+    "full_support_seeds": 63
+  },
+  "failures": [
+    41,
+    48,
+    73,
+    78
+  ],
+  "validation": {
+    "all_100_data_hashes_match": true,
+    "all_subsets_reproduced": true,
+    "metrics_recomputed": true,
+    "converged_gaps_verified": true
+  }
+}

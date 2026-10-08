@@ -1,0 +1,412 @@
+{
+  "checks": [
+    "All 100 saved datasets regenerate exactly, with ten replaced rows per seed.",
+    "Settings differ from Experiment 9 only in dimension/support and derived quantities; 6 selected methods.",
+    "Frozen estimator sources are byte-identical to Experiment 9; per-seed data hashes and metrics verified.",
+    "Full-support block rule: K=21, K_sub=19; subset and random stream verified.",
+    "Completed DL covering-SDP certificates meet the original relative-gap tolerance."
+  ],
+  "algorithm1_subsampling_pairs": [
+    {
+      "seed": 0,
+      "max_coordinate_difference": 0.008059109977929246
+    },
+    {
+      "seed": 1,
+      "max_coordinate_difference": 0.06165743375494248
+    },
+    {
+      "seed": 2,
+      "max_coordinate_difference": 0.39531697870821336
+    },
+    {
+      "seed": 3,
+      "max_coordinate_difference": 0.07468966823242562
+    },
+    {
+      "seed": 4,
+      "max_coordinate_difference": 0.4013450071711193
+    },
+    {
+      "seed": 5,
+      "max_coordinate_difference": 0.05657330461027854
+    },
+    {
+      "seed": 6,
+      "max_coordinate_difference": 2.477146123117941
+    },
+    {
+      "seed": 7,
+      "max_coordinate_difference": 0.9961880000684848
+    },
+    {
+      "seed": 8,
+      "max_coordinate_difference": 0.1942535311102347
+    },
+    {
+      "seed": 9,
+      "max_coordinate_difference": 0.6569480203521953
+    },
+    {
+      "seed": 10,
+      "max_coordinate_difference": 0.18261597682430608
+    },
+    {
+      "seed": 11,
+      "max_coordinate_difference": 0.6481034642868959
+    },
+    {
+      "seed": 12,
+      "max_coordinate_difference": 0.25132092229155223
+    },
+    {
+      "seed": 13,
+      "max_coordinate_difference": 0.24841035117600452
+    },
+    {
+      "seed": 14,
+      "max_coordinate_difference": 0.021477536683789378
+    },
+    {
+      "seed": 15,
+      "max_coordinate_difference": 0.3866652386281171
+    },
+    {
+      "seed": 16,
+      "max_coordinate_difference": 4.92048802325229e-06
+    },
+    {
+      "seed": 17,
+      "max_coordinate_difference": 0.02525596542858466
+    },
+    {
+      "seed": 18,
+      "max_coordinate_difference": 0.1241994229020591
+    },
+    {
+      "seed": 19,
+      "max_coordinate_difference": 1.07624082357205e-05
+    },
+    {
+      "seed": 20,
+      "max_coordinate_difference": 0.002533654197424795
+    },
+    {
+      "seed": 21,
+      "max_coordinate_difference": 1.8593393186644063
+    },
+    {
+      "seed": 22,
+      "max_coordinate_difference": 0.6064092206873175
+    },
+    {
+      "seed": 23,
+      "max_coordinate_difference": 2.3027383239741033
+    },
+    {
+      "seed": 24,
+      "max_coordinate_difference": 0.238157391350458
+    },
+    {
+      "seed": 25,
+      "max_coordinate_difference": 0.029461092381984244
+    },
+    {
+      "seed": 26,
+      "max_coordinate_difference": 0.36250869857623513
+    },
+    {
+      "seed": 27,
+      "max_coordinate_difference": 0.13349101391018525
+    },
+    {
+      "seed": 28,
+      "max_coordinate_difference": 0.10637979338993109
+    },
+    {
+      "seed": 29,
+      "max_coordinate_difference": 0.14904637635073126
+    },
+    {
+      "seed": 30,
+      "max_coordinate_difference": 0.047502440715015304
+    },
+    {
+      "seed": 31,
+      "max_coordinate_difference": 0.2272390109604414
+    },
+    {
+      "seed": 32,
+      "max_coordinate_difference": 0.20583581810595497
+    },
+    {
+      "seed": 33,
+      "max_coordinate_difference": 1.0770798475334686e-08
+    },
+    {
+      "seed": 34,
+      "max_coordinate_difference": 0.17217080124282091
+    },
+    {
+      "seed": 35,
+      "max_coordinate_difference": 0.18817201048365462
+    },
+    {
+      "seed": 36,
+      "max_coordinate_difference": 0.027408984442162332
+    },
+    {
+      "seed": 37,
+      "max_coordinate_difference": 0.13512762225330466
+    },
+    {
+      "seed": 38,
+      "max_coordinate_difference": 1.622881635032769e-05
+    },
+    {
+      "seed": 39,
+      "max_coordinate_difference": 0.9273091332148304
+    },
+    {
+      "seed": 40,
+      "max_coordinate_difference": 0.16133478805488455
+    },
+    {
+      "seed": 41,
+      "max_coordinate_difference": 0.6377347511540279
+    },
+    {
+      "seed": 42,
+      "max_coordinate_difference": 2.064417634441323
+    },
+    {
+      "seed": 43,
+      "max_coordinate_difference": 0.4871221451307042
+    },
+    {
+      "seed": 44,
+      "max_coordinate_difference": 0.6929480387693996
+    },
+    {
+      "seed": 45,
+      "max_coordinate_difference": 1.8616785908420752e-06
+    },
+    {
+      "seed": 46,
+      "max_coordinate_difference": 0.13940089881519313
+    },
+    {
+      "seed": 47,
+      "max_coordinate_difference": 0.3186588037625633
+    },
+    {
+      "seed": 48,
+      "max_coordinate_difference": 0.19361835712168585
+    },
+    {
+      "seed": 49,
+      "max_coordinate_difference": 0.30158108796752003
+    },
+    {
+      "seed": 50,
+      "max_coordinate_difference": 0.11797705851912843
+    },
+    {
+      "seed": 51,
+      "max_coordinate_difference": 0.1022881667234592
+    },
+    {
+      "seed": 52,
+      "max_coordinate_difference": 0.18276436083257241
+    },
+    {
+      "seed": 53,
+      "max_coordinate_difference": 0.06603011970743555
+    },
+    {
+      "seed": 54,
+      "max_coordinate_difference": 0.0005621019522816795
+    },
+    {
+      "seed": 55,
+      "max_coordinate_difference": 0.07217395319381126
+    },
+    {
+      "seed": 56,
+      "max_coordinate_difference": 0.16674575853530005
+    },
+    {
+      "seed": 57,
+      "max_coordinate_difference": 0.08767630017150907
+    },
+    {
+      "seed": 58,
+      "max_coordinate_difference": 0.10751851808780888
+    },
+    {
+      "seed": 59,
+      "max_coordinate_difference": 0.1788590468545026
+    },
+    {
+      "seed": 60,
+      "max_coordinate_difference": 0.26174710046428284
+    },
+    {
+      "seed": 61,
+      "max_coordinate_difference": 0.07180469617116447
+    },
+    {
+      "seed": 62,
+      "max_coordinate_difference": 4.448415515057036e-05
+    },
+    {
+      "seed": 63,
+      "max_coordinate_difference": 0.23774629315724294
+    },
+    {
+      "seed": 64,
+      "max_coordinate_difference": 0.029248129106695053
+    },
+    {
+      "seed": 65,
+      "max_coordinate_difference": 0.3640289352394799
+    },
+    {
+      "seed": 66,
+      "max_coordinate_difference": 0.35180214774926544
+    },
+    {
+      "seed": 67,
+      "max_coordinate_difference": 0.19416147868816047
+    },
+    {
+      "seed": 68,
+      "max_coordinate_difference": 0.04888502085611446
+    },
+    {
+      "seed": 69,
+      "max_coordinate_difference": 0.08120683330460743
+    },
+    {
+      "seed": 70,
+      "max_coordinate_difference": 1.6768233708219782e-06
+    },
+    {
+      "seed": 71,
+      "max_coordinate_difference": 3.006739928537516
+    },
+    {
+      "seed": 72,
+      "max_coordinate_difference": 1.5276797595831226e-06
+    },
+    {
+      "seed": 73,
+      "max_coordinate_difference": 0.10461619435806524
+    },
+    {
+      "seed": 74,
+      "max_coordinate_difference": 0.11203738252861717
+    },
+    {
+      "seed": 75,
+      "max_coordinate_difference": 0.2971763385345154
+    },
+    {
+      "seed": 76,
+      "max_coordinate_difference": 0.03942784345617234
+    },
+    {
+      "seed": 77,
+      "max_coordinate_difference": 0.15880499202188547
+    },
+    {
+      "seed": 78,
+      "max_coordinate_difference": 0.09030546851065058
+    },
+    {
+      "seed": 79,
+      "max_coordinate_difference": 0.04459607264470877
+    },
+    {
+      "seed": 80,
+      "max_coordinate_difference": 1.898308982228869e-05
+    },
+    {
+      "seed": 81,
+      "max_coordinate_difference": 2.2621481753616592
+    },
+    {
+      "seed": 82,
+      "max_coordinate_difference": 0.11691509007441159
+    },
+    {
+      "seed": 83,
+      "max_coordinate_difference": 0.03736441845295957
+    },
+    {
+      "seed": 84,
+      "max_coordinate_difference": 0.19633612235228615
+    },
+    {
+      "seed": 85,
+      "max_coordinate_difference": 0.03027257933029448
+    },
+    {
+      "seed": 86,
+      "max_coordinate_difference": 0.26380880040100996
+    },
+    {
+      "seed": 87,
+      "max_coordinate_difference": 0.024242802209849756
+    },
+    {
+      "seed": 88,
+      "max_coordinate_difference": 0.2383897054567452
+    },
+    {
+      "seed": 89,
+      "max_coordinate_difference": 0.20382336113682076
+    },
+    {
+      "seed": 90,
+      "max_coordinate_difference": 0.02731728715513526
+    },
+    {
+      "seed": 91,
+      "max_coordinate_difference": 0.08573853709670765
+    },
+    {
+      "seed": 92,
+      "max_coordinate_difference": 0.3438433279717401
+    },
+    {
+      "seed": 93,
+      "max_coordinate_difference": 0.006376817262733425
+    },
+    {
+      "seed": 94,
+      "max_coordinate_difference": 0.0015936679081942628
+    },
+    {
+      "seed": 95,
+      "max_coordinate_difference": 1.9689630915204104
+    },
+    {
+      "seed": 96,
+      "max_coordinate_difference": 0.9296665409073661
+    },
+    {
+      "seed": 97,
+      "max_coordinate_difference": 0.032505904499443794
+    },
+    {
+      "seed": 98,
+      "max_coordinate_difference": 0.014646379631162887
+    },
+    {
+      "seed": 99,
+      "max_coordinate_difference": 0.2603695295310464
+    }
+  ],
+  "validated_attempts": 600
+}

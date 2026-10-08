@@ -1,0 +1,41 @@
+{
+  "state": "ready_for_adoption",
+  "epoch": 1791412796.507574,
+  "old_parent": 71242,
+  "old_supervisor": 70511,
+  "adopted_workers": [
+    {
+      "pid": 72776,
+      "seed": 20,
+      "method": "algorithm_1",
+      "command": "/opt/homebrew/anaconda3/envs/robust_ip_estimation/bin/python -u /Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment12_dense_d20/run.py --worker --seed 20 --method algorithm_1"
+    },
+    {
+      "pid": 73211,
+      "seed": 25,
+      "method": "algorithm_1",
+      "command": "/opt/homebrew/anaconda3/envs/robust_ip_estimation/bin/python -u /Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment12_dense_d20/run.py --worker --seed 25 --method algorithm_1"
+    },
+    {
+      "pid": 73224,
+      "seed": 26,
+      "method": "algorithm_1",
+      "command": "/opt/homebrew/anaconda3/envs/robust_ip_estimation/bin/python -u /Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment12_dense_d20/run.py --worker --seed 26 --method algorithm_1"
+    },
+    {
+      "pid": 73280,
+      "seed": 27,
+      "method": "algorithm_1",
+      "command": "/opt/homebrew/anaconda3/envs/robust_ip_estimation/bin/python -u /Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment12_dense_d20/run.py --worker --seed 27 --method algorithm_1"
+    }
+  ],
+  "execution_order": [
+    "dl_clarabel",
+    "algorithm_1"
+  ],
+  "excluded_methods": [
+    "random_block_selection"
+  ],
+  "reason": "User requests DL/Clarabel before remaining Algorithm 1; all-block subsampling excluded. In-flight fits continue without pause.",
+  "installed_epoch": 1791412888.3673532
+}

@@ -1,0 +1,19 @@
+{
+  "python": "3.14.7 | packaged by Anaconda, Inc. | (main, Aug 14 2026, 10:13:42) [Clang 20.1.8 ]",
+  "platform": "macOS-15.7.3-arm64-arm-64bit-Mach-O",
+  "processor": "Apple M4",
+  "packages": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "gurobipy": "13.0.3",
+    "cvxpy": "1.9.3",
+    "clarabel": "0.11.1",
+    "matplotlib": "3.11.2"
+  },
+  "threads": {
+    "blas": 1,
+    "gurobi": 1,
+    "clarabel": 1
+  },
+  "validation": "Full-support block-rule correction passed 68 numerical/regression tests; see block_rule_tests.json. Frozen source manifests record the experiment code."
+}

@@ -1,0 +1,28 @@
+{
+  "pid": 57184,
+  "script": "/Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment10_dense_eps002/run.py",
+  "children": [
+    {
+      "pid": 66536,
+      "seed": 72,
+      "method": "cfb"
+    },
+    {
+      "pid": 66538,
+      "seed": 73,
+      "method": "cfb"
+    },
+    {
+      "pid": 66583,
+      "seed": 74,
+      "method": "cfb"
+    },
+    {
+      "pid": 66602,
+      "seed": 75,
+      "method": "cfb"
+    }
+  ],
+  "paused_epoch": 1791393319.910122,
+  "reason": "DL/PTZ eta/20, 200000-update retry"
+}

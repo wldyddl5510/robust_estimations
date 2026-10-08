@@ -1,0 +1,27 @@
+{
+  "seed": 3,
+  "method": "brute_force",
+  "truth": [
+    2.101595805149151,
+    2.101595805149151,
+    2.101595805149151,
+    2.101595805149151,
+    2.101595805149151,
+    2.101595805149151,
+    2.101595805149151,
+    2.101595805149151,
+    2.101595805149151,
+    2.101595805149151
+  ],
+  "amplitude": 2.101595805149151,
+  "source_manifest_sha256": "c558e5a469040ecf05e175f919a319459e28030f11a9dc871766e3e550e399b7",
+  "block_rule_revision": "full_support_dimension",
+  "data_sha256": "b5d8bde9d42f8f1a38a76cfa8e7fb712658a64b01e134fc6de8de77c97dffb3f",
+  "clean_data_sha256": "f6d447e5438da9b2f36ae101957e15594ea1711b70c041812a967f5717ce0e23",
+  "status": "skipped",
+  "runtime": 0.00047904206439852715,
+  "reason": "existing_net_size_guard",
+  "net_size": 2437667157,
+  "max_net_points": 200000,
+  "exception": "Net has 2,437,667,157 points; exceeds max_points=200,000."
+}

@@ -1,0 +1,33 @@
+{
+  "parent_pid": 54025,
+  "active_worker": {
+    "seed": 4,
+    "method": "cfb",
+    "state": "running",
+    "pid": 54605,
+    "updated_epoch": 1791342729.8682392,
+    "progress": {
+      "iteration": 35,
+      "distance": 0.9475068353555548,
+      "distance_upper": 0.9475150283086746,
+      "best_distance": 0.9475068353555548,
+      "sdp_calls": 792,
+      "elapsed": 54.4067598329857
+    }
+  },
+  "reason": "User correction: use complexity d when s=d",
+  "started_epoch": 1791342732.4132679,
+  "state": "sources_corrected_ready_for_validation",
+  "archive": "/Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/sanity_check/non_sparse_sdp_d10_eps001/archive/pre_full_support_rule_correction",
+  "affected_methods": [
+    "coordinate_mom",
+    "geometric_mom",
+    "random_mom",
+    "brute_force",
+    "algorithm_1",
+    "random_block_selection",
+    "haar_ls",
+    "haar_max"
+  ],
+  "updated_epoch": 1791342841.332426
+}

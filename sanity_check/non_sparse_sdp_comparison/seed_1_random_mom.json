@@ -1,0 +1,52 @@
+{
+  "seed": 1,
+  "method": "random_mom",
+  "truth": [
+    1.834044009405148,
+    1.834044009405148,
+    1.834044009405148,
+    1.834044009405148,
+    1.834044009405148
+  ],
+  "amplitude": 1.834044009405148,
+  "data_sha256": "d3e2fe8d1592871b993eac9cc9839d5afbd8cee8b8cf5284bf283d2f52da41d5",
+  "clean_data_sha256": "28752ef9acd40feeaa86d916c02794347851d06bd0d30c50a39a7bad87e9b912",
+  "status": "completed",
+  "error": 5.064086138491239,
+  "support_recovery": 1.0,
+  "estimate": [
+    3.794783863070265,
+    4.310495997547834,
+    4.11356980102074,
+    4.163999303115899,
+    4.079644973379179
+  ],
+  "runtime": 0.03031916602049023,
+  "info": {
+    "converged": true,
+    "objective": 0.48836739868194046,
+    "lower_bound": 0.48836739868193907,
+    "gap": 1.3877787807814457e-15,
+    "tol": 1e-05,
+    "iterations": 1,
+    "rtol": 0.0,
+    "gap_tolerance": 1e-05,
+    "support": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "tilde_J": 1000,
+    "coordinate_directions": 5,
+    "num_directions": 1005,
+    "direction_sparsity": 5,
+    "objective_scope": "sampled_directions_plus_coordinates",
+    "seed": 1,
+    "direction_seed": 1,
+    "C": 2,
+    "K": 21,
+    "runtime": 0.03031916602049023
+  }
+}

@@ -1,0 +1,64 @@
+from pathlib import Path as _RemovalPath
+if _RemovalPath('/tmp/experiment26_eps005/removed_by_user.json').exists():
+    raise SystemExit('Experiment 8 was removed by user; resumption and publication disabled.')
+import sys,json,hashlib,os
+from pathlib import Path
+import numpy as np
+ROOT=Path('/tmp/experiment26_eps005');REPO=Path('/Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations');sys.path.insert(0,str(ROOT/'source'))
+from plot_histograms import plot_histograms
+from matplotlib.axes import Axes
+import plot_histograms as plotter
+raw=json.loads((ROOT/'experiment8_results.json').read_text());names=list(raw['summary'])
+raw['sample_mean_ht_update']['estimator_source_sha256']=hashlib.sha256((ROOT/'source/experiments.py').read_bytes()).hexdigest()
+(ROOT/'experiment8_results.json').write_text(json.dumps(raw,indent=2)+'\n')
+assert len(raw['runs'])==100
+for run in raw['runs']:
+ assert set(run['methods'])==set(names)
+ for name,r in run['methods'].items():
+  if r['status']=='completed':
+   assert r['info']['converged']
+   assert abs(np.linalg.norm(np.array(r['estimate'])-run['truth'])-r['error'])<1e-10
+errors={'title':'Experiment 8: epsilon=0.05','seeds':list(range(100)),'errors':{name:[run['methods'][name]['error'] if run['methods'][name]['status']=='completed' else None for run in raw['runs']] for name in names}}
+(ROOT/'experiment8_errors.json').write_text(json.dumps(errors,indent=2)+'\n')
+locator=plotter.MultipleLocator;plotter.MultipleLocator=lambda spacing:locator(max(spacing,1.0))
+original=Axes.set_title
+def title(ax,label,*args,**kwargs):
+ kwargs.setdefault('fontsize',10)
+ return original(ax,label.replace('tilde J=1000','J=1000'),*args,**kwargs)
+Axes.set_title=title
+plot_histograms(errors['title'],errors['seeds'],errors['errors'],ROOT/'experiment8_error_histograms.png',columns=4)
+text=(REPO/'results.md').read_text();digest=hashlib.sha256(text.encode()).hexdigest()
+suffix=''
+pending=text.find('\n## Experiments 8\n')
+if pending>=0:
+ assert 'Experiment 8 is running' in text[pending:], 'Existing completed Experiment 8 must not be overwritten'
+ end=text.find('\n## ',pending+1)
+ suffix='' if end<0 else text[end:]
+ text=text[:pending]
+section='''\n\n## Experiments 8
+
+Experiment 1 setup with epsilon increased to $0.05$: $(n,d,s,\\nu,\\delta)=(1000,20,5,2.5,0.05)$, $C=2$, attack strength 100, $\\overline\\lambda=814.098772$, tolerance $10^{-5}$. Centered skew-t with $S=0.5I_d+0.5\\mathbf{1}\\mathbf{1}^\\top$, $b=10\\mathbf{1}/\\sqrt d$. Seeds 0–99 share the historical Experiment 1 clean samples and truths; the historical epsilon=0.01 data hashes were reproduced before changing contamination. All 13 methods use identical contaminated data per seed. Algorithm 1 and brute-force excluded.
+
+Partition LS/max: $r=10$, $J=2$. Haar LS/max: $(r,J)=(10,10),(5,10),(5,20)$. Random MoM/trimmed: $\\widetilde J=1000$ plus 20 coordinate directions, direction seed equal to data seed. MoM and dense projections use $K=101$; trimmed uses $k=75$ ($n-2k=850$). Four concurrent workers, one solver thread per fit; estimator runtimes include preprocessing and exclude shared data generation. Existing default iteration limits retained; no wall-clock cutoff.
+
+| Method | Mean L2 error | Mean runtime (s) | Mean support recovery | Completed seeds |
+| --- | ---: | ---: | ---: | ---: |
+'''
+for name,v in raw['summary'].items():
+ recovery='—' if v.get('support_recovery') is None else f"{v['support_recovery']:.6f}"
+ error='—' if 'error' not in v else f"{v['error']:.6f}"
+ runtime='—' if 'runtime' not in v else f"{v['runtime']:.6f}"
+ section+=f"| {name} | {error} | {runtime} | {recovery} | {v['completed']}/100 |\n"
+section+='\nSample mean + HT was recomputed on reproduced seed data on 2026-10-06; its runtimes include averaging and hard thresholding, with one warmed fit per seed. Other method timings retain their original conditions.\n'
+section+='\nAverages and histograms include converged returned estimates only. Failures and unconverged estimates remain in the detailed results. Random method gaps certify the fixed finite direction bank, and projected gaps certify their aggregation objectives.\n'
+for name in names:
+ bad=[r['seed'] for r in raw['runs'] if r['methods'][name]['status']!='completed']
+ if bad:section+=f'\n{name}: incomplete seeds {bad}.\n'
+section+='\n![L2 error histograms for Experiment 8](experiment8_error_histograms.png)\n\nPer-seed results, bounds, failures, settings, and source hashes: [experiment8_results.json](experiment8_results.json).\n'
+(ROOT/'results.md').write_text(text.rstrip()+section+suffix)
+assert hashlib.sha256((REPO/'results.md').read_bytes()).hexdigest()==digest
+for name in ['experiment8_results.json','experiment8_errors.json','experiment8_error_histograms.png']:
+ assert not (REPO/name).exists(),name
+for name in ['experiment8_results.json','experiment8_errors.json','experiment8_error_histograms.png','results.md']:
+ tmp=REPO/('.experiment26-'+name+'.tmp');tmp.write_bytes((ROOT/name).read_bytes());os.replace(tmp,REPO/name)
+print('PUBLISHED Experiment 8',flush=True)

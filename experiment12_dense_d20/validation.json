@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "All 100 saved datasets regenerate exactly, with ten replaced rows per seed.",
+    "Settings differ from Experiment 9 only in dimension/support and derived quantities; 7 selected methods.",
+    "Frozen estimator sources are byte-identical to Experiment 9; per-seed data hashes and metrics verified.",
+    "Full-support block rule: K=41; subsampling excluded because it would use all blocks.",
+    "Completed DL covering-SDP certificates meet the original relative-gap tolerance.",
+    "Haar r=5,J=10/20 uses projected K=21 and box K=41, with projection delta=.005/.0025; completed LS gaps and box feasibility verified."
+  ],
+  "algorithm1_subsampling_pairs": [],
+  "validated_attempts": 700
+}

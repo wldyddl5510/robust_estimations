@@ -1,0 +1,33 @@
+{
+  "seed": 90,
+  "method": "coordinate_mom",
+  "truth": [
+    1.3061083975322938,
+    1.3061083975322938,
+    1.3061083975322938,
+    1.3061083975322938,
+    1.3061083975322938
+  ],
+  "amplitude": 1.3061083975322938,
+  "source_manifest_sha256": "63b428e94339ae913a81cc14979482cf5ffa32c1137412bd75e097aed8bc2da1",
+  "block_rule_revision": "full_support_dimension",
+  "data_sha256": "4ff61aabe621eae62f6455cbadcf31c2159215016db96a3a23822bea4b736262",
+  "clean_data_sha256": "2a77d06457803c22334d898a15a988d766257c0b90d13b576d3fef0b04c941cc",
+  "status": "completed",
+  "error": 1.998537431873261,
+  "support_recovery": 1.0,
+  "estimate": [
+    2.3394920600509472,
+    2.09598944269911,
+    2.2996494323111447,
+    2.131836330563374,
+    2.101977482210843
+  ],
+  "runtime": 0.00019791699014604092,
+  "info": {
+    "converged": true,
+    "C": 2,
+    "K": 21,
+    "runtime": 0.00019791699014604092
+  }
+}

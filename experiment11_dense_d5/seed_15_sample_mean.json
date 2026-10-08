@@ -1,0 +1,32 @@
+{
+  "seed": 15,
+  "method": "sample_mean",
+  "truth": [
+    2.6976353945371576,
+    2.6976353945371576,
+    2.6976353945371576,
+    2.6976353945371576,
+    2.6976353945371576
+  ],
+  "amplitude": 2.6976353945371576,
+  "source_manifest_sha256": "63b428e94339ae913a81cc14979482cf5ffa32c1137412bd75e097aed8bc2da1",
+  "block_rule_revision": "full_support_dimension",
+  "data_sha256": "1ea943d63dd00fc535cb7b441eb389c4d49e5f453965bcb95e4dac3d2c8342c0",
+  "clean_data_sha256": "d4467f3fdb3e1b20559072450e3493993a6fcc469db175c677a47799d17f509c",
+  "status": "completed",
+  "error": 5.934171798976486,
+  "support_recovery": 1.0,
+  "estimate": [
+    -0.003162901755431169,
+    0.07655410052736299,
+    0.04920353543085261,
+    0.05971194246491824,
+    0.037337497424729464
+  ],
+  "runtime": 3.679213114082813e-05,
+  "info": {
+    "converged": true,
+    "runtime": 3.679213114082813e-05,
+    "s": 5
+  }
+}

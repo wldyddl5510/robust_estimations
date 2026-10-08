@@ -1,0 +1,105 @@
+{
+  "filename": "comparison_1600_bc4a068f84.png",
+  "image_sha256": "bc4a068f84f1d641bab247279dc4ff4b9c3051185f9d5e8f1d6ad05213cdeef7",
+  "finished_attempts": 1600,
+  "completed_seeds": {
+    "1": {
+      "algorithm_1": 100,
+      "dl_clarabel": 100,
+      "coordinate_mom": 100,
+      "geometric_mom": 100
+    },
+    "2": {
+      "algorithm_1": 100,
+      "dl_clarabel": 100,
+      "coordinate_mom": 100,
+      "geometric_mom": 100
+    },
+    "3": {
+      "algorithm_1": 100,
+      "dl_clarabel": 100,
+      "coordinate_mom": 100,
+      "geometric_mom": 100
+    },
+    "4": {
+      "algorithm_1": 100,
+      "dl_clarabel": 100,
+      "coordinate_mom": 100,
+      "geometric_mom": 100
+    }
+  },
+  "mean_metrics": {
+    "1": {
+      "algorithm_1": {
+        "error": 5.7359100287606655,
+        "runtime": 0.20495972918113695
+      },
+      "dl_clarabel": {
+        "error": 5.765526007830093,
+        "runtime": 0.8080968146165833
+      },
+      "coordinate_mom": {
+        "error": 5.7477885246349,
+        "runtime": 0.00024387839017435907
+      },
+      "geometric_mom": {
+        "error": 5.736922123646382,
+        "runtime": 0.0012044841633178293
+      }
+    },
+    "2": {
+      "algorithm_1": {
+        "error": 2.519078945487742,
+        "runtime": 0.9956778183451388
+      },
+      "dl_clarabel": {
+        "error": 2.475265204993803,
+        "runtime": 1.401926762930816
+      },
+      "coordinate_mom": {
+        "error": 2.568332230563931,
+        "runtime": 0.0002163920982275158
+      },
+      "geometric_mom": {
+        "error": 2.5488520476369443,
+        "runtime": 0.0010078399896156043
+      }
+    },
+    "3": {
+      "algorithm_1": {
+        "error": 2.0014687224210292,
+        "runtime": 14.064348765446338
+      },
+      "dl_clarabel": {
+        "error": 1.9997580770332697,
+        "runtime": 1.7745698532811367
+      },
+      "coordinate_mom": {
+        "error": 2.0723958198683032,
+        "runtime": 0.00031401538522914053
+      },
+      "geometric_mom": {
+        "error": 2.05126753578815,
+        "runtime": 0.000918576621916145
+      }
+    },
+    "4": {
+      "algorithm_1": {
+        "error": 1.9031197865353746,
+        "runtime": 132.67361427704571
+      },
+      "dl_clarabel": {
+        "error": 1.8595480091306014,
+        "runtime": 2.3013939354009927
+      },
+      "coordinate_mom": {
+        "error": 1.946158490352332,
+        "runtime": 0.0003390595177188516
+      },
+      "geometric_mom": {
+        "error": 1.9245559534188268,
+        "runtime": 0.0009125474467873573
+      }
+    }
+  }
+}

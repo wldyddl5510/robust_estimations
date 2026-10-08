@@ -1,0 +1,60 @@
+{
+  "C": 5,
+  "seed": 38,
+  "method": "algorithm_1",
+  "truth": [
+    1.7695462390334875,
+    1.7695462390334875,
+    1.7695462390334875,
+    1.7695462390334875,
+    1.7695462390334875
+  ],
+  "amplitude": 1.7695462390334875,
+  "source_manifest_sha256": "f7a4ac697599489286161a9e7fddf416b646ee29f32d269521e9b7c79e38685d",
+  "block_rule_revision": "full_support_dimension",
+  "data_sha256": "b131433391f7565e7051585ee1c9f5b497fe617b947ff157c12328e9b13f4863",
+  "clean_data_sha256": "0db07577945a030dc1d50d40fc503ef33513366bd361a4f1278bc5609df38b12",
+  "status": "completed",
+  "estimate": [
+    0.9767645897321215,
+    0.9697031988624971,
+    1.0836896508559883,
+    1.029930293461419,
+    1.0672086579255882
+  ],
+  "info": {
+    "converged": true,
+    "objective": 0.21797852240613655,
+    "lower_bound": 0.21797800131300935,
+    "gap": 5.2109312720372e-07,
+    "tol": 1e-05,
+    "iterations": 3,
+    "rtol": 0.0,
+    "gap_tolerance": 1e-05,
+    "support": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "oracle_calls": 23,
+    "heuristic_calls": 29,
+    "heuristic_cuts": 4,
+    "inner_iterations": 28,
+    "deferred_supports": 2,
+    "deterministic_certificates": 0,
+    "K": 51,
+    "constraints": 27,
+    "inner_tol": 2.5e-06,
+    "sep_tol": 1.25e-06,
+    "runtime": 58.041159791871905,
+    "oracle_strategy": "hybrid",
+    "oracle_formulation": "indicator",
+    "perspective": false,
+    "C": 5
+  },
+  "error": 1.6670215105709962,
+  "runtime": 58.041159791871905,
+  "support_recovery": 1.0
+}

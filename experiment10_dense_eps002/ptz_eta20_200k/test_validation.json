@@ -1,0 +1,15 @@
+{
+  "tests": "python -m unittest -v test_non_sparse",
+  "passed": 7,
+  "checks": [
+    "Independent Clarabel bounds",
+    "Gibbs density vs scipy matrix exponential",
+    "Analytic covering/CFB cases",
+    "Dense block-rule regression"
+  ],
+  "parameter_smoke": {
+    "internal_epsilon": 5e-06,
+    "step_alpha": 5.303568017784823e-12,
+    "default_max_iter": 200000
+  }
+}

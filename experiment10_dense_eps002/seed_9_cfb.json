@@ -1,0 +1,856 @@
+{
+  "seed": 9,
+  "method": "cfb",
+  "truth": [
+    1.0207483077714,
+    1.0207483077714,
+    1.0207483077714,
+    1.0207483077714,
+    1.0207483077714,
+    1.0207483077714,
+    1.0207483077714,
+    1.0207483077714,
+    1.0207483077714,
+    1.0207483077714
+  ],
+  "amplitude": 1.0207483077714,
+  "source_manifest_sha256": "63b428e94339ae913a81cc14979482cf5ffa32c1137412bd75e097aed8bc2da1",
+  "block_rule_revision": "full_support_dimension",
+  "data_sha256": "8dc9d183f5d5d74f23819fe22643364ea3144ed105e75e4e7c81863018fbb5bb",
+  "clean_data_sha256": "6d2df6558794726ca2ccccd0a206308dd9655d87ab9ca987c1fa639643018bf9",
+  "status": "completed",
+  "error": 2.171499840249221,
+  "support_recovery": 1.0,
+  "estimate": [
+    0.5070842629327652,
+    0.15244173398983632,
+    0.37225604553005337,
+    0.34214204465800063,
+    0.27440879771600923,
+    0.29481337073116815,
+    0.43057781427427544,
+    0.22583789430265938,
+    0.37341472575255413,
+    0.4434034504147788
+  ],
+  "runtime": 3048.973506792099,
+  "info": {
+    "converged": true,
+    "termination": "requested_iterations_completed",
+    "runtime": 3048.973506792099,
+    "K": 41,
+    "iterations": 100,
+    "requested_iterations": 100,
+    "step_size": 0.05,
+    "tol": 1e-05,
+    "sdp_calls": 2200,
+    "sdp_max_residual": 2.1385228868271577e-07,
+    "history": [
+      {
+        "iteration": 0,
+        "distance": 1.4914300967017387,
+        "distance_upper": 1.4914357292033311,
+        "best_distance": 1.4914300967017387,
+        "sdp_calls": 22,
+        "elapsed": 33.33238133403938
+      },
+      {
+        "iteration": 1,
+        "distance": 1.4005259531156833,
+        "distance_upper": 1.400531573632308,
+        "best_distance": 1.4005259531156833,
+        "sdp_calls": 44,
+        "elapsed": 68.64559675008059
+      },
+      {
+        "iteration": 2,
+        "distance": 1.3178315269506529,
+        "distance_upper": 1.3178371362481538,
+        "best_distance": 1.3178315269506529,
+        "sdp_calls": 66,
+        "elapsed": 99.46291625010781
+      },
+      {
+        "iteration": 3,
+        "distance": 1.2429825237670702,
+        "distance_upper": 1.2429881225352508,
+        "best_distance": 1.2429825237670702,
+        "sdp_calls": 88,
+        "elapsed": 129.81688220903743
+      },
+      {
+        "iteration": 4,
+        "distance": 1.175621348146008,
+        "distance_upper": 1.1756269370015313,
+        "best_distance": 1.175621348146008,
+        "sdp_calls": 110,
+        "elapsed": 160.09423308400437
+      },
+      {
+        "iteration": 5,
+        "distance": 1.1150954797509365,
+        "distance_upper": 1.1151010592455712,
+        "best_distance": 1.1150954797509365,
+        "sdp_calls": 132,
+        "elapsed": 195.44049337506294
+      },
+      {
+        "iteration": 6,
+        "distance": 1.0608545854719247,
+        "distance_upper": 1.060860156104656,
+        "best_distance": 1.0608545854719247,
+        "sdp_calls": 154,
+        "elapsed": 232.3247111251112
+      },
+      {
+        "iteration": 7,
+        "distance": 1.0124571498111392,
+        "distance_upper": 1.0124627120290324,
+        "best_distance": 1.0124571498111392,
+        "sdp_calls": 176,
+        "elapsed": 266.4194555421127
+      },
+      {
+        "iteration": 8,
+        "distance": 0.9695028105085257,
+        "distance_upper": 0.9695083647116074,
+        "best_distance": 0.9695028105085257,
+        "sdp_calls": 198,
+        "elapsed": 297.8593247500248
+      },
+      {
+        "iteration": 9,
+        "distance": 0.9315145108304115,
+        "distance_upper": 0.9315200573754758,
+        "best_distance": 0.9315145108304115,
+        "sdp_calls": 220,
+        "elapsed": 327.25888929201756
+      },
+      {
+        "iteration": 10,
+        "distance": 0.8981103219529932,
+        "distance_upper": 0.8981158611594788,
+        "best_distance": 0.8981103219529932,
+        "sdp_calls": 242,
+        "elapsed": 356.66680125007406
+      },
+      {
+        "iteration": 11,
+        "distance": 0.8690454337908543,
+        "distance_upper": 0.8690509659407926,
+        "best_distance": 0.8690454337908543,
+        "sdp_calls": 264,
+        "elapsed": 389.3680296250386
+      },
+      {
+        "iteration": 12,
+        "distance": 0.8440839688392675,
+        "distance_upper": 0.8440894941784716,
+        "best_distance": 0.8440839688392675,
+        "sdp_calls": 286,
+        "elapsed": 422.87962529202923
+      },
+      {
+        "iteration": 13,
+        "distance": 0.822805425606387,
+        "distance_upper": 0.8228109443458691,
+        "best_distance": 0.822805425606387,
+        "sdp_calls": 308,
+        "elapsed": 455.11158362508286
+      },
+      {
+        "iteration": 14,
+        "distance": 0.8048429231874101,
+        "distance_upper": 0.8048484355081267,
+        "best_distance": 0.8048429231874101,
+        "sdp_calls": 330,
+        "elapsed": 486.34759929205757
+      },
+      {
+        "iteration": 15,
+        "distance": 0.7897661129951752,
+        "distance_upper": 0.7897716190474424,
+        "best_distance": 0.7897661129951752,
+        "sdp_calls": 352,
+        "elapsed": 517.8332915840438
+      },
+      {
+        "iteration": 16,
+        "distance": 0.7772138552978198,
+        "distance_upper": 0.7772193552048021,
+        "best_distance": 0.7772138552978198,
+        "sdp_calls": 374,
+        "elapsed": 552.5121504591079
+      },
+      {
+        "iteration": 17,
+        "distance": 0.7668382838169117,
+        "distance_upper": 0.7668437776755587,
+        "best_distance": 0.7668382838169117,
+        "sdp_calls": 396,
+        "elapsed": 584.1515878750943
+      },
+      {
+        "iteration": 18,
+        "distance": 0.7582609705456237,
+        "distance_upper": 0.7582664584299006,
+        "best_distance": 0.7582609705456237,
+        "sdp_calls": 418,
+        "elapsed": 615.537048875005
+      },
+      {
+        "iteration": 19,
+        "distance": 0.751133365733216,
+        "distance_upper": 0.7511388476982408,
+        "best_distance": 0.751133365733216,
+        "sdp_calls": 440,
+        "elapsed": 646.4855178340804
+      },
+      {
+        "iteration": 20,
+        "distance": 0.7451310338007613,
+        "distance_upper": 0.7451365098868479,
+        "best_distance": 0.7451310338007613,
+        "sdp_calls": 462,
+        "elapsed": 678.5701953340322
+      },
+      {
+        "iteration": 21,
+        "distance": 0.7399424952305942,
+        "distance_upper": 0.739947965467202,
+        "best_distance": 0.7399424952305942,
+        "sdp_calls": 484,
+        "elapsed": 711.506729792105
+      },
+      {
+        "iteration": 22,
+        "distance": 0.7353073643849894,
+        "distance_upper": 0.7353128287947037,
+        "best_distance": 0.7353073643849894,
+        "sdp_calls": 506,
+        "elapsed": 746.449007709045
+      },
+      {
+        "iteration": 23,
+        "distance": 0.7310159938603835,
+        "distance_upper": 0.7310214524624882,
+        "best_distance": 0.7310159938603835,
+        "sdp_calls": 528,
+        "elapsed": 780.6395320841111
+      },
+      {
+        "iteration": 24,
+        "distance": 0.7268927376527203,
+        "distance_upper": 0.7268981904660795,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 550,
+        "elapsed": 817.0795559170656
+      },
+      {
+        "iteration": 25,
+        "distance": 0.731500226601237,
+        "distance_upper": 0.7315056851915303,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 572,
+        "elapsed": 851.9269871250726
+      },
+      {
+        "iteration": 26,
+        "distance": 0.7273813692089116,
+        "distance_upper": 0.727386822006366,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 594,
+        "elapsed": 888.7440047500422
+      },
+      {
+        "iteration": 27,
+        "distance": 0.731979003264164,
+        "distance_upper": 0.7319844618426801,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 616,
+        "elapsed": 923.3478193340125
+      },
+      {
+        "iteration": 28,
+        "distance": 0.7278700092086905,
+        "distance_upper": 0.7278754619903246,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 638,
+        "elapsed": 958.3202955001034
+      },
+      {
+        "iteration": 29,
+        "distance": 0.7324687062499353,
+        "distance_upper": 0.7324741648167582,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 660,
+        "elapsed": 991.1476940840948
+      },
+      {
+        "iteration": 30,
+        "distance": 0.7283640976717444,
+        "distance_upper": 0.7283695504375474,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 682,
+        "elapsed": 1027.2437927920837
+      },
+      {
+        "iteration": 31,
+        "distance": 0.7329529534222754,
+        "distance_upper": 0.732958411977441,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 704,
+        "elapsed": 1061.6859045840101
+      },
+      {
+        "iteration": 32,
+        "distance": 0.7288636475612037,
+        "distance_upper": 0.7288691003112622,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 726,
+        "elapsed": 1097.4906255840324
+      },
+      {
+        "iteration": 33,
+        "distance": 0.733442674978878,
+        "distance_upper": 0.7334481335225198,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 748,
+        "elapsed": 1137.9727208750555
+      },
+      {
+        "iteration": 34,
+        "distance": 0.7293632061955349,
+        "distance_upper": 0.7293686589299357,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 770,
+        "elapsed": 1172.9197529590456
+      },
+      {
+        "iteration": 35,
+        "distance": 0.7339378645976901,
+        "distance_upper": 0.7339433231298944,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 792,
+        "elapsed": 1205.695592709002
+      },
+      {
+        "iteration": 36,
+        "distance": 0.7298627672837912,
+        "distance_upper": 0.7298682200025743,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 814,
+        "elapsed": 1238.77934616711
+      },
+      {
+        "iteration": 37,
+        "distance": 0.7344330574109924,
+        "distance_upper": 0.7344385159317985,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 836,
+        "elapsed": 1270.422483875067
+      },
+      {
+        "iteration": 38,
+        "distance": 0.7303677837074957,
+        "distance_upper": 0.7303732364107023,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 858,
+        "elapsed": 1302.6708203341113
+      },
+      {
+        "iteration": 39,
+        "distance": 0.7349337185375315,
+        "distance_upper": 0.7349391770470275,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 880,
+        "elapsed": 1333.9351634170162
+      },
+      {
+        "iteration": 40,
+        "distance": 0.7308728028277177,
+        "distance_upper": 0.7308782555153894,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 902,
+        "elapsed": 1366.4118501250632
+      },
+      {
+        "iteration": 41,
+        "distance": 0.7354343831061255,
+        "distance_upper": 0.7354398416043524,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 924,
+        "elapsed": 1396.8772987500997
+      },
+      {
+        "iteration": 42,
+        "distance": 0.7313832774807846,
+        "distance_upper": 0.7313887301529642,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 946,
+        "elapsed": 1427.2216207500314
+      },
+      {
+        "iteration": 43,
+        "distance": 0.7359405162505078,
+        "distance_upper": 0.7359459747375559,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 968,
+        "elapsed": 1457.2257836670615
+      },
+      {
+        "iteration": 44,
+        "distance": 0.7318992077409426,
+        "distance_upper": 0.731904660397674,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 990,
+        "elapsed": 1487.0487144590588
+      },
+      {
+        "iteration": 45,
+        "distance": 0.7364466595956712,
+        "distance_upper": 0.7364521180716315,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1012,
+        "elapsed": 1516.4845172920031
+      },
+      {
+        "iteration": 46,
+        "distance": 0.7324151475567362,
+        "distance_upper": 0.7324206001981123,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1034,
+        "elapsed": 1546.5946408750024
+      },
+      {
+        "iteration": 47,
+        "distance": 0.7369582717604002,
+        "distance_upper": 0.7369637302253644,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1056,
+        "elapsed": 1575.9996616250137
+      },
+      {
+        "iteration": 48,
+        "distance": 0.73293109055767,
+        "distance_upper": 0.7329365431837362,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1078,
+        "elapsed": 1605.6667528341059
+      },
+      {
+        "iteration": 49,
+        "distance": 0.7374698878793597,
+        "distance_upper": 0.7374753463333727,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1100,
+        "elapsed": 1635.359513167059
+      },
+      {
+        "iteration": 50,
+        "distance": 0.7334524895038821,
+        "distance_upper": 0.7334579421146847,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1122,
+        "elapsed": 1665.1882961670635
+      },
+      {
+        "iteration": 51,
+        "distance": 0.7379869730441223,
+        "distance_upper": 0.7379924314872777,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1144,
+        "elapsed": 1694.4888050840236
+      },
+      {
+        "iteration": 52,
+        "distance": 0.7339738918528567,
+        "distance_upper": 0.7339793444484428,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1166,
+        "elapsed": 1723.9724197920877
+      },
+      {
+        "iteration": 53,
+        "distance": 0.7385040625722845,
+        "distance_upper": 0.7385095210046297,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1188,
+        "elapsed": 1754.013107667095
+      },
+      {
+        "iteration": 54,
+        "distance": 0.7345007505077328,
+        "distance_upper": 0.7345062030881518,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1210,
+        "elapsed": 1783.492348125088
+      },
+      {
+        "iteration": 55,
+        "distance": 0.7390266212253763,
+        "distance_upper": 0.7390320796470056,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1232,
+        "elapsed": 1812.3305122500751
+      },
+      {
+        "iteration": 56,
+        "distance": 0.7350330652015526,
+        "distance_upper": 0.7350385177668521,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1254,
+        "elapsed": 1841.1373045000946
+      },
+      {
+        "iteration": 57,
+        "distance": 0.7395546492264622,
+        "distance_upper": 0.7395601076374714,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1276,
+        "elapsed": 1869.6415852920618
+      },
+      {
+        "iteration": 58,
+        "distance": 0.7355653835748334,
+        "distance_upper": 0.7355708361250626,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1298,
+        "elapsed": 1898.3994948340114
+      },
+      {
+        "iteration": 59,
+        "distance": 0.7400826819174682,
+        "distance_upper": 0.7400881403179072,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1320,
+        "elapsed": 1926.515397084062
+      },
+      {
+        "iteration": 60,
+        "distance": 0.7360977059596984,
+        "distance_upper": 0.7361031584949089,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1342,
+        "elapsed": 1955.0314029171132
+      },
+      {
+        "iteration": 61,
+        "distance": 0.7406107191417406,
+        "distance_upper": 0.7406161775316579,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1364,
+        "elapsed": 1983.2733129170956
+      },
+      {
+        "iteration": 62,
+        "distance": 0.7366354847249407,
+        "distance_upper": 0.736640937245183,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1386,
+        "elapsed": 2011.9230894590728
+      },
+      {
+        "iteration": 63,
+        "distance": 0.7411496844435257,
+        "distance_upper": 0.7411551428230196,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1408,
+        "elapsed": 2040.4754133340903
+      },
+      {
+        "iteration": 64,
+        "distance": 0.7371787134232627,
+        "distance_upper": 0.7371841659285394,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1430,
+        "elapsed": 2068.9876572090434
+      },
+      {
+        "iteration": 65,
+        "distance": 0.7416831962636639,
+        "distance_upper": 0.7416886546327857,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1452,
+        "elapsed": 2097.1591294590617
+      },
+      {
+        "iteration": 66,
+        "distance": 0.7377219529643761,
+        "distance_upper": 0.7377274054547898,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1474,
+        "elapsed": 2125.7101582920877
+      },
+      {
+        "iteration": 67,
+        "distance": 0.7422276362751012,
+        "distance_upper": 0.7422330946339502,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1496,
+        "elapsed": 2153.9501020840835
+      },
+      {
+        "iteration": 68,
+        "distance": 0.7382706425177585,
+        "distance_upper": 0.7382760949933128,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1518,
+        "elapsed": 2182.6667895840947
+      },
+      {
+        "iteration": 69,
+        "distance": 0.7427720813195198,
+        "distance_upper": 0.742777539668148,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1540,
+        "elapsed": 2210.8692905420903
+      },
+      {
+        "iteration": 70,
+        "distance": 0.7388193363643396,
+        "distance_upper": 0.7388247888250883,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1562,
+        "elapsed": 2239.292942917091
+      },
+      {
+        "iteration": 71,
+        "distance": 0.7433165315759641,
+        "distance_upper": 0.7433219899144248,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1584,
+        "elapsed": 2267.431012959103
+      },
+      {
+        "iteration": 72,
+        "distance": 0.7393734871307953,
+        "distance_upper": 0.7393789395767935,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1606,
+        "elapsed": 2295.833693584078
+      },
+      {
+        "iteration": 73,
+        "distance": 0.7438664520712948,
+        "distance_upper": 0.7438719103996903,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1628,
+        "elapsed": 2323.9108628750546
+      },
+      {
+        "iteration": 74,
+        "distance": 0.7399330948513991,
+        "distance_upper": 0.7399385472827023,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1650,
+        "elapsed": 2352.29140354204
+      },
+      {
+        "iteration": 75,
+        "distance": 0.7444218428396606,
+        "distance_upper": 0.7444273011580935,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1672,
+        "elapsed": 2380.393661334063
+      },
+      {
+        "iteration": 76,
+        "distance": 0.7404927071121734,
+        "distance_upper": 0.7404981595288371,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1694,
+        "elapsed": 2409.0894456671085
+      },
+      {
+        "iteration": 77,
+        "distance": 0.7449772391238283,
+        "distance_upper": 0.744982697432354,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1716,
+        "elapsed": 2437.103169042035
+      },
+      {
+        "iteration": 78,
+        "distance": 0.7410577765140609,
+        "distance_upper": 0.7410632289161425,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1738,
+        "elapsed": 2465.6147777920123
+      },
+      {
+        "iteration": 79,
+        "distance": 0.7455381059366083,
+        "distance_upper": 0.745543564235331,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1760,
+        "elapsed": 2493.5845365420682
+      },
+      {
+        "iteration": 80,
+        "distance": 0.7416228507238274,
+        "distance_upper": 0.7416283031113844,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1782,
+        "elapsed": 2521.93949812511
+      },
+      {
+        "iteration": 81,
+        "distance": 0.7461044368290455,
+        "distance_upper": 0.7461098951180224,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1804,
+        "elapsed": 2549.6901284171036
+      },
+      {
+        "iteration": 82,
+        "distance": 0.742193375673099,
+        "distance_upper": 0.7421988280461416,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1826,
+        "elapsed": 2578.088382792077
+      },
+      {
+        "iteration": 83,
+        "distance": 0.7466707735701228,
+        "distance_upper": 0.7466762318494115,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1848,
+        "elapsed": 2606.0220598340966
+      },
+      {
+        "iteration": 84,
+        "distance": 0.7510720138360856,
+        "distance_upper": 0.7510774780457705,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1870,
+        "elapsed": 2633.513030084083
+      },
+      {
+        "iteration": 85,
+        "distance": 0.7472206779155879,
+        "distance_upper": 0.7472261361847824,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1892,
+        "elapsed": 2661.3935079170624
+      },
+      {
+        "iteration": 86,
+        "distance": 0.7516122206497411,
+        "distance_upper": 0.7516176848539741,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1914,
+        "elapsed": 2688.5829775420716
+      },
+      {
+        "iteration": 87,
+        "distance": 0.7477705963364591,
+        "distance_upper": 0.7477760545956771,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1936,
+        "elapsed": 2716.542402625084
+      },
+      {
+        "iteration": 88,
+        "distance": 0.7521579065651554,
+        "distance_upper": 0.7521633707640523,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1958,
+        "elapsed": 2744.0081483341055
+      },
+      {
+        "iteration": 89,
+        "distance": 0.7483314387695602,
+        "distance_upper": 0.7483368970188711,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 1980,
+        "elapsed": 2771.9409420420416
+      },
+      {
+        "iteration": 90,
+        "distance": 0.7527090784791761,
+        "distance_upper": 0.7527145426729032,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 2002,
+        "elapsed": 2799.239504959085
+      },
+      {
+        "iteration": 91,
+        "distance": 0.7488868373234424,
+        "distance_upper": 0.7488922955629658,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 2024,
+        "elapsed": 2827.3333834171062
+      },
+      {
+        "iteration": 92,
+        "distance": 0.7532602588699613,
+        "distance_upper": 0.7532657230585874,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 2046,
+        "elapsed": 2855.177163292072
+      },
+      {
+        "iteration": 93,
+        "distance": 0.7494531602444304,
+        "distance_upper": 0.7494586184742384,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 2068,
+        "elapsed": 2883.1817566670943
+      },
+      {
+        "iteration": 94,
+        "distance": 0.7538169256892977,
+        "distance_upper": 0.7538223898729917,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 2090,
+        "elapsed": 2910.399485084112
+      },
+      {
+        "iteration": 95,
+        "distance": 0.7500140397122721,
+        "distance_upper": 0.7500194979324869,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 2112,
+        "elapsed": 2938.4062363751
+      },
+      {
+        "iteration": 96,
+        "distance": 0.7543736013969582,
+        "distance_upper": 0.7543790655757917,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 2134,
+        "elapsed": 2965.563294709078
+      },
+      {
+        "iteration": 97,
+        "distance": 0.7505858439085933,
+        "distance_upper": 0.7505913021192896,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 2156,
+        "elapsed": 2993.5116793750785
+      },
+      {
+        "iteration": 98,
+        "distance": 0.7549357639696199,
+        "distance_upper": 0.7549412281437644,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 2178,
+        "elapsed": 3020.822793542058
+      },
+      {
+        "iteration": 99,
+        "distance": 0.7511576632894421,
+        "distance_upper": 0.7511631214907448,
+        "best_distance": 0.7268927376527203,
+        "sdp_calls": 2200,
+        "elapsed": 3048.971381709096
+      }
+    ],
+    "reduced_dimension": 10,
+    "best_distance": 0.7268927376527203,
+    "distance_within_numerical_tolerance": false,
+    "outer_accuracy_certified": false,
+    "theorem_conditions_verified": false
+  }
+}

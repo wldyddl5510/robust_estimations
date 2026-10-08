@@ -1,0 +1,5036 @@
+{
+  "summary": {
+    "1": {
+      "mean_corrupted_blocks": 7.01,
+      "mean_corrupted_selected_blocks": 7.01,
+      "full_clean_majority_seeds": 7,
+      "subset_clean_majority_seeds": 7
+    },
+    "2": {
+      "mean_corrupted_blocks": 8.27,
+      "mean_corrupted_selected_blocks": 8.27,
+      "full_clean_majority_seeds": 100,
+      "subset_clean_majority_seeds": 100
+    },
+    "3": {
+      "mean_corrupted_blocks": 8.84,
+      "mean_corrupted_selected_blocks": 8.84,
+      "full_clean_majority_seeds": 100,
+      "subset_clean_majority_seeds": 100
+    },
+    "4": {
+      "mean_corrupted_blocks": 9.18,
+      "mean_corrupted_selected_blocks": 9.18,
+      "full_clean_majority_seeds": 100,
+      "subset_clean_majority_seeds": 100
+    },
+    "5": {
+      "mean_corrupted_blocks": 9.35,
+      "mean_corrupted_selected_blocks": 9.35,
+      "full_clean_majority_seeds": 100,
+      "subset_clean_majority_seeds": 100
+    }
+  },
+  "runs": [
+    {
+      "C": 1,
+      "seed": 0,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 0,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 0,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 0,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 0,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 1,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 1,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 1,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 1,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 1,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 2,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 2,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 2,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 2,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 2,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 3,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 3,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 3,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 3,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 3,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 4,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 4,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 4,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 4,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 4,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 5,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 5,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 5,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 5,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 5,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 6,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 6,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 6,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 6,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 6,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 7,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 7,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 7,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 7,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 7,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 8,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 5,
+      "corrupted_selected_blocks": 5,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 2,
+      "seed": 8,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 8,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 8,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 8,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 9,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 9,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 9,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 9,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 9,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 10,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 10,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 10,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 10,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 10,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 11,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 5,
+      "corrupted_selected_blocks": 5,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 2,
+      "seed": 11,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 11,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 11,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 11,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 12,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 12,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 12,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 12,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 12,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 13,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 13,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 13,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 13,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 13,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 14,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 5,
+      "corrupted_selected_blocks": 5,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 2,
+      "seed": 14,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 14,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 14,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 14,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 15,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 15,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 15,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 15,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 15,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 16,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 16,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 16,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 16,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 16,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 17,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 17,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 17,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 17,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 17,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 18,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 18,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 18,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 18,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 18,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 19,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 19,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 19,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 19,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 19,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 20,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 20,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 20,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 20,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 20,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 21,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 21,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 21,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 21,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 21,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 22,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 22,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 22,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 22,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 22,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 23,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 23,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 23,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 23,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 23,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 24,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 24,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 24,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 24,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 24,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 25,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 25,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 25,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 25,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 25,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 26,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 26,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 26,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 26,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 26,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 27,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 5,
+      "corrupted_selected_blocks": 5,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 2,
+      "seed": 27,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 27,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 27,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 27,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 28,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 28,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 28,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 28,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 28,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 29,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 5,
+      "corrupted_selected_blocks": 5,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 2,
+      "seed": 29,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 29,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 29,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 29,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 30,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 30,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 30,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 30,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 30,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 31,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 31,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 31,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 31,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 31,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 32,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 32,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 32,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 32,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 32,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 33,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 33,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 33,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 33,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 33,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 34,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 34,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 34,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 34,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 34,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 35,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 35,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 35,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 35,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 35,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 36,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 36,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 36,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 36,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 36,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 37,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 37,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 37,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 37,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 37,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 38,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 38,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 38,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 38,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 38,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 39,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 39,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 39,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 39,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 39,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 40,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 40,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 40,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 40,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 40,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 41,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 41,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 41,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 41,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 41,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 42,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 42,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 42,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 42,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 42,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 43,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 43,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 43,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 43,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 43,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 44,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 44,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 44,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 44,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 44,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 45,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 45,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 45,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 45,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 45,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 46,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 46,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 46,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 46,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 46,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 47,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 47,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 47,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 47,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 47,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 48,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 48,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 48,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 48,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 48,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 49,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 49,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 49,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 49,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 49,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 50,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 50,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 50,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 50,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 50,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 51,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 51,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 51,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 51,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 51,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 52,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 52,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 52,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 52,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 52,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 53,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 53,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 53,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 53,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 53,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 54,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 54,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 54,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 54,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 54,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 55,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 55,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 55,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 55,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 55,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 56,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 5,
+      "corrupted_selected_blocks": 5,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 2,
+      "seed": 56,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 56,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 56,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 56,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 57,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 57,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 57,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 57,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 57,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 58,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 58,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 58,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 58,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 58,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 59,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 59,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 59,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 59,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 59,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 60,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 5,
+      "corrupted_selected_blocks": 5,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 2,
+      "seed": 60,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 60,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 60,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 60,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 61,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 61,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 61,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 61,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 61,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 62,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 62,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 62,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 62,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 62,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 63,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 63,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 63,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 63,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 63,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 64,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 64,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 64,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 64,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 64,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 65,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 65,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 65,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 65,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 65,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 66,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 66,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 66,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 66,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 66,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 67,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 67,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 67,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 67,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 67,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 68,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 68,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 68,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 68,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 68,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 69,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 69,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 69,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 69,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 69,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 70,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 70,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 70,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 70,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 70,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 71,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 71,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 71,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 71,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 71,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 72,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 72,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 72,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 72,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 72,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 73,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 73,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 73,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 73,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 73,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 74,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 74,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 74,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 74,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 74,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 75,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 75,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 75,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 75,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 75,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 76,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 76,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 76,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 76,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 76,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 77,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 77,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 77,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 77,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 77,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 78,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 78,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 78,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 78,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 78,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 79,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 79,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 79,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 79,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 79,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 80,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 80,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 80,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 80,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 80,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 81,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 81,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 81,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 81,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 81,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 82,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 82,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 82,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 82,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 82,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 83,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 83,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 83,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 83,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 83,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 84,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 84,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 84,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 84,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 84,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 85,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 85,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 85,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 85,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 85,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 86,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 86,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 86,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 86,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 86,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 87,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 87,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 87,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 87,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 87,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 88,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 88,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 88,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 88,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 88,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 89,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 89,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 89,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 89,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 89,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 90,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 90,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 90,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 90,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 90,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 91,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 91,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 91,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 91,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 91,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 92,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 92,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 92,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 92,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 92,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 93,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 93,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 93,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 93,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 93,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 94,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 94,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 94,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 94,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 94,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 95,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 95,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 95,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 95,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 95,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 96,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 96,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 96,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 96,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 96,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 97,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 97,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 97,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 97,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 97,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 10,
+      "corrupted_selected_blocks": 10,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 98,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 8,
+      "corrupted_selected_blocks": 8,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 98,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 98,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 98,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 98,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 9,
+      "corrupted_selected_blocks": 9,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 1,
+      "seed": 99,
+      "K": 11,
+      "K_sub": 11,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": false,
+      "subset_clean_majority": false
+    },
+    {
+      "C": 2,
+      "seed": 99,
+      "K": 21,
+      "K_sub": 21,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 3,
+      "seed": 99,
+      "K": 31,
+      "K_sub": 31,
+      "corrupted_blocks": 6,
+      "corrupted_selected_blocks": 6,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 4,
+      "seed": 99,
+      "K": 41,
+      "K_sub": 41,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    },
+    {
+      "C": 5,
+      "seed": 99,
+      "K": 51,
+      "K_sub": 51,
+      "corrupted_blocks": 7,
+      "corrupted_selected_blocks": 7,
+      "full_clean_majority": true,
+      "subset_clean_majority": true
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "filename": "comparison_500_e48bd36869.png",
+  "canonical_filename": "comparison.png",
+  "image_sha256": "e48bd36869270783efb50a781e7650f9817a32c6a57f023969a50fb28aebdb35",
+  "finished_attempts": 500,
+  "total_attempts": 500,
+  "completed_seeds": {
+    "sample_mean": 100,
+    "coordinate_mom": 100,
+    "geometric_mom": 100,
+    "algorithm_1": 100,
+    "dl_clarabel": 100
+  },
+  "mean_metrics": {
+    "sample_mean": {
+      "error": 6.836361664307219,
+      "runtime": 3.887791186571121e-05
+    },
+    "coordinate_mom": {
+      "error": 2.24442055005187,
+      "runtime": 0.00040897414553910496
+    },
+    "geometric_mom": {
+      "error": 2.2491231044447137,
+      "runtime": 0.0013329204428009689
+    },
+    "algorithm_1": {
+      "error": 2.158618772108661,
+      "runtime": 990.9283833967079
+    },
+    "dl_clarabel": {
+      "error": 2.14444155428648,
+      "runtime": 13.18373428291874
+    }
+  }
+}

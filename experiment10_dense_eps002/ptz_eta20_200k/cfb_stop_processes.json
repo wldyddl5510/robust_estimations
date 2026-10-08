@@ -1,0 +1,31 @@
+{
+  "reason": "User requested keeping only completed CFB fits",
+  "epoch": 1791393703.457814,
+  "parents": {
+    "/Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment9_dense_comparison": 56356,
+    "/Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment10_dense_eps002": 57184,
+    "/Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment10_dense_eps002/ptz_eta20_200k": 66725
+  },
+  "interrupted_workers": [
+    {
+      "pid": 66536,
+      "seed": 72,
+      "directory": "/Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment10_dense_eps002"
+    },
+    {
+      "pid": 66538,
+      "seed": 73,
+      "directory": "/Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment10_dense_eps002"
+    },
+    {
+      "pid": 66583,
+      "seed": 74,
+      "directory": "/Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment10_dense_eps002"
+    },
+    {
+      "pid": 66602,
+      "seed": 75,
+      "directory": "/Users/jiyoungpark/postdoc/robust_estimation_IP/robust_estimations/experiment10_dense_eps002"
+    }
+  ]
+}

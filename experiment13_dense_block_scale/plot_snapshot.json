@@ -1,0 +1,154 @@
+{
+  "filename": "comparison_2500_d896923669.png",
+  "image_sha256": "d8969236693f3fe60070537f94601638c73a5f9856ab81c843e11c6895d3e993",
+  "finished_attempts": 2500,
+  "completed_seeds": {
+    "1": {
+      "algorithm_1": 100,
+      "random_block_selection": 100,
+      "dl_clarabel": 100,
+      "coordinate_mom": 100,
+      "geometric_mom": 100
+    },
+    "2": {
+      "algorithm_1": 100,
+      "random_block_selection": 100,
+      "dl_clarabel": 100,
+      "coordinate_mom": 100,
+      "geometric_mom": 100
+    },
+    "3": {
+      "algorithm_1": 100,
+      "random_block_selection": 100,
+      "dl_clarabel": 100,
+      "coordinate_mom": 100,
+      "geometric_mom": 100
+    },
+    "4": {
+      "algorithm_1": 100,
+      "random_block_selection": 100,
+      "dl_clarabel": 100,
+      "coordinate_mom": 100,
+      "geometric_mom": 100
+    },
+    "5": {
+      "algorithm_1": 100,
+      "random_block_selection": 100,
+      "dl_clarabel": 100,
+      "coordinate_mom": 100,
+      "geometric_mom": 100
+    }
+  },
+  "mean_metrics": {
+    "1": {
+      "algorithm_1": {
+        "error": 5.475810210467611,
+        "runtime": 0.14884854293195532
+      },
+      "random_block_selection": {
+        "error": 4.989412917222051,
+        "runtime": 0.08946299617411568
+      },
+      "dl_clarabel": {
+        "error": 5.50624697326287,
+        "runtime": 0.33113640669034794
+      },
+      "coordinate_mom": {
+        "error": 5.488188315624277,
+        "runtime": 0.00023769045248627662
+      },
+      "geometric_mom": {
+        "error": 5.498424327514523,
+        "runtime": 0.0012874350417405368
+      }
+    },
+    "2": {
+      "algorithm_1": {
+        "error": 2.4586599462672694,
+        "runtime": 0.3674681824585423
+      },
+      "random_block_selection": {
+        "error": 3.5578318971293426,
+        "runtime": 0.14481708083534614
+      },
+      "dl_clarabel": {
+        "error": 2.4304158082778278,
+        "runtime": 0.5496782395802439
+      },
+      "coordinate_mom": {
+        "error": 2.472796911088318,
+        "runtime": 0.00021013581426814197
+      },
+      "geometric_mom": {
+        "error": 2.451236824866787,
+        "runtime": 0.0011144050024449825
+      }
+    },
+    "3": {
+      "algorithm_1": {
+        "error": 1.7787541557533149,
+        "runtime": 2.256623051350471
+      },
+      "random_block_selection": {
+        "error": 1.9171863532000153,
+        "runtime": 0.2389024154120125
+      },
+      "dl_clarabel": {
+        "error": 1.7681879030911003,
+        "runtime": 0.5742164128506556
+      },
+      "coordinate_mom": {
+        "error": 1.79729742219781,
+        "runtime": 0.00030799998436123135
+      },
+      "geometric_mom": {
+        "error": 1.7806804354192147,
+        "runtime": 0.001190066623967141
+      }
+    },
+    "4": {
+      "algorithm_1": {
+        "error": 1.498288927970013,
+        "runtime": 9.206291643292642
+      },
+      "random_block_selection": {
+        "error": 1.638347770848814,
+        "runtime": 0.5820885079074651
+      },
+      "dl_clarabel": {
+        "error": 1.5048565336833928,
+        "runtime": 0.7759880375629291
+      },
+      "coordinate_mom": {
+        "error": 1.5351759225068664,
+        "runtime": 0.0004036942170932889
+      },
+      "geometric_mom": {
+        "error": 1.5127991102574803,
+        "runtime": 0.0014957833499647678
+      }
+    },
+    "5": {
+      "algorithm_1": {
+        "error": 1.3635976237607759,
+        "runtime": 29.82712403165642
+      },
+      "random_block_selection": {
+        "error": 1.4715424446044747,
+        "runtime": 1.1997748829564079
+      },
+      "dl_clarabel": {
+        "error": 1.371366910066241,
+        "runtime": 0.8823651824821718
+      },
+      "coordinate_mom": {
+        "error": 1.3961962624983786,
+        "runtime": 0.00037584536708891393
+      },
+      "geometric_mom": {
+        "error": 1.3657925695972915,
+        "runtime": 0.0012637208518572153
+      }
+    }
+  }
+}

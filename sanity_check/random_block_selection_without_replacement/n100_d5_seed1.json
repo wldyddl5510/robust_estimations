@@ -1,0 +1,81 @@
+{
+  "n": 100,
+  "d": 5,
+  "seed": 1,
+  "loc": 1.834044009405148,
+  "truth": [
+    0.0,
+    0.0,
+    1.834044009405148,
+    1.834044009405148,
+    0.0
+  ],
+  "data_sha256": "e7c8e606af08b4bd61effff72c13393bd44dee7456c288745b427e7511d67b93",
+  "status": "completed",
+  "runtime": 0.41370824992191046,
+  "error": 2.2680395973977037,
+  "support_recovery": 0.5,
+  "estimate": [
+    -0.0,
+    -0.0,
+    0.7676007526075366,
+    -0.0,
+    0.8018634341082844
+  ],
+  "info": {
+    "converged": true,
+    "objective": 1.2867433989323376,
+    "lower_bound": 1.2867433991264283,
+    "gap": 0.0,
+    "tol": 1e-05,
+    "iterations": 9,
+    "rtol": 0.0,
+    "gap_tolerance": 1e-05,
+    "support": [
+      0,
+      0,
+      1,
+      0,
+      1
+    ],
+    "oracle_calls": 10,
+    "heuristic_calls": 30,
+    "heuristic_cuts": 14,
+    "inner_iterations": 29,
+    "deferred_supports": 7,
+    "deterministic_certificates": 0,
+    "K": 21,
+    "constraints": 23,
+    "inner_tol": 2.5e-06,
+    "sep_tol": 1.25e-06,
+    "runtime": 0.41370824992191046,
+    "oracle_strategy": "hybrid",
+    "oracle_formulation": "indicator",
+    "perspective": false,
+    "C": 2,
+    "K_sub": 13,
+    "K_sub_requested": 13,
+    "subsample_multiplier": 2.0,
+    "selected_block_indices": [
+      1,
+      2,
+      4,
+      6,
+      7,
+      8,
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18
+    ],
+    "unique_selected_blocks": 13,
+    "sampling_with_replacement": false,
+    "block_selection_seed": 1,
+    "block_selection_stream": [
+      2
+    ]
+  }
+}
