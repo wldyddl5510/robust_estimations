@@ -5,7 +5,7 @@ Seeds 0–99 reproduce the saved Experiment 2 data (`experiment_reference.json`)
 - `source/`: the exact estimator and data-generation code used.
 - `preflight.json`: hashes and selected block indices for all 100 seeds; optimization is not run during preflight.
 - `seed_N.json`: fresh optimization result, including estimates, metrics, selected blocks, convergence status and solver bounds.
-- `progress.json`, `run.log`: live progress and execution log.
+- `recorded_results.json`: preserved per-seed experiment results. Live progress and logs are local files excluded from Git.
 - `block_contamination_diagnostics.json`: number of original/selected blocks containing any replaced observation, using the known simulated data.
 - `results.json`: aggregate plus all seed results after execution ends. Main averages include converged fits only; `all_attempts` includes runtimes of unconverged fits.
 - `run.py`: reproducible checkpoint-aware runner. Run with the robust_ip_estimation Python environment on this machine.

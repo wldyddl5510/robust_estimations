@@ -107,7 +107,7 @@ checks=['All saved datasets are byte-identical to Experiment 9 and regenerate ex
 payload['validation']=checks
 r.save(OUT/'progress.json',payload)
 r.save(OUT/'summary_statistics.json',{k:v for k,v in payload.items() if k!='runs'})
-if payload['status']=='finished':r.save(OUT/'results.json',payload)
+if payload['status'] in ('finished','cancelled'):r.save(OUT/'results.json',payload)
 r.save(OUT/'validation.json',dict(checks=checks,validated_attempts=len(by_key)))
 r.save(OUT/'contamination_diagnostics.json',dict(summary=diagnostic_summary,runs=diagnostics))
 r.save(OUT/'incomplete_runs.json',[dict(C=v['C'],seed=v['seed'],method=v['method'],status=v['status'],exception=v.get('exception')) for v in payload['runs'] if v['status']!='completed'])
@@ -126,10 +126,10 @@ for index,name in enumerate(methods):
 for ax,label in zip(axes,('L2 error','Runtime (seconds)')):
     ax.set_xticks(Cs);ax.set_xlabel('Block-count scale C');ax.set_ylabel(label);ax.set_yscale('log')
     ax.grid(alpha=.2);ax.set_axisbelow(True);ax.spines[['top','right']].set_visible(False)
-fig.suptitle('Experiment 14: d=s=10, n=1000, epsilon=0.01; 100 seeds per C',fontsize=14)
+fig.suptitle('Experiment 14: d=s=10, n=1000, epsilon=0.01; 100 seeds targeted per C',fontsize=14)
 handles,labels=axes[0].get_legend_handles_labels()
 fig.legend(handles,labels,loc='lower center',ncol=3,bbox_to_anchor=(.5,.045),frameon=False)
-fig.text(.5,.015,'Lines: means. Dots: completed seeds. Subsampling uses all blocks and equals Algorithm 1; C=2 is reused.',ha='center',fontsize=9)
+fig.text(.5,.015,'Lines: means. Dots: completed seeds. Subsampling equals Algorithm 1; C=2 reused. C=5 Algorithm 1: stopped at 14/100.',ha='center',fontsize=9)
 fig.subplots_adjust(bottom=.25,top=.88,wspace=.25,left=.08,right=.98)
 fig.savefig(OUT/'comparison.png',dpi=170);plt.close(fig)
 pixels=(OUT/'comparison.png').read_bytes();image_digest=hashlib.sha256(pixels).hexdigest()
@@ -147,7 +147,7 @@ for C in Cs:
     case=cfg['cases'][str(C)];K=case['K_standard'];low=cfg['n']//K;high=math.ceil(cfg['n']/K)
     lines.append(f"| {C} | {K} | {case['K_sub_actual']} | {low}–{high} |")
 lines+=['',
-    'Four fresh worker processes, one solver/BLAS thread each, no wall-clock timeout. Estimator runtime includes block construction and estimation and excludes imports/data loading/metrics; scheduling and contention are included. DL uses the original generic Clarabel covering-SDP backend with eta=1e-4. Existing Algorithm 1 iteration limits and heuristics are retained. C=2 reuses the 400 unchanged Algorithm 1, DL and MoM records from Experiment 9; subsampling uses all K blocks at every C and equals full Algorithm 1. Its distinct row is annotated, and no independent subsampling runtime is reported. All new DL/MoM cases are executed before new Algorithm 1 cases. Algorithm 2, CFB, DL/PTZ and Haar are excluded. C=5 adds 400 new fits to the 1600 preserved C=1,...,4 records using identical datasets and frozen estimator sources. Frozen sources and per-record provenance distinguish old and new runs.','']
+    'Four fresh worker processes, one solver/BLAS thread each, no wall-clock timeout. Estimator runtime includes block construction and estimation and excludes imports/data loading/metrics; scheduling and contention are included. DL uses the original generic Clarabel covering-SDP backend with eta=1e-4. Existing Algorithm 1 iteration limits and heuristics are retained. C=2 reuses the 400 unchanged Algorithm 1, DL and MoM records from Experiment 9; subsampling uses all K blocks at every C and equals full Algorithm 1. Its distinct row is annotated, and no independent subsampling runtime is reported. All new DL/MoM cases are executed before new Algorithm 1 cases. Algorithm 2, CFB, DL/PTZ and Haar are excluded. C=5 targets 400 additional fits beyond the 1600 preserved C=1,...,4 records using identical datasets and frozen estimator sources. Frozen sources and per-record provenance distinguish old and new runs.','']
 for metric,title in [('error','Mean L2 error'),('runtime','Mean runtime (seconds)')]:
     lines+=[f'**{title}**; each cell shows mean (completed seeds / 100).','',
         '| Method | C=1 | C=2 | C=3 | C=4 | C=5 |','| --- | ---: | ---: | ---: | ---: | ---: |']
@@ -162,12 +162,12 @@ for metric,title in [('error','Mean L2 error'),('runtime','Mean runtime (seconds
             cells.append(f"{s['mean_'+metric]:.6f} ({s['completed']}/100)" if s['completed'] else 'Pending (0/100)')
         lines.append('| '+names[name]+' | '+' | '.join(cells)+' |')
     lines.append('')
-lines+=['| C | Completed / target | Unconverged | Failed |','| --- | ---: | ---: | ---: |']
+lines+=['| C | Completed / target | Unconverged | Failed | Cancelled |','| --- | ---: | ---: | ---: | ---: |']
 for C in Cs:
     values=[payload['summary'][str(C)][name] for name in methods]
-    lines.append(f"| {C} | {sum(v['completed'] for v in values)}/400 | {sum(v['unconverged'] for v in values)} | {sum(v['failed'] for v in values)} |")
-lines+=['',f"Batch status: **{payload['status']}**, {payload['finished_attempts']}/{payload['total_attempts']} attempts recorded, including 400 reused records. Subsampling provides 500 equivalent target outcomes through Algorithm 1 and has no separate fits/timings. Averages use completed estimates only. Per-seed support recovery is also recorded; at s=d, the fraction of nonzero coordinates is not informative about sparse variable selection.",'',
-    '[Settings](experiment14_dense_d10_block_scale/config.json). [Current records](experiment14_dense_d10_block_scale/'+('results.json' if payload['status']=='finished' else 'progress.json')+'). [Validation](experiment14_dense_d10_block_scale/validation.json). [Contaminated-block diagnostics](experiment14_dense_d10_block_scale/contamination_diagnostics.json).','',
+    lines.append(f"| {C} | {sum(v['completed'] for v in values)}/400 | {sum(v['unconverged'] for v in values)} | {sum(v['failed'] for v in values)} | {sum(v['cancelled'] for v in values)} |")
+lines+=['',f"Batch status: **{payload['status']}**, {payload['finished_attempts']}/{payload['total_attempts']} attempts recorded, including 400 reused records. Subsampling provides {payload['equivalent_subsampling_outcomes']} completed equivalent outcomes out of 500 targets through Algorithm 1 and has no separate fits/timings. Cancelled runs: {payload['cancelled_attempts']}, by user request. The C=5 Algorithm 1 cell is a partial result and does not represent 100 seeds. Averages use completed estimates only. Per-seed support recovery is also recorded; at s=d, the fraction of nonzero coordinates is not informative about sparse variable selection.",'',
+    '[Settings](experiment14_dense_d10_block_scale/config.json). [Current records](experiment14_dense_d10_block_scale/'+('results.json' if payload['status'] in ('finished','cancelled') else 'progress.json')+'). [Validation](experiment14_dense_d10_block_scale/validation.json). [Contaminated-block diagnostics](experiment14_dense_d10_block_scale/contamination_diagnostics.json).','',
     f'![Experiment 14: error and runtime versus C](experiment14_dense_d10_block_scale/{plot_file})','']
 report=REPO/'results.md';text=report.read_text();start='<!-- experiment14-block-scale:start -->';end='<!-- experiment14-block-scale:end -->'
 body=start+'\n'+'\n'.join(lines).rstrip()+'\n'+end+'\n'

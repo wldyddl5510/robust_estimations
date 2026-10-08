@@ -360,6 +360,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 0.20495972918113695,
         "mean_error": 5.7359100287606655,
@@ -380,6 +381,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 0.8080968146165833,
         "mean_error": 5.765526007830093,
@@ -400,6 +402,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 0.00024387839017435907,
         "mean_error": 5.7477885246349,
@@ -420,6 +423,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 0.0012044841633178293,
         "mean_error": 5.736922123646382,
@@ -440,6 +444,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "mean_error": 5.7359100287606655,
         "std_error": 1.7400054503912605,
         "min_error": 0.6703570433177082,
@@ -458,6 +463,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 100,
         "mean_attempt_runtime": 0.9956778183451388,
         "mean_error": 2.519078945487742,
@@ -478,6 +484,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 100,
         "mean_attempt_runtime": 1.401926762930816,
         "mean_error": 2.475265204993803,
@@ -498,6 +505,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 100,
         "mean_attempt_runtime": 0.0002163920982275158,
         "mean_error": 2.568332230563931,
@@ -518,6 +526,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 100,
         "mean_attempt_runtime": 0.0010078399896156043,
         "mean_error": 2.5488520476369443,
@@ -538,6 +547,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "mean_error": 2.519078945487742,
         "std_error": 0.867515645147947,
         "min_error": 0.38792461439180204,
@@ -556,6 +566,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 14.064348765446338,
         "mean_error": 2.0014687224210292,
@@ -576,6 +587,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 1.7745698532811367,
         "mean_error": 1.9997580770332697,
@@ -596,6 +608,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 0.00031401538522914053,
         "mean_error": 2.0723958198683032,
@@ -616,6 +629,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 0.000918576621916145,
         "mean_error": 2.05126753578815,
@@ -636,6 +650,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "mean_error": 2.0014687224210292,
         "std_error": 0.637266214521845,
         "min_error": 0.33231092662739653,
@@ -654,6 +669,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 132.67361427704571,
         "mean_error": 1.9031197865353746,
@@ -674,6 +690,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 2.3013939354009927,
         "mean_error": 1.8595480091306014,
@@ -694,6 +711,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 0.0003390595177188516,
         "mean_error": 1.946158490352332,
@@ -714,6 +732,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 0.0009125474467873573,
         "mean_error": 1.9245559534188268,
@@ -734,6 +753,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "mean_error": 1.9031197865353746,
         "std_error": 0.6121961724118291,
         "min_error": 0.33714558680132106,
@@ -749,29 +769,31 @@
     },
     "5": {
       "algorithm_1": {
-        "completed": 11,
+        "completed": 14,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 86,
         "reused_completed": 0,
-        "mean_attempt_runtime": 499.68668448863633,
-        "mean_error": 1.6051666047939468,
-        "std_error": 0.6070998128579186,
+        "mean_attempt_runtime": 484.86111613698966,
+        "mean_error": 1.73407182718592,
+        "std_error": 0.6153714534982108,
         "min_error": 0.542972551901908,
-        "max_error": 2.3944483292937777,
-        "mean_runtime": 499.68668448863633,
-        "std_runtime": 380.94877900372313,
+        "max_error": 2.7056647477257143,
+        "mean_runtime": 484.86111613698966,
+        "std_runtime": 336.46226571245967,
         "min_runtime": 48.35676558315754,
         "max_runtime": 1110.554026250029,
         "mean_support_recovery": 1.0,
         "std_support_recovery": 0.0,
         "min_support_recovery": 1.0,
         "max_support_recovery": 1.0,
-        "median_runtime": 546.360438792035
+        "median_runtime": 469.59887606289703
       },
       "dl_clarabel": {
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 2.558906170392875,
         "mean_error": 1.8118364538805778,
@@ -792,6 +814,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 0.00039014711976051333,
         "mean_error": 1.83624244425026,
@@ -812,6 +835,7 @@
         "completed": 100,
         "unconverged": 0,
         "failed": 0,
+        "cancelled": 0,
         "reused_completed": 0,
         "mean_attempt_runtime": 0.001045270087197423,
         "mean_error": 1.8322654588729383,
@@ -829,13 +853,14 @@
         "median_runtime": 0.0009437294211238623
       },
       "random_block_selection": {
-        "completed": 11,
+        "completed": 14,
         "unconverged": 0,
         "failed": 0,
-        "mean_error": 1.6051666047939468,
-        "std_error": 0.6070998128579186,
+        "cancelled": 86,
+        "mean_error": 1.73407182718592,
+        "std_error": 0.6153714534982108,
         "min_error": 0.542972551901908,
-        "max_error": 2.3944483292937777,
+        "max_error": 2.7056647477257143,
         "mean_support_recovery": 1.0,
         "std_support_recovery": 0.0,
         "min_support_recovery": 1.0,
@@ -846,14 +871,705 @@
       }
     }
   },
-  "finished_attempts": 1911,
+  "finished_attempts": 1914,
   "total_attempts": 2000,
   "reused_attempts": 400,
-  "new_attempts_recorded": 1511,
-  "status": "running",
-  "updated_epoch": 1791481852.6812649,
-  "equivalent_subsampling_outcomes": 411,
-  "extension_attempts_recorded": 311,
+  "new_attempts_recorded": 1514,
+  "status": "cancelled",
+  "cancelled_attempts": 86,
+  "cancelled_runs": [
+    {
+      "C": 5,
+      "seed": 2,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": true
+    },
+    {
+      "C": 5,
+      "seed": 15,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": true
+    },
+    {
+      "C": 5,
+      "seed": 16,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": true
+    },
+    {
+      "C": 5,
+      "seed": 17,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": true
+    },
+    {
+      "C": 5,
+      "seed": 18,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 19,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 20,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 21,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 22,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 23,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 24,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 25,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 26,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 27,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 28,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 29,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 30,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 31,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 32,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 33,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 34,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 35,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 36,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 37,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 38,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 39,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 40,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 41,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 42,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 43,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 44,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 45,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 46,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 47,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 48,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 49,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 50,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 51,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 52,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 53,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 54,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 55,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 56,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 57,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 58,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 59,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 60,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 61,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 62,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 63,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 64,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 65,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 66,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 67,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 68,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 69,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 70,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 71,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 72,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 73,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 74,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 75,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 76,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 77,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 78,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 79,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 80,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 81,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 82,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 83,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 84,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 85,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 86,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 87,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 88,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 89,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 90,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 91,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 92,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 93,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 94,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 95,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 96,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 97,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 98,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    },
+    {
+      "C": 5,
+      "seed": 99,
+      "method": "algorithm_1",
+      "status": "cancelled",
+      "reason": "user_request",
+      "interrupted": false
+    }
+  ],
+  "updated_epoch": 1791482698.573858,
+  "equivalent_subsampling_outcomes": 414,
+  "extension_attempts_recorded": 314,
   "extension_target_attempts": 400,
   "validation": [
     "All saved datasets are byte-identical to Experiment 9 and regenerate exactly.",

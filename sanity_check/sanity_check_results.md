@@ -581,7 +581,7 @@ The literature methods still use practical block counts: DL's sufficient conditi
 
 Both d and epsilon change relative to sanity check 21, and several block counts change too. Cross-setting runtime ratios cannot isolate a dimension effect or establish nearly-linear scaling.
 
-[Per-seed results](non_sparse_sdp_d10_eps001/progress.json). [Summary statistics](non_sparse_sdp_d10_eps001/summary_statistics.json). [Validation](non_sparse_sdp_d10_eps001/validation.json). [Settings](non_sparse_sdp_d10_eps001/config.json). [Frozen source hashes](non_sparse_sdp_d10_eps001/source_hashes.json). [Runner](non_sparse_sdp_d10_eps001/run.py). [Implementation details](../README_non_sparse.md).
+[Per-seed results](non_sparse_sdp_d10_eps001/recorded_results.json). [Summary statistics](non_sparse_sdp_d10_eps001/summary_statistics.json). [Validation](non_sparse_sdp_d10_eps001/validation.json). [Settings](non_sparse_sdp_d10_eps001/config.json). [Frozen source hashes](non_sparse_sdp_d10_eps001/source_hashes.json). [Runner](non_sparse_sdp_d10_eps001/run.py). [Implementation details](../README_non_sparse.md).
 
 ![Non-sparse d=10 comparison](non_sparse_sdp_d10_eps001/comparison.png)
 <!-- non-sparse-sdp-d10-eps001:end -->

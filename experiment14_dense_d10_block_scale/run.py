@@ -96,6 +96,9 @@ def run_method(C,seed,name):
 
 
 def snapshot():
+    cancellation_path=OUT/'cancelled_runs.json'
+    cancelled=json.loads(cancellation_path.read_text()) if cancellation_path.exists() else []
+    cancelled=[v for v in cancelled if not result_path(v['C'],v['seed'],v['method']).exists()]
     runs=[];summary={}
     for C in SETTINGS['C_values']:
         summary[str(C)]={}
@@ -106,6 +109,7 @@ def snapshot():
                 if path.exists():records.append({**json.loads(path.read_text()),'C':C})
             runs+=records
             item={status:sum(v['status']==status for v in records) for status in ('completed','unconverged','failed')}
+            item['cancelled']=sum(v['C']==C and v['method']==name for v in cancelled)
             good=[v for v in records if v['status']=='completed']
             item['reused_completed']=len(good) if C==2 and name in SETTINGS['reused_methods'] else 0
             if records:item['mean_attempt_runtime']=float(np.mean([v['runtime'] for v in records]))
@@ -127,13 +131,14 @@ def snapshot():
     payload=dict(settings=SETTINGS,summary=summary,runs=runs,finished_attempts=len(runs),total_attempts=total,
         reused_attempts=len(SETTINGS['seeds'])*len(SETTINGS['reused_methods']),
         new_attempts_recorded=len(runs)-len(SETTINGS['seeds'])*len(SETTINGS['reused_methods']),
-        status='finished' if len(runs)==total else 'running',updated_epoch=time.time(),
+        status='finished' if len(runs)==total else ('cancelled' if cancellation_path.exists() else 'running'),
+        cancelled_attempts=len(cancelled),cancelled_runs=cancelled,updated_epoch=time.time(),
         equivalent_subsampling_outcomes=sum(summary[str(C)]['algorithm_1']['completed'] for C in SETTINGS['C_values']),
         extension_attempts_recorded=sum(v['C'] in SETTINGS['extension_C_values'] for v in runs),
         extension_target_attempts=SETTINGS['extension_target_attempts'])
     save(OUT/'progress.json',payload)
     save(OUT/'summary_statistics.json',{k:v for k,v in payload.items() if k!='runs'})
-    if payload['status']=='finished':save(OUT/'results.json',payload)
+    if payload['status'] in ('finished','cancelled'):save(OUT/'results.json',payload)
     return payload
 
 
@@ -142,6 +147,8 @@ def main():
     parser.add_argument('--worker',action='store_true');parser.add_argument('--C',type=int)
     parser.add_argument('--seed',type=int);parser.add_argument('--method');parser.add_argument('--prepare-only',action='store_true')
     args=parser.parse_args()
+    if (OUT/'cancelled_runs.json').exists() and not args.prepare_only:
+        parser.error('Experiment 14 was cancelled by the user; explicit relaunch is required.')
     if args.worker:return run_method(args.C,args.seed,args.method)
     with (OUT/'run.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)

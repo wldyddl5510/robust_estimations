@@ -12,3 +12,8 @@ active.json
 launch_status.json
 *_pid.json
 *_pid_*.json
+
+# Live progress and process lifecycle state.
+*progress*.json
+publication_status.json
+previous_runner_cancelled_cfb.json

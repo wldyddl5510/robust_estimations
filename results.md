@@ -230,9 +230,9 @@ Centered skew-t with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, $b=10\mathbf{1}/\s
 | Random trimmed mean (tilde J=1000) | 0.625352 | 0.110320 | 1.000000 | 100/100 |
 | Sample mean + HT | 2.928802 | 0.000046 | 0.524000 | 100/100 |
 
-Haar-projection LS and max ($r=5$, $J=10$): **stopped by user** before all 100 seeds were processed. Partial results and per-seed statuses are preserved in the [checkpoint](experiment7_haar_r5_J10_progress.json); these runs have not been added to the final table or histogram.
+Haar-projection LS and max ($r=5$, $J=10$): **stopped by user** before all 100 seeds were processed. Partial results and per-seed statuses are preserved in the [checkpoint](experiment7_haar_r5_J10_recorded_results.json); these runs have not been added to the final table or histogram.
 
-Haar-projection LS and max ($r=5$, $J=20$): **stopped by user** before all 100 seeds were processed. Partial results and per-seed statuses are preserved in the [checkpoint](experiment7_haar_progress.json); these runs have not been added to the final table or histogram.
+Haar-projection LS and max ($r=5$, $J=20$): **stopped by user** before all 100 seeds were processed. Partial results and per-seed statuses are preserved in the [checkpoint](experiment7_haar_recorded_results.json); these runs have not been added to the final table or histogram.
 
 Projected LS r=20 incomplete seeds: [{'seed': 31, 'status': 'failed'}, {'seed': 32, 'status': 'failed'}, {'seed': 33, 'status': 'failed'}, {'seed': 34, 'status': 'failed'}, {'seed': 35, 'status': 'failed'}, {'seed': 36, 'status': 'failed'}, {'seed': 37, 'status': 'failed'}, {'seed': 38, 'status': 'failed'}, {'seed': 39, 'status': 'failed'}, {'seed': 40, 'status': 'failed'}, {'seed': 41, 'status': 'failed'}, {'seed': 42, 'status': 'failed'}, {'seed': 44, 'status': 'failed'}, {'seed': 45, 'status': 'failed'}, {'seed': 46, 'status': 'failed'}, {'seed': 47, 'status': 'failed'}, {'seed': 48, 'status': 'failed'}, {'seed': 49, 'status': 'failed'}, {'seed': 50, 'status': 'failed'}, {'seed': 51, 'status': 'failed'}, {'seed': 52, 'status': 'failed'}, {'seed': 53, 'status': 'failed'}, {'seed': 54, 'status': 'failed'}, {'seed': 55, 'status': 'failed'}, {'seed': 56, 'status': 'failed'}, {'seed': 57, 'status': 'failed'}, {'seed': 58, 'status': 'failed'}, {'seed': 59, 'status': 'failed'}, {'seed': 60, 'status': 'failed'}, {'seed': 61, 'status': 'failed'}, {'seed': 62, 'status': 'failed'}, {'seed': 63, 'status': 'failed'}, {'seed': 64, 'status': 'failed'}, {'seed': 65, 'status': 'failed'}, {'seed': 66, 'status': 'failed'}, {'seed': 67, 'status': 'failed'}, {'seed': 68, 'status': 'failed'}, {'seed': 78, 'status': 'failed'}, {'seed': 79, 'status': 'failed'}, {'seed': 80, 'status': 'failed'}, {'seed': 81, 'status': 'failed'}, {'seed': 82, 'status': 'failed'}, {'seed': 83, 'status': 'failed'}, {'seed': 84, 'status': 'failed'}, {'seed': 85, 'status': 'failed'}, {'seed': 86, 'status': 'failed'}, {'seed': 87, 'status': 'failed'}, {'seed': 88, 'status': 'failed'}, {'seed': 89, 'status': 'failed'}, {'seed': 90, 'status': 'failed'}, {'seed': 91, 'status': 'failed'}, {'seed': 92, 'status': 'failed'}, {'seed': 93, 'status': 'failed'}, {'seed': 94, 'status': 'failed'}, {'seed': 95, 'status': 'failed'}, {'seed': 96, 'status': 'failed'}, {'seed': 97, 'status': 'failed'}, {'seed': 98, 'status': 'failed'}, {'seed': 99, 'status': 'failed'}]. Its averages and histogram use converged returned estimates only; other methods use all 100 seeds.
 
@@ -360,7 +360,7 @@ Three simultaneous fresh workers, one BLAS/solver thread each. Estimator runtime
 
 Batch status: **cancelled_by_user**. Completed estimates: 0/3; unsuccessful terminal attempts: 0/3; cancelled: 3/3. Elapsed times for cancelled rows are the last recorded checkpoints, up to 10 seconds before stopping, and are not times to convergence. The decision gap is the currently running decision problem's feasible-bound gap; the enclosing SDP must meet eta=1e-4 before DL can proceed.
 
-[Recorded checkpoints](experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/progress.json). [Settings](experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/config.json). [Frozen sources](experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/source_hashes.json). [Runner](experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/run.py). [Numerical tests](experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/test_validation.json).
+[Recorded checkpoints](experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/recorded_results.json). [Settings](experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/config.json). [Frozen sources](experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/source_hashes.json). [Runner](experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/run.py). [Numerical tests](experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/test_validation.json).
 <!-- experiment10-ptz-uncapped:end -->
 
 <!-- experiment11-dense:start -->
@@ -511,13 +511,13 @@ C=1,2,3,4,5 scales the unchanged full-block rule K=oddceil(C*max(d,epsilon*n,log
 | 4 | 41 | 41 | 24–25 |
 | 5 | 51 | 51 | 19–20 |
 
-Four fresh worker processes, one solver/BLAS thread each, no wall-clock timeout. Estimator runtime includes block construction and estimation and excludes imports/data loading/metrics; scheduling and contention are included. DL uses the original generic Clarabel covering-SDP backend with eta=1e-4. Existing Algorithm 1 iteration limits and heuristics are retained. C=2 reuses the 400 unchanged Algorithm 1, DL and MoM records from Experiment 9; subsampling uses all K blocks at every C and equals full Algorithm 1. Its distinct row is annotated, and no independent subsampling runtime is reported. All new DL/MoM cases are executed before new Algorithm 1 cases. Algorithm 2, CFB, DL/PTZ and Haar are excluded. C=5 adds 400 new fits to the 1600 preserved C=1,...,4 records using identical datasets and frozen estimator sources. Frozen sources and per-record provenance distinguish old and new runs.
+Four fresh worker processes, one solver/BLAS thread each, no wall-clock timeout. Estimator runtime includes block construction and estimation and excludes imports/data loading/metrics; scheduling and contention are included. DL uses the original generic Clarabel covering-SDP backend with eta=1e-4. Existing Algorithm 1 iteration limits and heuristics are retained. C=2 reuses the 400 unchanged Algorithm 1, DL and MoM records from Experiment 9; subsampling uses all K blocks at every C and equals full Algorithm 1. Its distinct row is annotated, and no independent subsampling runtime is reported. All new DL/MoM cases are executed before new Algorithm 1 cases. Algorithm 2, CFB, DL/PTZ and Haar are excluded. C=5 targets 400 additional fits beyond the 1600 preserved C=1,...,4 records using identical datasets and frozen estimator sources. Frozen sources and per-record provenance distinguish old and new runs.
 
 **Mean L2 error**; each cell shows mean (completed seeds / 100).
 
 | Method | C=1 | C=2 | C=3 | C=4 | C=5 |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Algorithm 1 | 5.735910 (100/100) | 2.519079 (100/100) | 2.001469 (100/100) | 1.903120 (100/100) | 1.605167 (11/100) |
+| Algorithm 1 | 5.735910 (100/100) | 2.519079 (100/100) | 2.001469 (100/100) | 1.903120 (100/100) | 1.734072 (14/100) |
 | Block subsampling | Same blocks as Algorithm 1 (11/11) | Same blocks as Algorithm 1 (21/21) | Same blocks as Algorithm 1 (31/31) | Same blocks as Algorithm 1 (41/41) | Same blocks as Algorithm 1 (51/51) |
 | DL / Clarabel | 5.765526 (100/100) | 2.475265 (100/100) | 1.999758 (100/100) | 1.859548 (100/100) | 1.811836 (100/100) |
 | Coordinate-wise MoM | 5.747789 (100/100) | 2.568332 (100/100) | 2.072396 (100/100) | 1.946158 (100/100) | 1.836242 (100/100) |
@@ -527,23 +527,23 @@ Four fresh worker processes, one solver/BLAS thread each, no wall-clock timeout.
 
 | Method | C=1 | C=2 | C=3 | C=4 | C=5 |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Algorithm 1 | 0.204960 (100/100) | 0.995678 (100/100) | 14.064349 (100/100) | 132.673614 (100/100) | 499.686684 (11/100) |
+| Algorithm 1 | 0.204960 (100/100) | 0.995678 (100/100) | 14.064349 (100/100) | 132.673614 (100/100) | 484.861116 (14/100) |
 | Block subsampling | Same blocks as Algorithm 1 (11/11) | Same blocks as Algorithm 1 (21/21) | Same blocks as Algorithm 1 (31/31) | Same blocks as Algorithm 1 (41/41) | Same blocks as Algorithm 1 (51/51) |
 | DL / Clarabel | 0.808097 (100/100) | 1.401927 (100/100) | 1.774570 (100/100) | 2.301394 (100/100) | 2.558906 (100/100) |
 | Coordinate-wise MoM | 0.000244 (100/100) | 0.000216 (100/100) | 0.000314 (100/100) | 0.000339 (100/100) | 0.000390 (100/100) |
 | Geometric MoM | 0.001204 (100/100) | 0.001008 (100/100) | 0.000919 (100/100) | 0.000913 (100/100) | 0.001045 (100/100) |
 
-| C | Completed / target | Unconverged | Failed |
-| --- | ---: | ---: | ---: |
-| 1 | 400/400 | 0 | 0 |
-| 2 | 400/400 | 0 | 0 |
-| 3 | 400/400 | 0 | 0 |
-| 4 | 400/400 | 0 | 0 |
-| 5 | 311/400 | 0 | 0 |
+| C | Completed / target | Unconverged | Failed | Cancelled |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 400/400 | 0 | 0 | 0 |
+| 2 | 400/400 | 0 | 0 | 0 |
+| 3 | 400/400 | 0 | 0 | 0 |
+| 4 | 400/400 | 0 | 0 | 0 |
+| 5 | 314/400 | 0 | 0 | 86 |
 
-Batch status: **running**, 1911/2000 attempts recorded, including 400 reused records. Subsampling provides 500 equivalent target outcomes through Algorithm 1 and has no separate fits/timings. Averages use completed estimates only. Per-seed support recovery is also recorded; at s=d, the fraction of nonzero coordinates is not informative about sparse variable selection.
+Batch status: **cancelled**, 1914/2000 attempts recorded, including 400 reused records. Subsampling provides 414 completed equivalent outcomes out of 500 targets through Algorithm 1 and has no separate fits/timings. Cancelled runs: 86, by user request. The C=5 Algorithm 1 cell is a partial result and does not represent 100 seeds. Averages use completed estimates only. Per-seed support recovery is also recorded; at s=d, the fraction of nonzero coordinates is not informative about sparse variable selection.
 
-[Settings](experiment14_dense_d10_block_scale/config.json). [Current records](experiment14_dense_d10_block_scale/progress.json). [Validation](experiment14_dense_d10_block_scale/validation.json). [Contaminated-block diagnostics](experiment14_dense_d10_block_scale/contamination_diagnostics.json).
+[Settings](experiment14_dense_d10_block_scale/config.json). [Current records](experiment14_dense_d10_block_scale/results.json). [Validation](experiment14_dense_d10_block_scale/validation.json). [Contaminated-block diagnostics](experiment14_dense_d10_block_scale/contamination_diagnostics.json).
 
-![Experiment 14: error and runtime versus C](experiment14_dense_d10_block_scale/comparison_1911_5de8458c3b.png)
+![Experiment 14: error and runtime versus C](experiment14_dense_d10_block_scale/comparison_1914_71ba446b20.png)
 <!-- experiment14-block-scale:end -->
