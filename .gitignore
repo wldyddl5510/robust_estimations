@@ -1,0 +1,14 @@
+# Local execution artifacts (scientific results, figures and sources stay tracked).
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.log
+*.lock
+*.tmp
+*.pid
+*.status.json
+active.json
+launch_status.json
+*_pid.json
+*_pid_*.json
