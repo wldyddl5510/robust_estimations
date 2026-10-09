@@ -1,10 +1,10 @@
 # Experiments
 
-This file contains only experiments targeting seeds 0–99. The 10-seed pilot results are in [sanity_check/sanity_check_results.md](sanity_check/sanity_check_results.md).
+This file contains only experiments targeting seeds 0–99. The 10-seed pilot results are in [sanity_check/sanity_check_results.md](../../../../sanity_check/sanity_check_results.md).
 
 Unless stated otherwise, setups use centered skew-t data with shape $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, skew vector $b=10\mathbf{1}/\sqrt d$, $n=1000$, $s=5$, $\nu=2.5$, $C=2$, $\delta=0.05$, attack strength 100 and tolerance $10^{-5}$. Each seed draws an amplitude from Uniform$(1,3)$ and a random sparse support. Support recovery is the fraction of true active coordinates selected. Averages include each method's converged runs; completion counts and unfinished runs are recorded explicitly. Runtime includes estimator preprocessing and excludes shared data generation. Comparisons may use different worker counts, as noted in each section.
 
-Previous experiment numbers 19–26 now correspond to 1–8; see [experiment_number_mapping.json](artifacts/experiment_number_mapping.json). Experiment 8 was removed at the user’s request; subsequent experiment numbers remain unchanged.
+Previous experiment numbers 19–26 now correspond to 1–8; see [experiment_number_mapping.json](../../../experiment_number_mapping.json). Experiment 8 was removed at the user’s request; subsequent experiment numbers remain unchanged.
 
 Sample mean + HT results were updated on 2026-10-06 using the same seeds and data: retain the s largest absolute sample mean coordinates. Both L2 error and support recovery use the thresholded estimate. Its runtimes were measured again with one warmed fit per seed, including averaging and thresholding; other method runtimes retain their original measurement conditions. Dense estimates and historical metrics are retained in detailed JSON for provenance.
 
@@ -78,11 +78,11 @@ Matched-seed comparisons for J=20 (all three configurations converged):
 - LS, 96 seeds, $(r,J)=(10,10) / (5,10) / (5,20)$: mean L2 error 1.040040 / 1.149822 / 1.071429; mean runtime 37.144 / 25.584 / 26.672 s.
 - max, 98 seeds, $(r,J)=(10,10) / (5,10) / (5,20)$: mean L2 error 1.201188 / 1.439001 / 1.327345; mean runtime 42.279 / 37.850 / 39.640 s.
 
-Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 1 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 20 coordinate directions (1020 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=21$; random trimmed mean uses $k=15$ ($n-2k=970$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment1_random_j1000_results.json](artifacts/experiment1_random_j1000_results.json). Median runtimes: 0.134776 s (MoM) and 0.152533 s (trimmed).
+Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 1 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 20 coordinate directions (1020 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=21$; random trimmed mean uses $k=15$ ($n-2k=970$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment1_random_j1000_results.json](../../../experiment1_random_j1000_results.json). Median runtimes: 0.134776 s (MoM) and 0.152533 s (trimmed).
 
-![L2 error histograms for Experiment 1](artifacts/experiment1_error_histograms.png)
+![L2 error histograms for Experiment 1](../../../experiment1_error_histograms.png)
 
-Per-seed results: [experiment1_results.json](artifacts/experiment1_results.json).
+Per-seed results: [experiment1_results.json](../../../experiment1_results.json).
 
 ## Experiments 2
 
@@ -103,7 +103,7 @@ Centered skew-t with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, $b=10\mathbf{1}/\s
 
 All five original baseline methods completed all 100 seeds.
 
-Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 2 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 20 coordinate directions (1020 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=41$; random trimmed mean uses $k=30$ ($n-2k=940$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment2_random_j1000_results.json](artifacts/experiment2_random_j1000_results.json). Median runtimes: 0.455791 s (MoM) and 0.348618 s (trimmed).
+Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 2 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 20 coordinate directions (1020 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=41$; random trimmed mean uses $k=30$ ($n-2k=940$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment2_random_j1000_results.json](../../../experiment2_random_j1000_results.json). Median runtimes: 0.455791 s (MoM) and 0.348618 s (trimmed).
 
 <!-- experiment2-random-block-selection -->
 Random block selection (WOR = without replacement): `random_block_selection` uses coefficient 2, $K_{\mathrm{sub}}=\min\{K,\operatorname{oddceil}(2[s\log(d/s)+\log(4/\delta)])\}=23$ of the original $K=41$ blocks. Each seed chooses a uniform 23-block subset without replacement using a separate `SeedSequence(seed, spawn_key=(2,))` stream; selected rows retain original block order. The subset is chosen once before Algorithm 1 optimization. Seeds 0–99 reproduce the historical data and true means exactly (all hashes verified).
@@ -112,7 +112,7 @@ These are fresh optimization runs, with four concurrent workers and one solver/B
 
 96/100 seeds converged; unconverged or failed fits are excluded from the averages and histogram. Mean runtime is computed over converged fits; median 64.953850 s, maximum 1831.773549 s. Across all 100 attempts, including unconverged or failed attempts, mean runtime is 311.124242 s. Runtime comparisons use separate measurement batches; random-direction baselines used one sequential worker. Full Algorithm 1 was not run for Experiment 2.
 
-A data diagnostic found that 10/100 subsets contain at least 12 contaminated blocks out of 23 (a block is counted as contaminated if it contains any replaced observation); this diagnostic does not determine solver convergence. Per-seed estimates, metrics, selected block indices, bounds, settings and source hashes: [experiment2_random_block_selection_results.json](artifacts/experiment2_random_block_selection_results.json). Reproduction and checkpoints: [benchmarks/experiment2_random_block_selection](artifacts/benchmarks/experiment2_random_block_selection).
+A data diagnostic found that 10/100 subsets contain at least 12 contaminated blocks out of 23 (a block is counted as contaminated if it contains any replaced observation); this diagnostic does not determine solver convergence. Per-seed estimates, metrics, selected block indices, bounds, settings and source hashes: [experiment2_random_block_selection_results.json](../../../experiment2_random_block_selection_results.json). Reproduction and checkpoints: [benchmarks/experiment2_random_block_selection](../../../benchmarks/experiment2_random_block_selection).
 
 - Seed 41: unconverged; 1000 outer iterations, gap 0.8006393, tolerance 1e-05, runtime 1641.11 s.
 - Seed 48: unconverged; 1000 outer iterations, gap 0.86153868, tolerance 1e-05, runtime 1767.56 s.
@@ -120,9 +120,9 @@ A data diagnostic found that 10/100 subsets contain at least 12 contaminated blo
 - Seed 78: unconverged; 1000 outer iterations, gap 0.12434908, tolerance 1e-05, runtime 1737.82 s.
 <!-- /experiment2-random-block-selection -->
 
-![L2 error histograms for Experiment 2](artifacts/experiment2_error_histograms.png)
+![L2 error histograms for Experiment 2](../../../experiment2_error_histograms.png)
 
-Per-seed results: [experiment2_results.json](artifacts/experiment2_results.json).
+Per-seed results: [experiment2_results.json](../../../experiment2_results.json).
 
 
 ## Experiments 3
@@ -141,9 +141,9 @@ Centered skew-t with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, $b=10\mathbf{1}/\s
 
 All five methods completed all 100 seeds.
 
-![L2 error histograms for Experiment 3](artifacts/experiment3_error_histograms.png)
+![L2 error histograms for Experiment 3](../../../experiment3_error_histograms.png)
 
-Per-seed results: [experiment3_results.json](artifacts/experiment3_results.json).
+Per-seed results: [experiment3_results.json](../../../experiment3_results.json).
 
 ## Experiments 4
 
@@ -162,11 +162,11 @@ Centered skew-t with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, $b=10\mathbf{1}/\s
 
 All four methods completed all 100 seeds.
 
-Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 4 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 40 coordinate directions (1040 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=21$; random trimmed mean uses $k=15$ ($n-2k=970$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment4_random_j1000_results.json](artifacts/experiment4_random_j1000_results.json). Median runtimes: 0.114101 s (MoM) and 0.118638 s (trimmed).
+Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 4 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 40 coordinate directions (1040 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=21$; random trimmed mean uses $k=15$ ($n-2k=970$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment4_random_j1000_results.json](../../../experiment4_random_j1000_results.json). Median runtimes: 0.114101 s (MoM) and 0.118638 s (trimmed).
 
-![L2 error histograms for Experiment 4](artifacts/experiment4_error_histograms.png)
+![L2 error histograms for Experiment 4](../../../experiment4_error_histograms.png)
 
-Per-seed results: [experiment4_results.json](artifacts/experiment4_results.json).
+Per-seed results: [experiment4_results.json](../../../experiment4_results.json).
 
 ## Experiments 5
 
@@ -185,11 +185,11 @@ Centered skew-t with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, $b=10\mathbf{1}/\s
 
 All four methods completed all 100 seeds.
 
-Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 5 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 40 coordinate directions (1040 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=41$; random trimmed mean uses $k=30$ ($n-2k=940$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment5_random_j1000_results.json](artifacts/experiment5_random_j1000_results.json). Median runtimes: 0.428595 s (MoM) and 0.155313 s (trimmed).
+Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 5 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 40 coordinate directions (1040 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=41$; random trimmed mean uses $k=30$ ($n-2k=940$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment5_random_j1000_results.json](../../../experiment5_random_j1000_results.json). Median runtimes: 0.428595 s (MoM) and 0.155313 s (trimmed).
 
-![L2 error histograms for Experiment 5](artifacts/experiment5_error_histograms.png)
+![L2 error histograms for Experiment 5](../../../experiment5_error_histograms.png)
 
-Per-seed results: [experiment5_results.json](artifacts/experiment5_results.json).
+Per-seed results: [experiment5_results.json](../../../experiment5_results.json).
 
 ## Experiments 6
 
@@ -208,11 +208,11 @@ Centered skew-t with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, $b=10\mathbf{1}/\s
 
 All four methods completed all 100 seeds.
 
-Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 6 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 50 coordinate directions (1050 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=25$; random trimmed mean uses $k=15$ ($n-2k=970$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment6_random_j1000_results.json](artifacts/experiment6_random_j1000_results.json). Median runtimes: 0.094003 s (MoM) and 0.110511 s (trimmed).
+Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 6 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 50 coordinate directions (1050 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=25$; random trimmed mean uses $k=15$ ($n-2k=970$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment6_random_j1000_results.json](../../../experiment6_random_j1000_results.json). Median runtimes: 0.094003 s (MoM) and 0.110511 s (trimmed).
 
-![L2 error histograms for Experiment 6](artifacts/experiment6_error_histograms.png)
+![L2 error histograms for Experiment 6](../../../experiment6_error_histograms.png)
 
-Per-seed results: [experiment6_results.json](artifacts/experiment6_results.json).
+Per-seed results: [experiment6_results.json](../../../experiment6_results.json).
 
 ## Experiments 7
 
@@ -230,17 +230,17 @@ Centered skew-t with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, $b=10\mathbf{1}/\s
 | Random trimmed mean (tilde J=1000) | 0.625352 | 0.110320 | 1.000000 | 100/100 |
 | Sample mean + HT | 2.928802 | 0.000046 | 0.524000 | 100/100 |
 
-Haar-projection LS and max ($r=5$, $J=10$): **stopped by user** before all 100 seeds were processed. Partial results and per-seed statuses are preserved in the [checkpoint](artifacts/experiment7_haar_r5_J10_recorded_results.json); these runs have not been added to the final table or histogram.
+Haar-projection LS and max ($r=5$, $J=10$): **stopped by user** before all 100 seeds were processed. Partial results and per-seed statuses are preserved in the [checkpoint](../../../experiment7_haar_r5_J10_recorded_results.json); these runs have not been added to the final table or histogram.
 
-Haar-projection LS and max ($r=5$, $J=20$): **stopped by user** before all 100 seeds were processed. Partial results and per-seed statuses are preserved in the [checkpoint](artifacts/experiment7_haar_recorded_results.json); these runs have not been added to the final table or histogram.
+Haar-projection LS and max ($r=5$, $J=20$): **stopped by user** before all 100 seeds were processed. Partial results and per-seed statuses are preserved in the [checkpoint](../../../experiment7_haar_recorded_results.json); these runs have not been added to the final table or histogram.
 
 Projected LS r=20 incomplete seeds: [{'seed': 31, 'status': 'failed'}, {'seed': 32, 'status': 'failed'}, {'seed': 33, 'status': 'failed'}, {'seed': 34, 'status': 'failed'}, {'seed': 35, 'status': 'failed'}, {'seed': 36, 'status': 'failed'}, {'seed': 37, 'status': 'failed'}, {'seed': 38, 'status': 'failed'}, {'seed': 39, 'status': 'failed'}, {'seed': 40, 'status': 'failed'}, {'seed': 41, 'status': 'failed'}, {'seed': 42, 'status': 'failed'}, {'seed': 44, 'status': 'failed'}, {'seed': 45, 'status': 'failed'}, {'seed': 46, 'status': 'failed'}, {'seed': 47, 'status': 'failed'}, {'seed': 48, 'status': 'failed'}, {'seed': 49, 'status': 'failed'}, {'seed': 50, 'status': 'failed'}, {'seed': 51, 'status': 'failed'}, {'seed': 52, 'status': 'failed'}, {'seed': 53, 'status': 'failed'}, {'seed': 54, 'status': 'failed'}, {'seed': 55, 'status': 'failed'}, {'seed': 56, 'status': 'failed'}, {'seed': 57, 'status': 'failed'}, {'seed': 58, 'status': 'failed'}, {'seed': 59, 'status': 'failed'}, {'seed': 60, 'status': 'failed'}, {'seed': 61, 'status': 'failed'}, {'seed': 62, 'status': 'failed'}, {'seed': 63, 'status': 'failed'}, {'seed': 64, 'status': 'failed'}, {'seed': 65, 'status': 'failed'}, {'seed': 66, 'status': 'failed'}, {'seed': 67, 'status': 'failed'}, {'seed': 68, 'status': 'failed'}, {'seed': 78, 'status': 'failed'}, {'seed': 79, 'status': 'failed'}, {'seed': 80, 'status': 'failed'}, {'seed': 81, 'status': 'failed'}, {'seed': 82, 'status': 'failed'}, {'seed': 83, 'status': 'failed'}, {'seed': 84, 'status': 'failed'}, {'seed': 85, 'status': 'failed'}, {'seed': 86, 'status': 'failed'}, {'seed': 87, 'status': 'failed'}, {'seed': 88, 'status': 'failed'}, {'seed': 89, 'status': 'failed'}, {'seed': 90, 'status': 'failed'}, {'seed': 91, 'status': 'failed'}, {'seed': 92, 'status': 'failed'}, {'seed': 93, 'status': 'failed'}, {'seed': 94, 'status': 'failed'}, {'seed': 95, 'status': 'failed'}, {'seed': 96, 'status': 'failed'}, {'seed': 97, 'status': 'failed'}, {'seed': 98, 'status': 'failed'}, {'seed': 99, 'status': 'failed'}]. Its averages and histogram use converged returned estimates only; other methods use all 100 seeds.
 
-Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 7 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 100 coordinate directions (1100 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=31$; random trimmed mean uses $k=15$ ($n-2k=970$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment7_random_j1000_results.json](artifacts/experiment7_random_j1000_results.json). Median runtimes: 0.081184 s (MoM) and 0.109385 s (trimmed).
+Random MoM and random trimmed mean: both completed seeds 0–99 using the identical historical Experiment 7 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 100 coordinate directions (1100 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=31$; random trimmed mean uses $k=15$ ($n-2k=970$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment7_random_j1000_results.json](../../../experiment7_random_j1000_results.json). Median runtimes: 0.081184 s (MoM) and 0.109385 s (trimmed).
 
-![L2 error histograms for Experiment 7](artifacts/experiment7_error_histograms.png)
+![L2 error histograms for Experiment 7](../../../experiment7_error_histograms.png)
 
-Per-seed results: [experiment7_results.json](artifacts/experiment7_results.json).
+Per-seed results: [experiment7_results.json](../../../experiment7_results.json).
 
 
 <!-- experiment9-dense:start -->
@@ -267,7 +267,7 @@ DL / Clarabel means the Depersin–Lecue covSDPofMeans outer procedure with its 
 
 Batch status: **finished_with_cfb_cancelled**, 741/800 attempts recorded; 59 remaining CFB attempts cancelled. Averages use completed seeds; completion counts are shown for every method.
 
-CFB was stopped by user request: only 41 completed seeds are retained in the averages; 59 unfinished/unstarted seeds are cancelled and will not resume. This is a partial CFB sample, while the other method attempts cover all 100 seeds. [Cancellation record](artifacts/experiment9_dense_comparison/cfb_cancellation.json).
+CFB was stopped by user request: only 41 completed seeds are retained in the averages; 59 unfinished/unstarted seeds are cancelled and will not resume. This is a partial CFB sample, while the other method attempts cover all 100 seeds. [Cancellation record](../../../experiment9_dense_comparison/cfb_cancellation.json).
 
 Algorithm 1 and block subsampling use identical blocks. Maximum coordinate difference across 100 completed pairs: 0.
 
@@ -277,9 +277,9 @@ CFB returned its zero initial iterate under the minimum-estimated-distance retur
 
 The literature block counts are practical choices: DL's sufficient condition K>=300*|O|=3000 exceeds n=1000, and CFB's prescribed ceil(3200*log(1/delta))=9587 also exceeds n. CFB's iid guarantee does not directly cover this adaptive contamination. These results concern the recorded implementations and settings. [DL](https://arxiv.org/abs/1906.03058), [CFB](https://proceedings.mlr.press/v99/cherapanamjeri19b.html), [PTZ](https://arxiv.org/abs/1201.5135).
 
-[Per-seed records](artifacts/experiment9_dense_comparison/results.json). [Settings](artifacts/experiment9_dense_comparison/config.json). [Validation](artifacts/experiment9_dense_comparison/validation.json). [Incomplete runs](artifacts/experiment9_dense_comparison/incomplete_runs.json). [Source hashes](artifacts/experiment9_dense_comparison/source_hashes.json). [Runner](artifacts/experiment9_dense_comparison/run.py).
+[Per-seed records](../../../experiment9_dense_comparison/results.json). [Settings](../../../experiment9_dense_comparison/config.json). [Validation](../../../experiment9_dense_comparison/validation.json). [Incomplete runs](../../../experiment9_dense_comparison/incomplete_runs.json). [Source hashes](../../../experiment9_dense_comparison/source_hashes.json). [Runner](../../../experiment9_dense_comparison/run.py).
 
-![Experiment 9 error and runtime comparison](artifacts/experiment9_dense_comparison/comparison.png)
+![Experiment 9 error and runtime comparison](../../../experiment9_dense_comparison/comparison.png)
 <!-- experiment9-dense:end -->
 
 <!-- experiment10-dense:start -->
@@ -309,7 +309,7 @@ Haar-projection LS (r=5, J=10) is added on exactly the same saved data and seeds
 
 Batch status: **finished_with_cfb_cancelled**, 872/900 attempts recorded; 28 remaining CFB attempts cancelled. Averages use completed seeds; completion counts are shown for every method.
 
-CFB was stopped by user request: only 72 completed seeds are retained in the averages; 28 unfinished/unstarted seeds are cancelled and will not resume. This is a partial CFB sample, while the other method attempts cover all 100 seeds. [Cancellation record](artifacts/experiment10_dense_eps002/cfb_cancellation.json).
+CFB was stopped by user request: only 72 completed seeds are retained in the averages; 28 unfinished/unstarted seeds are cancelled and will not resume. This is a partial CFB sample, while the other method attempts cover all 100 seeds. [Cancellation record](../../../experiment10_dense_eps002/cfb_cancellation.json).
 
 Algorithm 1 uses all 41 blocks and subsampling uses 29. Maximum coordinate difference across 100 completed pairs: 6.
 
@@ -319,9 +319,9 @@ CFB returned its zero initial iterate under the minimum-estimated-distance retur
 
 The literature block counts are practical choices: DL's sufficient condition K>=300*|O|=6000 exceeds n=1000, and CFB's prescribed ceil(3200*log(1/delta))=9587 also exceeds n. CFB's iid guarantee does not directly cover this adaptive contamination. These results concern the recorded implementations and settings. [DL](https://arxiv.org/abs/1906.03058), [CFB](https://proceedings.mlr.press/v99/cherapanamjeri19b.html), [PTZ](https://arxiv.org/abs/1201.5135).
 
-[Per-seed records](artifacts/experiment10_dense_eps002/results.json). [Settings](artifacts/experiment10_dense_eps002/config.json). [Validation](artifacts/experiment10_dense_eps002/validation.json). [Incomplete runs](artifacts/experiment10_dense_eps002/incomplete_runs.json). [Source hashes](artifacts/experiment10_dense_eps002/source_hashes.json). [Runner](artifacts/experiment10_dense_eps002/run.py).
+[Per-seed records](../../../experiment10_dense_eps002/results.json). [Settings](../../../experiment10_dense_eps002/config.json). [Validation](../../../experiment10_dense_eps002/validation.json). [Incomplete runs](../../../experiment10_dense_eps002/incomplete_runs.json). [Source hashes](../../../experiment10_dense_eps002/source_hashes.json). [Runner](../../../experiment10_dense_eps002/run.py).
 
-![Experiment 10 error and runtime comparison](artifacts/experiment10_dense_eps002/comparison_872_49b83c9f0b.png)
+![Experiment 10 error and runtime comparison](../../../experiment10_dense_eps002/comparison_872_49b83c9f0b.png)
 <!-- experiment10-dense:end -->
 
 <!-- experiment10-ptz-eta20:start -->
@@ -342,7 +342,7 @@ Seed 0 first-SDP relative gap: 26.6925506749 -> 26.6925307753 (target <=1e-4).
 
 Mean attempt runtime ratio, new/original: 2.133.
 
-[Retry records](artifacts/experiment10_dense_eps002/ptz_eta20_200k/results.json). [Settings](artifacts/experiment10_dense_eps002/ptz_eta20_200k/config.json). [Validation](artifacts/experiment10_dense_eps002/ptz_eta20_200k/validation.json). [Frozen source hashes](artifacts/experiment10_dense_eps002/ptz_eta20_200k/source_hashes.json). [Runner](artifacts/experiment10_dense_eps002/ptz_eta20_200k/run.py).
+[Retry records](../../../experiment10_dense_eps002/ptz_eta20_200k/results.json). [Settings](../../../experiment10_dense_eps002/ptz_eta20_200k/config.json). [Validation](../../../experiment10_dense_eps002/ptz_eta20_200k/validation.json). [Frozen source hashes](../../../experiment10_dense_eps002/ptz_eta20_200k/source_hashes.json). [Runner](../../../experiment10_dense_eps002/ptz_eta20_200k/run.py).
 <!-- experiment10-ptz-eta20:end -->
 
 <!-- experiment10-ptz-uncapped:start -->
@@ -360,7 +360,7 @@ Three simultaneous fresh workers, one BLAS/solver thread each. Estimator runtime
 
 Batch status: **cancelled_by_user**. Completed estimates: 0/3; unsuccessful terminal attempts: 0/3; cancelled: 3/3. Elapsed times for cancelled rows are the last recorded checkpoints, up to 10 seconds before stopping, and are not times to convergence. The decision gap is the currently running decision problem's feasible-bound gap; the enclosing SDP must meet eta=1e-4 before DL can proceed.
 
-[Recorded checkpoints](artifacts/experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/recorded_results.json). [Settings](artifacts/experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/config.json). [Frozen sources](artifacts/experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/source_hashes.json). [Runner](artifacts/experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/run.py). [Numerical tests](artifacts/experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/test_validation.json).
+[Recorded checkpoints](../../../experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/recorded_results.json). [Settings](../../../experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/config.json). [Frozen sources](../../../experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/source_hashes.json). [Runner](../../../experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/run.py). [Numerical tests](../../../experiment10_dense_eps002/ptz_eta20_uncapped_3seeds/test_validation.json).
 <!-- experiment10-ptz-uncapped:end -->
 
 <!-- experiment11-dense:start -->
@@ -385,9 +385,9 @@ Batch status: **finished**, 600/600 attempts recorded. Metrics use completed est
 
 The DL block count is the same practical comparison choice as Experiment 9; these measurements do not establish the paper’s nearly-linear runtime guarantee.
 
-[Per-seed records](artifacts/experiment11_dense_d5/results.json). [Settings](artifacts/experiment11_dense_d5/config.json). [Validation](artifacts/experiment11_dense_d5/validation.json). [Source hashes](artifacts/experiment11_dense_d5/source_hashes.json). [Runner](artifacts/experiment11_dense_d5/run.py).
+[Per-seed records](../../../experiment11_dense_d5/results.json). [Settings](../../../experiment11_dense_d5/config.json). [Validation](../../../experiment11_dense_d5/validation.json). [Source hashes](../../../experiment11_dense_d5/source_hashes.json). [Runner](../../../experiment11_dense_d5/run.py).
 
-![Experiment 11 error and runtime comparison](artifacts/experiment11_dense_d5/comparison_600_b24a8e8e75.png)
+![Experiment 11 error and runtime comparison](../../../experiment11_dense_d5/comparison_600_b24a8e8e75.png)
 <!-- experiment11-dense:end -->
 
 
@@ -398,11 +398,9 @@ Experiment 9 setup with **d=s=20**; n=1000, delta=0.05, epsilon=0.01, seeds 0–
 
 Full-support complexity is d; the unchanged block rule gives K=41 for Algorithm 1, MoM and DL. Block subsampling is excluded by user request because it would select all 41 blocks and give the same Algorithm 1 problem. Hard thresholding is the identity at s=d. Support recovery is the fraction of nonzero coordinates at threshold 1e-8, and is not informative about sparse variable selection here.
 
-The 7 selected methods use exactly the frozen Experiment 9 estimator sources. Algorithm 2, CFB and DL/PTZ are excluded by user request. DL uses the original generic Clarabel covering-SDP backend and eta=1e-4. Four concurrent fresh processes, one solver/BLAS thread each; runtime includes estimator preprocessing and excludes imports/data generation/metrics. Experiments 11 and 12 run sequentially; Experiment 8 was stopped and removed. No wall-clock timeout; Algorithm 1 retains its existing 1000-iteration limits.
+The 5 selected methods use exactly the frozen Experiment 9 estimator sources. Algorithm 2, CFB and DL/PTZ are excluded by user request. DL uses the original generic Clarabel covering-SDP backend and eta=1e-4. Four concurrent fresh processes, one solver/BLAS thread each; runtime includes estimator preprocessing and excludes imports/data generation/metrics. Experiments 11 and 12 run sequentially; Experiment 8 was stopped and removed. No wall-clock timeout; Algorithm 1 retains its existing 1000-iteration limits.
 
-The original batch ran DL/Clarabel before the remaining Algorithm 1 seeds. The new batch executes only Haar with four fresh workers; the original completed fits are reused.
-
-Haar-projection LS uses r=5 with J=10 and J=20 on the identical saved datasets and seeds 0–99. Each projection uses full 5-dimensional directions. Projected delta is .005 for J=10 and .0025 for J=20; both give projected K=21. The original-data aggregation box uses K=41. Both absolute and relative LS aggregation tolerances are 1e-5. Runtime includes projections, projected estimation and boxed aggregation. J=20 extends the same seeded projection stream, sharing the first ten frames with J=10. Only J=20 is newly executed; all 600 earlier estimates are retained.
+Execution order changed by user request: DL/Clarabel is prioritized before remaining Algorithm 1 seeds. In-flight Algorithm 1 fits continue without pause; their freed worker slots run DL first. Existing completed fits are reused; at most four workers run concurrently.
 
 | Method | Mean L2 error | Mean runtime (s) | Support recovery | Completed / target | Unconverged / failed |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -411,26 +409,20 @@ Haar-projection LS uses r=5 with J=10 and J=20 on the identical saved datasets a
 | Geometric MoM | 2.249123 | 0.001333 | 100.0% | 100/100 | 0/0 |
 | Algorithm 1 | 2.158619 | 990.928383 | 100.0% | 100/100 | 0/0 |
 | DL / Clarabel | 2.144442 | 13.183734 | 100.0% | 100/100 | 0/0 |
-| Haar-projection LS (r=5, J=10) | 2.941406 | 3.597011 | 100.0% | 100/100 | 0/0 |
-| Haar-projection LS (r=5, J=20) | 2.944557 | 8.073714 | 100.0% | 100/100 | 0/0 |
 
-Batch status: **finished**, 700/700 attempts recorded. Metrics use completed estimates only; pending and failed attempts are excluded.
-
-On 100 matched completed seeds, increasing J from 10 to 20 changes mean L2 error from 2.941406 to 2.944557, and mean runtime from 3.597011 to 8.073714 seconds (2.245x). [Paired comparison](artifacts/experiment12_dense_d20/haar_j10_j20_comparison.json).
+Batch status: **finished**, 500/500 attempts recorded. Metrics use completed estimates only; pending and failed attempts are excluded.
 
 The DL block count is the same practical comparison choice as Experiment 9; these measurements do not establish the paper’s nearly-linear runtime guarantee.
 
-[Per-seed records](artifacts/experiment12_dense_d20/results.json). [Settings](artifacts/experiment12_dense_d20/config.json). [Validation](artifacts/experiment12_dense_d20/validation.json). [Source hashes](artifacts/experiment12_dense_d20/source_hashes.json). [Runner](artifacts/experiment12_dense_d20/run.py).
+[Per-seed records](../../results.json). [Settings](../../config.json). [Validation](../../validation.json). [Source hashes](../../source_hashes.json). [Runner](../../run.py).
 
-![Experiment 12 error and runtime comparison](artifacts/experiment12_dense_d20/comparison_700_21f2b80226.png)
+![Experiment 12 error and runtime comparison](../../comparison_500_e48bd36869.png)
 <!-- experiment12-dense:end -->
 
 <!-- dense-dimension-comparison:start -->
 ### Dense dimension comparison: Experiments 11, 9 and 12
 
 Common settings: n=1000, epsilon=.01, delta=.05, nu=2.5, C=2, tol=1e-5; seeds 0–99. Columns show **mean L2 error / mean runtime in seconds (completed seeds)**. The d=10 column reuses Experiment 9. Block counts are 21, 21 and 41 for d=5,10,20, so dimension and K both change at d=20. This is not a fixed-K dimension-only timing test.
-
-Haar-projection LS (r=5, J=10 and J=20) is additionally run for Experiment 12 only. Its projected fits use K=21 and its original-data aggregation box uses K=41; other columns have no Haar run.
 
 | Method | d=s=5, K=21 | d=s=10, K=21 | d=s=20, K=41 |
 | --- | ---: | ---: | ---: |
@@ -440,110 +432,4 @@ Haar-projection LS (r=5, J=10 and J=20) is additionally run for Experiment 12 on
 | Algorithm 1 | 2.458660 / 0.367468 (100/100) | 2.519079 / 0.995678 (100/100) | 2.158619 / 990.928383 (100/100) |
 | Block subsampling | 2.745480 / 0.327282 (100/100) | Same blocks as full Algorithm 1 (21/21) | Same blocks as full Algorithm 1 (41/41) |
 | DL / Clarabel | 2.430416 / 0.549678 (100/100) | 2.475265 / 1.401927 (100/100) | 2.144442 / 13.183734 (100/100) |
-| Haar-projection LS (r=5, J=10) | Not run | Not run | 2.941406 / 3.597011 (100/100) |
-| Haar-projection LS (r=5, J=20) | Not run | Not run | 2.944557 / 8.073714 (100/100) |
 <!-- dense-dimension-comparison:end -->
-
-<!-- experiment13-block-scale:start -->
-## Experiments 13
-
-Block-count scale comparison on the exact Experiment 11 datasets: d=s=5, n=1000, epsilon=.01, delta=.05, nu=2.5, adaptive attack strength 100, seeds 0–99. Centered skew-t with shape .5*I+.5*11', skew 10*1/sqrt(5), amplitude Uniform(1,3), and covariance input 2*lambda_max(Sigma)=739.0987715913293. Algorithm 1 tolerance is 1e-5.
-
-C=1,2,3,4,5 scales the unchanged full-block rule K=oddceil(C*max(d,epsilon*n,log(1/delta))). DL/Clarabel and both MoM baselines use this same K and seeded partition. Subsampling now requests oddceil(C*max(s*log(e*d/s),log(4/delta))), using the same C, and uniformly selects min(K,K_sub_requested) blocks without replacement. Its independent selection stream and original-order restoration are unchanged.
-
-| C | Full K / DL K | Selected K_sub | Observations per full block |
-| --- | ---: | ---: | ---: |
-| 1 | 11 | 5 | 90–91 |
-| 2 | 21 | 11 | 47–48 |
-| 3 | 31 | 15 | 32–33 |
-| 4 | 41 | 21 | 24–25 |
-| 5 | 51 | 25 | 19–20 |
-
-Four fresh worker processes, one solver/BLAS thread each, no wall-clock timeout. Estimator runtime includes block construction and estimation and excludes imports/data loading/metrics; scheduling and contention are included. DL uses the original generic Clarabel covering-SDP backend with eta=1e-4. Existing Algorithm 1 iteration limits and heuristics are retained. C=2 reuses the 400 unchanged Algorithm 1, DL and MoM records from Experiment 11; subsampling is rerun because its count changes from 19 to 11. Algorithm 2, CFB, DL/PTZ and Haar are excluded. Frozen sources and per-record provenance distinguish old and new runs.
-
-**Mean L2 error**; each cell shows mean (completed seeds / 100).
-
-| Method | C=1 | C=2 | C=3 | C=4 | C=5 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Algorithm 1 | 5.475810 (100/100) | 2.458660 (100/100) | 1.778754 (100/100) | 1.498289 (100/100) | 1.363598 (100/100) |
-| Block subsampling | 4.989413 (100/100) | 3.557832 (100/100) | 1.917186 (100/100) | 1.638348 (100/100) | 1.471542 (100/100) |
-| DL / Clarabel | 5.506247 (100/100) | 2.430416 (100/100) | 1.768188 (100/100) | 1.504857 (100/100) | 1.371367 (100/100) |
-| Coordinate-wise MoM | 5.488188 (100/100) | 2.472797 (100/100) | 1.797297 (100/100) | 1.535176 (100/100) | 1.396196 (100/100) |
-| Geometric MoM | 5.498424 (100/100) | 2.451237 (100/100) | 1.780680 (100/100) | 1.512799 (100/100) | 1.365793 (100/100) |
-
-**Mean runtime (seconds)**; each cell shows mean (completed seeds / 100).
-
-| Method | C=1 | C=2 | C=3 | C=4 | C=5 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Algorithm 1 | 0.148849 (100/100) | 0.367468 (100/100) | 2.256623 (100/100) | 9.206292 (100/100) | 29.827124 (100/100) |
-| Block subsampling | 0.089463 (100/100) | 0.144817 (100/100) | 0.238902 (100/100) | 0.582089 (100/100) | 1.199775 (100/100) |
-| DL / Clarabel | 0.331136 (100/100) | 0.549678 (100/100) | 0.574216 (100/100) | 0.775988 (100/100) | 0.882365 (100/100) |
-| Coordinate-wise MoM | 0.000238 (100/100) | 0.000210 (100/100) | 0.000308 (100/100) | 0.000404 (100/100) | 0.000376 (100/100) |
-| Geometric MoM | 0.001287 (100/100) | 0.001114 (100/100) | 0.001190 (100/100) | 0.001496 (100/100) | 0.001264 (100/100) |
-
-| C | Completed / target | Unconverged | Failed |
-| --- | ---: | ---: | ---: |
-| 1 | 500/500 | 0 | 0 |
-| 2 | 500/500 | 0 | 0 |
-| 3 | 500/500 | 0 | 0 |
-| 4 | 500/500 | 0 | 0 |
-| 5 | 500/500 | 0 | 0 |
-
-Batch status: **finished**, 2500/2500 attempts recorded, including 400 reused records. Averages use completed estimates only. Per-seed support recovery is also recorded; at s=d, the fraction of nonzero coordinates is not informative about sparse variable selection.
-
-[Settings](artifacts/experiment13_dense_block_scale/config.json). [Current records](artifacts/experiment13_dense_block_scale/results.json). [Validation](artifacts/experiment13_dense_block_scale/validation.json). [Contaminated-block diagnostics](artifacts/experiment13_dense_block_scale/contamination_diagnostics.json).
-
-![Experiment 13: error and runtime versus C](artifacts/experiment13_dense_block_scale/comparison_2500_d896923669.png)
-<!-- experiment13-block-scale:end -->
-
-<!-- experiment14-block-scale:start -->
-## Experiments 14
-
-Block-count scale comparison on the exact Experiment 9 datasets: d=s=10, n=1000, epsilon=.01, delta=.05, nu=2.5, adaptive attack strength 100, seeds 0–99. Centered skew-t with shape .5*I+.5*11', skew 10*1/sqrt(10), amplitude Uniform(1,3), and covariance input 2*lambda_max(Sigma)=764.0987715913294. Algorithm 1 tolerance is 1e-5.
-
-C=1,2,3,4,5 scales the unchanged full-block rule K=oddceil(C*max(d,epsilon*n,log(1/delta))). DL/Clarabel and both MoM baselines use this same K and seeded partition. Subsampling now requests oddceil(C*max(s*log(e*d/s),log(4/delta))), using the same C, and uniformly selects min(K,K_sub_requested) blocks without replacement. Its independent selection stream and original-order restoration are unchanged.
-
-| C | Full K / DL K | Selected K_sub | Observations per full block |
-| --- | ---: | ---: | ---: |
-| 1 | 11 | 11 | 90–91 |
-| 2 | 21 | 21 | 47–48 |
-| 3 | 31 | 31 | 32–33 |
-| 4 | 41 | 41 | 24–25 |
-| 5 | 51 | 51 | 19–20 |
-
-Four fresh worker processes, one solver/BLAS thread each, no wall-clock timeout. Estimator runtime includes block construction and estimation and excludes imports/data loading/metrics; scheduling and contention are included. DL uses the original generic Clarabel covering-SDP backend with eta=1e-4. Existing Algorithm 1 iteration limits and heuristics are retained. C=2 reuses the 400 unchanged Algorithm 1, DL and MoM records from Experiment 9; subsampling uses all K blocks at every C and equals full Algorithm 1. Its distinct row is annotated, and no independent subsampling runtime is reported. All new DL/MoM cases are executed before new Algorithm 1 cases. Algorithm 2, CFB, DL/PTZ and Haar are excluded. C=5 targets 400 additional fits beyond the 1600 preserved C=1,...,4 records using identical datasets and frozen estimator sources. Frozen sources and per-record provenance distinguish old and new runs.
-
-**Mean L2 error**; each cell shows mean (completed seeds / 100).
-
-| Method | C=1 | C=2 | C=3 | C=4 | C=5 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Algorithm 1 | 5.735910 (100/100) | 2.519079 (100/100) | 2.001469 (100/100) | 1.903120 (100/100) | 1.734072 (14/100) |
-| Block subsampling | Same blocks as Algorithm 1 (11/11) | Same blocks as Algorithm 1 (21/21) | Same blocks as Algorithm 1 (31/31) | Same blocks as Algorithm 1 (41/41) | Same blocks as Algorithm 1 (51/51) |
-| DL / Clarabel | 5.765526 (100/100) | 2.475265 (100/100) | 1.999758 (100/100) | 1.859548 (100/100) | 1.811836 (100/100) |
-| Coordinate-wise MoM | 5.747789 (100/100) | 2.568332 (100/100) | 2.072396 (100/100) | 1.946158 (100/100) | 1.836242 (100/100) |
-| Geometric MoM | 5.736922 (100/100) | 2.548852 (100/100) | 2.051268 (100/100) | 1.924556 (100/100) | 1.832265 (100/100) |
-
-**Mean runtime (seconds)**; each cell shows mean (completed seeds / 100).
-
-| Method | C=1 | C=2 | C=3 | C=4 | C=5 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Algorithm 1 | 0.204960 (100/100) | 0.995678 (100/100) | 14.064349 (100/100) | 132.673614 (100/100) | 484.861116 (14/100) |
-| Block subsampling | Same blocks as Algorithm 1 (11/11) | Same blocks as Algorithm 1 (21/21) | Same blocks as Algorithm 1 (31/31) | Same blocks as Algorithm 1 (41/41) | Same blocks as Algorithm 1 (51/51) |
-| DL / Clarabel | 0.808097 (100/100) | 1.401927 (100/100) | 1.774570 (100/100) | 2.301394 (100/100) | 2.558906 (100/100) |
-| Coordinate-wise MoM | 0.000244 (100/100) | 0.000216 (100/100) | 0.000314 (100/100) | 0.000339 (100/100) | 0.000390 (100/100) |
-| Geometric MoM | 0.001204 (100/100) | 0.001008 (100/100) | 0.000919 (100/100) | 0.000913 (100/100) | 0.001045 (100/100) |
-
-| C | Completed / target | Unconverged | Failed | Cancelled |
-| --- | ---: | ---: | ---: | ---: |
-| 1 | 400/400 | 0 | 0 | 0 |
-| 2 | 400/400 | 0 | 0 | 0 |
-| 3 | 400/400 | 0 | 0 | 0 |
-| 4 | 400/400 | 0 | 0 | 0 |
-| 5 | 314/400 | 0 | 0 | 86 |
-
-Batch status: **cancelled**, 1914/2000 attempts recorded, including 400 reused records. Subsampling provides 414 completed equivalent outcomes out of 500 targets through Algorithm 1 and has no separate fits/timings. Cancelled runs: 86, by user request. The C=5 Algorithm 1 cell is a partial result and does not represent 100 seeds. Averages use completed estimates only. Per-seed support recovery is also recorded; at s=d, the fraction of nonzero coordinates is not informative about sparse variable selection.
-
-[Settings](artifacts/experiment14_dense_d10_block_scale/config.json). [Current records](artifacts/experiment14_dense_d10_block_scale/results.json). [Validation](artifacts/experiment14_dense_d10_block_scale/validation.json). [Contaminated-block diagnostics](artifacts/experiment14_dense_d10_block_scale/contamination_diagnostics.json).
-
-![Experiment 14: error and runtime versus C](artifacts/experiment14_dense_d10_block_scale/comparison_1914_71ba446b20.png)
-<!-- experiment14-block-scale:end -->

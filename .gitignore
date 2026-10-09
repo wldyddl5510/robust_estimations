@@ -17,3 +17,8 @@ launch_status.json
 *progress*.json
 publication_status.json
 previous_runner_cancelled_cfb.json
+
+# Generated records and figures belong under artifacts/.
+/*.json
+/*.png
+/*.npz

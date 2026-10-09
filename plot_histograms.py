@@ -8,7 +8,7 @@ order, null for a seed that did not finish), in the order to be plotted:
 
 All panels share bins and x/y limits. Run, for example:
 
-    python plot_histograms.py experiment1_errors.json
+    python plot_histograms.py artifacts/experiment1_errors.json
 """
 
 import argparse

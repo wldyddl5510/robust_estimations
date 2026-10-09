@@ -1,7 +1,5 @@
 # Robust estimation via Integer Programming
 
-Experiment results, JSON records, PNG figures, saved datasets, and their runner/source bundles are collected in [`artifacts/`](artifacts/README.md). Their previous relative directory structure is retained inside that folder. The main [`results.md`](results.md) and [`sanity_check/sanity_check_results.md`](sanity_check/sanity_check_results.md) remain the entry points for reading results.
-
 Use the `robust_ip_estimation` conda environment and install dependencies with
 `python -m pip install -r requirements.txt`.
 
@@ -10,7 +8,7 @@ solves each fixed-support LP with Gurobi, and searches supports with the
 draft's dual cutting planes and a Gurobi MILP. Gurobi requires a working license.
 The original optimization programs, including their test reference models, use Gurobi.
 The new non-sparse literature estimators use a specialized positive-SDP routine
-or CVXPY/Clarabel; see [non-sparse implementation and limitations](README_non_sparse.md).
+or CVXPY/Clarabel; see [non-sparse implementation and limitations](../../../README_non_sparse.md).
 SciPy is used for t-distribution sampling and a nearest-neighbor check of the net.
 
 The shared outer loop is `utils.cutting_plane`. Each estimator supplies a
@@ -92,8 +90,8 @@ difference is timing variability. This mixed evidence is why indicator remains
 the default formulation and perspective remains off.
 
 Raw runs, certificates, and source provenance are in
-[`oracle_benchmark_results.json`](artifacts/oracle_benchmark_results.json).
-[`benchmark_oracle.py`](benchmark_oracle.py) reproduces the datasets and current
+[`oracle_benchmark_results.json`](../../oracle_benchmark_results.json).
+[`benchmark_oracle.py`](../../../benchmark_oracle.py) reproduces the datasets and current
 ablations:
 
 ```sh
@@ -449,7 +447,7 @@ that validate LP/SOCP objectives and dual cutting planes.
 
 `results.md` records the experiments in order. `plot_histograms.py` draws a
 figure's per-method L2 error histograms from a per-seed errors JSON (format in its
-docstring), e.g. `python plot_histograms.py artifacts/experiment1_errors.json`; each method
+docstring), e.g. `python plot_histograms.py experiment1_errors.json`; each method
 keeps a fixed color across figures.
 
 
@@ -542,64 +540,73 @@ implication; t5 and heavy-tail differences were under 2%. Projection cases were
 so this is evidence for retaining the current default on these toys, not a claim
 that the extra constraint can never help. Production solver code is unchanged.
 
-The [comparison figure](artifacts/benchmarks/two_sided/comparison.png) shows every seed.
-Raw [oracle results](artifacts/benchmarks/two_sided/oracle_results.json),
-[end-to-end results](artifacts/benchmarks/two_sided/e2e_results.json), and
-[summary](artifacts/benchmarks/two_sided/summary.json) include bounds, nodes, work, call
+The [comparison figure](../../benchmarks/two_sided/comparison.png) shows every seed.
+Raw [oracle results](../../benchmarks/two_sided/oracle_results.json),
+[end-to-end results](../../benchmarks/two_sided/e2e_results.json), and
+[summary](../../benchmarks/two_sided/summary.json) include bounds, nodes, work, call
 counts, configurations, and source fingerprints. Reproduce with the
 `robust_ip_estimation` environment (a working Gurobi license connection is needed):
 
 ```sh
-python artifacts/benchmarks/two_sided/benchmark_two_sided.py --repo . \
+python benchmarks/two_sided/benchmark_two_sided.py --repo . \
   --stage oracle --oracle-modes exact decision --perspective \
   --output /tmp/two_sided_oracle.json
-python artifacts/benchmarks/two_sided/benchmark_two_sided.py --repo . \
+python benchmarks/two_sided/benchmark_two_sided.py --repo . \
   --stage e2e --output /tmp/two_sided_e2e.json
-python artifacts/benchmarks/two_sided/summarize_two_sided.py \
+python benchmarks/two_sided/summarize_two_sided.py \
   --oracle /tmp/two_sided_oracle.json --e2e /tmp/two_sided_e2e.json --outdir /tmp
 ```
 
 
 ## Random block selection
 
-`random_block_selection.py` constructs the same balanced, seeded K blocks as
-Algorithm 1, then chooses a uniform subset without replacement. The same C
-(default 2) scales the full collection and the requested subset:
+`random_block_selection.py` constructs exactly the same $K$ balanced, seeded
+blocks as Algorithm 1, then selects a uniform subset **without replacement**:
 
 $$
-K_{\mathrm{sub,requested}}=\operatorname{oddceil}\left(
-C\max\{s\log(ed/s),\log(4/\delta)\}\right),\qquad
+K_{\mathrm{sub,requested}}=\min\{m\in\{1,3,5,\ldots\}:m\ge
+2[s\log(d/s)+\log(4/\delta)]\},\qquad
 K_{\mathrm{sub}}=\min(K,K_{\mathrm{sub,requested}}).
 $$
 
-Logs are natural, and oddceil rounds up to the smallest odd integer.
-At full support, s*log(e*d/s)=d. The original K rule is unchanged: it uses
-d at full support and s*log(d/s) otherwise. Each selected block is used once;
-selected rows are restored to their original order. If K_sub=K, the problem
-equals full Algorithm 1. Initialization and optimization use the subset only.
+Logs are natural. Both counts are odd, so the capped count remains odd.
+Each selected block is used once. The random subset is chosen once per fit;
+its rows are kept in original block order. If the requested count reaches K,
+all blocks are used, matching the full Algorithm 1 optimization. Coordinate
+medians, initialization, bounds, and every optimization step use only the
+selected block means. Gaps certify that subset's objective.
 
 ```python
+from random_block_selection import random_block_selection
+
 estimate, info = random_block_selection(
-    data, s=5, epsilon=.01, lambda_upper=739.0987715913293,
-    delta=.05, seed=0, C=3, replace=False,
+    data, s=2, epsilon=0.1, lambda_upper=6, delta=0.05,
+    seed=0, block_selection_seed=1, subsample_multiplier=2, replace=False,
 )
 print(info["K"], info["K_sub_requested"], info["K_sub"])
 ```
 
-For n=1000, d=s=5, epsilon=.01 and delta=.05, C=1,2,3,4,5 gives
-K=11,21,31,41,51 and K_sub=5,11,15,21,25. `block_selection_seed` defaults
-to seed in an independent SeedSequence stream. The subset is chosen once
-per fit. Changing C also changes the full partition, so subsets across C
-are not claimed to be nested. `subsample_multiplier` is retained as a
-compatibility alias, but an explicit value must equal C.
+The coefficient defaults to 2. `seed` controls the original partition;
+`block_selection_seed` defaults to `seed`, with a separate `SeedSequence`
+stream. A random permutation chooses the subset, so increasing the coefficient
+with the same seed extends the selected set up to K. Tolerance defaults to
+`1e-5` (including `tol=None`); existing Algorithm 1 options and heuristics apply.
+Runtime includes construction of all K block means, selection, and optimization.
+`info` includes requested/actual counts, selected indices, unique count, and
+`sampling_with_replacement`.
 
 ```bash
-python experiments.py --n 1000 --d 5 --s 5 --nu 3 --epsilon .01 \
-    --delta .05 --seed 0 --methods random_block_selection --C 3
+python experiments.py --n 300 --d 10 --s 2 --nu 3 --epsilon 0.1 \
+    --delta 0.05 --seed 0 --methods random_block_selection \
+    --block-selection-seed 1 --subsample-multiplier 2
 ```
 
-Tolerance defaults to 1e-5; Algorithm 1 options and heuristics apply.
-Runtime includes full block construction, selection and optimization.
-`replace=True` permits independent draws with replacement and no cap using
-the same new requested-count formula. Old experiment directories retain
-their frozen sources and historical subset rules. This method remains opt-in.
+For these parameters K=61 and K_sub=17. For s=2, delta=0.05, d=5,10,20,
+the requested counts are 13,17,19. `subsample_multiplier=3` changes the requested
+counts to 19,23,27, still capped at K for sampling without replacement.
+
+For reproducing earlier experiments, `replace=True` (CLI:
+`--block-selection-with-replacement`) uses independent uniform draws with
+replacement and no cap. Duplicates retain their multiplicity. With a fixed seed,
+larger coefficients append draws to the same sequence in that mode. The
+experiment runner's default method list remains unchanged; this method is opt-in.

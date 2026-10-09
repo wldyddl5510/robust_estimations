@@ -33,19 +33,19 @@ Brute-force skipped: radius-1 net 408,076,993 directions; 65.3 GB array > 16 GB 
 
 Projected methods: $J=10$, $r=10$, projected $K=7$; support cutting-plane aggregation with absolute/relative tolerances $10^{-5}$ and same-support LS refinement for max. Both completed seeds 0–9 with full coordinate coverage; four concurrent one-thread runs. Existing baseline rows retain their recorded results. Per-seed errors and metrics: `experiment1_errors.json`, `experiment1_projected_results.json`.
 
-Random MoM and random trimmed mean: both completed seeds 0–9 with $\widetilde J=10$ random sparse directions plus 20 coordinate directions (30 total), and $e_{\mathrm{tol}}=10^{-5}$. Both use the same direction seed as the data seed, hence the same direction bank per seed; historical sample hashes and truths were verified. Random MoM uses $K=15$ and random trimmed mean uses $k=4$ ($n-2k=92$). These gaps certify the finite direction bank objective. Runs were sequential with one solver thread; runtimes include estimator preprocessing but exclude data generation. The historical Algorithm 1 tolerance is approximately 0.237171, so its tolerance and timing conditions differ. Per-seed estimates, bounds, metrics, settings, and source hashes: [experiment1_random_j10_results.json](experiment1_random_j10_results.json).
+Random MoM and random trimmed mean: both completed seeds 0–9 with $\widetilde J=10$ random sparse directions plus 20 coordinate directions (30 total), and $e_{\mathrm{tol}}=10^{-5}$. Both use the same direction seed as the data seed, hence the same direction bank per seed; historical sample hashes and truths were verified. Random MoM uses $K=15$ and random trimmed mean uses $k=4$ ($n-2k=92$). These gaps certify the finite direction bank objective. Runs were sequential with one solver thread; runtimes include estimator preprocessing but exclude data generation. The historical Algorithm 1 tolerance is approximately 0.237171, so its tolerance and timing conditions differ. Per-seed estimates, bounds, metrics, settings, and source hashes: [experiment1_random_j10_results.json](../artifacts/sanity_check/experiment1_random_j10_results.json).
 
-Random MoM and random trimmed mean: both completed seeds 0–9 with $\widetilde J=20$ random sparse directions plus 20 coordinate directions (40 total), and $e_{\mathrm{tol}}=10^{-5}$. Both use the same direction seed as the data seed, hence the same direction bank per seed; historical sample hashes and truths were verified. Random MoM uses $K=15$ and random trimmed mean uses $k=4$ ($n-2k=92$). These gaps certify the finite direction bank objective. Runs were sequential with one solver thread; runtimes include estimator preprocessing but exclude data generation. The historical Algorithm 1 tolerance is approximately 0.237171, so its tolerance and timing conditions differ. Per-seed estimates, bounds, metrics, settings, and source hashes: [experiment1_random_j20_results.json](experiment1_random_j20_results.json). The J=20 single-pass MoM mean includes a 0.281 s first-run outlier. A warmed alternating J=10/20 benchmark (five repeats per seed, 50 fits per method and J) gives MoM means 0.024661 vs 0.025081 s (+1.7%), and trimmed means 0.025000 vs 0.025296 s (+1.2%). Medians remain about 0.026 s; these small differences do not establish a scaling trend. Measurements: [experiment1_random_j10_j20_timing.json](experiment1_random_j10_j20_timing.json).
+Random MoM and random trimmed mean: both completed seeds 0–9 with $\widetilde J=20$ random sparse directions plus 20 coordinate directions (40 total), and $e_{\mathrm{tol}}=10^{-5}$. Both use the same direction seed as the data seed, hence the same direction bank per seed; historical sample hashes and truths were verified. Random MoM uses $K=15$ and random trimmed mean uses $k=4$ ($n-2k=92$). These gaps certify the finite direction bank objective. Runs were sequential with one solver thread; runtimes include estimator preprocessing but exclude data generation. The historical Algorithm 1 tolerance is approximately 0.237171, so its tolerance and timing conditions differ. Per-seed estimates, bounds, metrics, settings, and source hashes: [experiment1_random_j20_results.json](../artifacts/sanity_check/experiment1_random_j20_results.json). The J=20 single-pass MoM mean includes a 0.281 s first-run outlier. A warmed alternating J=10/20 benchmark (five repeats per seed, 50 fits per method and J) gives MoM means 0.024661 vs 0.025081 s (+1.7%), and trimmed means 0.025000 vs 0.025296 s (+1.2%). Medians remain about 0.026 s; these small differences do not establish a scaling trend. Measurements: [experiment1_random_j10_j20_timing.json](../artifacts/sanity_check/experiment1_random_j10_j20_timing.json).
 
-Random MoM and random trimmed mean: both completed seeds 0–9 with $\widetilde J=50$ random sparse directions plus 20 coordinate directions (70 total), and $e_{\mathrm{tol}}=10^{-5}$. Both use the same direction seed as the data seed, hence the same direction bank per seed; historical sample hashes and truths were verified. Random MoM uses $K=15$ and random trimmed mean uses $k=4$ ($n-2k=92$). These gaps certify the finite direction bank objective. Runs were sequential with one solver thread; runtimes include estimator preprocessing but exclude data generation. The historical Algorithm 1 tolerance is approximately 0.237171, so its tolerance and timing conditions differ. Per-seed estimates, bounds, metrics, settings, and source hashes: [experiment1_random_j50_results.json](experiment1_random_j50_results.json). A warmed benchmark rotates J=10/20/50 order with five repeats per seed (50 fits per method and J). MoM mean runtimes for J=10/20/50 are 0.024633/0.024125/0.026534 s; trimmed mean runtimes are 0.025342/0.024968/0.025729 s. J=50 versus J=10 changes the means by +7.7% (MoM) and +1.5% (trimmed). These small timing differences do not establish a scaling trend. Measurements: [experiment1_random_j10_j20_j50_timing.json](experiment1_random_j10_j20_j50_timing.json).
+Random MoM and random trimmed mean: both completed seeds 0–9 with $\widetilde J=50$ random sparse directions plus 20 coordinate directions (70 total), and $e_{\mathrm{tol}}=10^{-5}$. Both use the same direction seed as the data seed, hence the same direction bank per seed; historical sample hashes and truths were verified. Random MoM uses $K=15$ and random trimmed mean uses $k=4$ ($n-2k=92$). These gaps certify the finite direction bank objective. Runs were sequential with one solver thread; runtimes include estimator preprocessing but exclude data generation. The historical Algorithm 1 tolerance is approximately 0.237171, so its tolerance and timing conditions differ. Per-seed estimates, bounds, metrics, settings, and source hashes: [experiment1_random_j50_results.json](../artifacts/sanity_check/experiment1_random_j50_results.json). A warmed benchmark rotates J=10/20/50 order with five repeats per seed (50 fits per method and J). MoM mean runtimes for J=10/20/50 are 0.024633/0.024125/0.026534 s; trimmed mean runtimes are 0.025342/0.024968/0.025729 s. J=50 versus J=10 changes the means by +7.7% (MoM) and +1.5% (trimmed). These small timing differences do not establish a scaling trend. Measurements: [experiment1_random_j10_j20_j50_timing.json](../artifacts/sanity_check/experiment1_random_j10_j20_j50_timing.json).
 
-Random MoM and random trimmed mean: both completed seeds 0–9 with $\widetilde J=100$ random sparse directions plus 20 coordinate directions (120 total), and $e_{\mathrm{tol}}=10^{-5}$. Both use the same direction seed as the data seed, hence the same direction bank per seed; historical sample hashes and truths were verified. Random MoM uses $K=15$ and random trimmed mean uses $k=4$ ($n-2k=92$). These gaps certify the finite direction bank objective. Runs were sequential with one solver thread; runtimes include estimator preprocessing but exclude data generation. The historical Algorithm 1 tolerance is approximately 0.237171, so its tolerance and timing conditions differ. Per-seed estimates, bounds, metrics, settings, and source hashes: [experiment1_random_j100_results.json](experiment1_random_j100_results.json). A warmed benchmark rotates J=10/20/50/100 order with five repeats per seed (50 fits per method and J). MoM mean runtimes for J=10/20/50/100 are 0.025436/0.025478/0.025996/0.029750 s; trimmed mean runtimes are 0.025638/0.025407/0.025755/0.025687 s. J=100 versus J=10 changes the means by +17.0% (MoM) and +0.2% (trimmed). Measurements: [experiment1_random_j10_j20_j50_j100_timing.json](experiment1_random_j10_j20_j50_j100_timing.json).
+Random MoM and random trimmed mean: both completed seeds 0–9 with $\widetilde J=100$ random sparse directions plus 20 coordinate directions (120 total), and $e_{\mathrm{tol}}=10^{-5}$. Both use the same direction seed as the data seed, hence the same direction bank per seed; historical sample hashes and truths were verified. Random MoM uses $K=15$ and random trimmed mean uses $k=4$ ($n-2k=92$). These gaps certify the finite direction bank objective. Runs were sequential with one solver thread; runtimes include estimator preprocessing but exclude data generation. The historical Algorithm 1 tolerance is approximately 0.237171, so its tolerance and timing conditions differ. Per-seed estimates, bounds, metrics, settings, and source hashes: [experiment1_random_j100_results.json](../artifacts/sanity_check/experiment1_random_j100_results.json). A warmed benchmark rotates J=10/20/50/100 order with five repeats per seed (50 fits per method and J). MoM mean runtimes for J=10/20/50/100 are 0.025436/0.025478/0.025996/0.029750 s; trimmed mean runtimes are 0.025638/0.025407/0.025755/0.025687 s. J=100 versus J=10 changes the means by +17.0% (MoM) and +0.2% (trimmed). Measurements: [experiment1_random_j10_j20_j50_j100_timing.json](../artifacts/sanity_check/experiment1_random_j10_j20_j50_j100_timing.json).
 
-Random MoM and random trimmed mean: both completed seeds 0–9 with $\widetilde J=10000$ random sparse directions plus 20 coordinate directions (1020 total), and $e_{\mathrm{tol}}=10^{-5}$. Both use the same direction seed as the data seed, hence the same direction bank per seed; historical sample hashes and truths were verified. Random MoM uses $K=15$ and random trimmed mean uses $k=4$ ($n-2k=92$). These gaps certify the finite direction bank objective. Runs were sequential with one solver thread; runtimes include estimator preprocessing but exclude data generation. The historical Algorithm 1 tolerance is approximately 0.237171, so its tolerance and timing conditions differ. Per-seed estimates, bounds, metrics, settings, and source hashes: [experiment1_random_j1000_results.json](experiment1_random_j1000_results.json). A warmed benchmark rotates J=10/100/1000 order with five repeats per seed (50 fits per method and J). MoM mean runtimes for J=10/100/1000 are 0.031607/0.037054/0.068891 s; trimmed mean runtimes are 0.029333/0.037969/0.063605 s. J=1000 versus J=10 runtime ratios are 2.18 (MoM) and 2.17 (trimmed). Measurements: [experiment1_random_j10_j100_j1000_timing.json](experiment1_random_j10_j100_j1000_timing.json).
+Random MoM and random trimmed mean: both completed seeds 0–9 with $\widetilde J=10000$ random sparse directions plus 20 coordinate directions (1020 total), and $e_{\mathrm{tol}}=10^{-5}$. Both use the same direction seed as the data seed, hence the same direction bank per seed; historical sample hashes and truths were verified. Random MoM uses $K=15$ and random trimmed mean uses $k=4$ ($n-2k=92$). These gaps certify the finite direction bank objective. Runs were sequential with one solver thread; runtimes include estimator preprocessing but exclude data generation. The historical Algorithm 1 tolerance is approximately 0.237171, so its tolerance and timing conditions differ. Per-seed estimates, bounds, metrics, settings, and source hashes: [experiment1_random_j1000_results.json](../artifacts/sanity_check/experiment1_random_j1000_results.json). A warmed benchmark rotates J=10/100/1000 order with five repeats per seed (50 fits per method and J). MoM mean runtimes for J=10/100/1000 are 0.031607/0.037054/0.068891 s; trimmed mean runtimes are 0.029333/0.037969/0.063605 s. J=1000 versus J=10 runtime ratios are 2.18 (MoM) and 2.17 (trimmed). Measurements: [experiment1_random_j10_j100_j1000_timing.json](../artifacts/sanity_check/experiment1_random_j10_j100_j1000_timing.json).
 
-![L2 error histograms for Experiment 1](experiment1_error_histograms.png)
+![L2 error histograms for Experiment 1](../artifacts/sanity_check/experiment1_error_histograms.png)
 
-Reconstructed sample mean + HT seed results: [experiment1_sample_mean_ht_results.json](experiment1_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
+Reconstructed sample mean + HT seed results: [experiment1_sample_mean_ht_results.json](../artifacts/sanity_check/experiment1_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
 
 ## Sanity check 2 (original Experiment 2)
 
@@ -62,9 +62,9 @@ Brute-force skipped: same 408,076,993-direction, 65.3 GB radius-1 net.
 
 The updated figure shows Sample mean + HT only: historical seed-level errors for the other methods are unavailable; their table results are retained.
 
-![L2 error histograms for Experiment 2](experiment2_error_histograms.png)
+![L2 error histograms for Experiment 2](../artifacts/sanity_check/experiment2_error_histograms.png)
 
-Reconstructed sample mean + HT seed results: [experiment2_sample_mean_ht_results.json](experiment2_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
+Reconstructed sample mean + HT seed results: [experiment2_sample_mean_ht_results.json](../artifacts/sanity_check/experiment2_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
 
 ## Sanity check 3 (original Experiment 3)
 
@@ -83,7 +83,7 @@ Brute-force skipped: radius-1 net 41,972,797,833 directions; 10.1 TB array > 16 
 
 Projected methods: $J=10$, $r=10$, projected $K=7$; support cutting-plane aggregation with absolute/relative tolerances $10^{-5}$ and same-support LS refinement for max. All six methods completed seeds 0–9; four concurrent one-thread runs. Uncovered true support coordinates (zero-based): seed 4: [2]. Per-seed errors and metrics: `experiment3_errors.json`, `experiment3_results.json`.
 
-![L2 error histograms for Experiment 3](experiment3_error_histograms.png)
+![L2 error histograms for Experiment 3](../artifacts/sanity_check/experiment3_error_histograms.png)
 
 ## Sanity check 4 (original Experiment 4)
 
@@ -102,9 +102,9 @@ Algorithm 1 timed out after 30 minutes for seeds 2, 5, and 7, including solo ret
 
 The updated figure shows Sample mean + HT only: historical seed-level errors for the other methods are unavailable; their table results are retained.
 
-![L2 error histograms for Experiment 4](experiment4_error_histograms.png)
+![L2 error histograms for Experiment 4](../artifacts/sanity_check/experiment4_error_histograms.png)
 
-Reconstructed sample mean + HT seed results: [experiment4_sample_mean_ht_results.json](experiment4_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
+Reconstructed sample mean + HT seed results: [experiment4_sample_mean_ht_results.json](../artifacts/sanity_check/experiment4_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
 
 ## Sanity check 5 (original Experiment 5)
 
@@ -123,9 +123,9 @@ Algorithm 1 seeds 7 and 9 were stopped at the user's request after about 74 minu
 
 The updated figure shows Sample mean + HT only: historical seed-level errors for the other methods are unavailable; their table results are retained.
 
-![L2 error histograms for Experiment 5](experiment5_error_histograms.png)
+![L2 error histograms for Experiment 5](../artifacts/sanity_check/experiment5_error_histograms.png)
 
-Reconstructed sample mean + HT seed results: [experiment5_sample_mean_ht_results.json](experiment5_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
+Reconstructed sample mean + HT seed results: [experiment5_sample_mean_ht_results.json](../artifacts/sanity_check/experiment5_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
 
 ## Sanity check 6 (original Experiment 6)
 
@@ -142,9 +142,9 @@ Brute-force skipped: radius-1 net 3,093,169 directions > 200,000-point cap.
 
 The updated figure shows Sample mean + HT only: historical seed-level errors for the other methods are unavailable; their table results are retained.
 
-![L2 error histograms for Experiment 6](experiment6_error_histograms.png)
+![L2 error histograms for Experiment 6](../artifacts/sanity_check/experiment6_error_histograms.png)
 
-Reconstructed sample mean + HT seed results: [experiment6_sample_mean_ht_results.json](experiment6_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
+Reconstructed sample mean + HT seed results: [experiment6_sample_mean_ht_results.json](../artifacts/sanity_check/experiment6_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
 
 ## Sanity check 7 (original Experiment 7)
 
@@ -161,9 +161,9 @@ Brute-force skipped: radius-1 net 408,076,993 directions; 65.3 GB array > 16 GB 
 
 The updated figure shows Sample mean + HT only: historical seed-level errors for the other methods are unavailable; their table results are retained.
 
-![L2 error histograms for Experiment 7](experiment7_error_histograms.png)
+![L2 error histograms for Experiment 7](../artifacts/sanity_check/experiment7_error_histograms.png)
 
-Reconstructed sample mean + HT seed results: [experiment7_sample_mean_ht_results.json](experiment7_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
+Reconstructed sample mean + HT seed results: [experiment7_sample_mean_ht_results.json](../artifacts/sanity_check/experiment7_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
 
 ## Sanity check 8 (original Experiment 8)
 
@@ -185,9 +185,9 @@ Skew-$t_\nu$ with shape $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$ and skew vector 
 
 Projected methods: $J=10$, $r=5$, projected $K=21$; $e_{\mathrm{tol}}=10^{-5}$ for Algorithm 1 and every dense projection. Aggregation uses support cutting planes with absolute/relative tolerances $10^{-5}$ and same-support LS refinement for max. All seven methods completed seeds 0–9; four concurrent one-thread runs. All coordinates were covered in every seed. Per-seed errors and metrics: `experiment8_errors.json`, `experiment8_results.json`.
 
-Random MoM and random trimmed mean: both completed seeds 0–9 using the identical historical Experiment 8 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 10 coordinate directions (1010 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=21$; random trimmed mean uses $k=15$ ($n-2k=970$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment8_random_j1000_results.json](experiment8_random_j1000_results.json).
+Random MoM and random trimmed mean: both completed seeds 0–9 using the identical historical Experiment 8 samples (verified hashes and true means), with $\widetilde J=1000$ random sparse directions plus 10 coordinate directions (1010 total), direction seed equal to data seed, and tolerance $10^{-5}$. Random MoM uses $K=21$; random trimmed mean uses $k=15$ ($n-2k=970$). Objective gaps certify the finite direction bank. Each method was run once per seed, sequentially with one solver thread; runtimes include preprocessing but exclude shared data generation. Historical baseline runtimes used four concurrent workers. Per-seed estimates, metrics, bounds, settings and source hashes: [experiment8_random_j1000_results.json](../artifacts/sanity_check/experiment8_random_j1000_results.json).
 
-![L2 error histograms for Experiment 8](experiment8_error_histograms.png)
+![L2 error histograms for Experiment 8](../artifacts/sanity_check/experiment8_error_histograms.png)
 
 ## Sanity check 9 (original Experiment 9)
 
@@ -205,9 +205,9 @@ Skew-$t_\nu$ with shape $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$ and skew vector 
 
 The updated figure shows Sample mean + HT only: historical seed-level errors for the other methods are unavailable; their table results are retained.
 
-![L2 error histograms for Experiment 9](experiment9_error_histograms.png)
+![L2 error histograms for Experiment 9](../artifacts/sanity_check/experiment9_error_histograms.png)
 
-Reconstructed sample mean + HT seed results: [experiment9_sample_mean_ht_results.json](experiment9_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
+Reconstructed sample mean + HT seed results: [experiment9_sample_mean_ht_results.json](../artifacts/sanity_check/experiment9_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
 
 ## Sanity check 10 (original Experiment 10)
 
@@ -226,9 +226,9 @@ Brute-force skipped: the radius-1 net has 408,076,993 directions and would requi
 
 Algorithm 1 seeds 0–3 each ran for over two hours without returning an estimator and were stopped as timeouts. Seeds 4–9 were not attempted after these four timeouts; no Algorithm 1 mean is available.
 
-![L2 error histograms for completed methods in Experiment 10](experiment10_error_histograms.png)
+![L2 error histograms for completed methods in Experiment 10](../artifacts/sanity_check/experiment10_error_histograms.png)
 
-Reconstructed sample mean + HT seed results: [experiment10_sample_mean_ht_results.json](experiment10_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
+Reconstructed sample mean + HT seed results: [experiment10_sample_mean_ht_results.json](../artifacts/sanity_check/experiment10_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
 
 ## Sanity check 11 (original Experiment 11)
 
@@ -248,9 +248,9 @@ Algorithm 1 means use completed seeds 0, 1, 2, 3, 4, 5, 6, 7, 9 only; seeds 8 ar
 
 The updated figure shows Sample mean + HT only: historical seed-level errors for the other methods are unavailable; their table results are retained.
 
-![L2 error histograms for Experiment 11](experiment11_error_histograms.png)
+![L2 error histograms for Experiment 11](../artifacts/sanity_check/experiment11_error_histograms.png)
 
-Reconstructed sample mean + HT seed results: [experiment11_sample_mean_ht_results.json](experiment11_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
+Reconstructed sample mean + HT seed results: [experiment11_sample_mean_ht_results.json](../artifacts/sanity_check/experiment11_sample_mean_ht_results.json). The dense sample mean average was checked against the historical table.
 
 ## Sanity check 12 (original Experiment 12)
 
@@ -268,7 +268,7 @@ Skew-$t_\nu$ with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$ and $b=10\mathbf{1}/\s
 | Geometric MoM + HT | 0.470341 | 0.001664 | 1.000 |
 | Sample mean + HT | 1.860822 | 0.000018 | 0.700000 |
 
-![L2 error histograms for Experiment 12](experiment12_error_histograms.png)
+![L2 error histograms for Experiment 12](../artifacts/sanity_check/experiment12_error_histograms.png)
 
 ## Sanity check 13 (original Experiment 13)
 
@@ -290,7 +290,7 @@ Experiment 1 speed comparison, seeds 0–9: the archived implementation before a
 
 Algorithm 1 exact separation calls fell from 231.1 to 28.4 per seed on average. Its objective certificate intervals agree within 7.3e-9 across implementations; the returned estimates can differ despite matching objective values. The speed gain is substantial for Algorithm 1 and modest for the already fast projected methods. These are paired comparisons across seeds, with one timing measurement per version and seed.
 
-Per-seed estimates, timings, certificates, settings and source hashes: [experiment1_speed_comparison.json](experiment1_speed_comparison.json). Both versions use the current tolerance and projection partition, so the historical Experiment 1 timing table is not the baseline for this comparison.
+Per-seed estimates, timings, certificates, settings and source hashes: [experiment1_speed_comparison.json](../artifacts/sanity_check/experiment1_speed_comparison.json). Both versions use the current tolerance and projection partition, so the historical Experiment 1 timing table is not the baseline for this comparison.
 
 ## Sanity check 14 (original Experiment 14)
 
@@ -312,7 +312,7 @@ Experiment 8 speed comparison, seeds 0–9: centered skew-t with $S=0.5I_d+0.5\m
 
 Algorithm 1 exact separation calls fell from 45.3 to 5.4 per seed on average. Its objective certificate intervals agree within 6.4e-9 across implementations, while its mean L2 error increased by 8.2%. Matching objective values do not imply matching estimates or L2 errors; this is consistent with nonunique optima. Projected errors are essentially unchanged. Timing results use one measurement per version and seed.
 
-Per-seed estimates, timings, certificates, settings and source hashes: [experiment8_speed_comparison.json](experiment8_speed_comparison.json). The baseline is the archived implementation before acceleration, rerun under the same settings; the historical Experiment 8 uses different projection and attack settings.
+Per-seed estimates, timings, certificates, settings and source hashes: [experiment8_speed_comparison.json](../artifacts/sanity_check/experiment8_speed_comparison.json). The baseline is the archived implementation before acceleration, rerun under the same settings; the historical Experiment 8 uses different projection and attack settings.
 
 ## Sanity check 15 (original Experiment 15)
 
@@ -330,9 +330,9 @@ Centered skew-t with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, $b=10\mathbf{1}/\s
 
 Timeout seeds: [1, 5, 7]; failed seeds: []. Means and histograms use returned estimators only; completion counts differ, so these are not matched 10-seed comparisons.
 
-![L2 error histograms for Experiment 15](experiment15_error_histograms.png)
+![L2 error histograms for Experiment 15](../artifacts/sanity_check/experiment15_error_histograms.png)
 
-Per-seed results: [experiment15_results.json](experiment15_results.json).
+Per-seed results: [experiment15_results.json](../artifacts/sanity_check/experiment15_results.json).
 
 ## Sanity check 16 (original Experiment 16)
 
@@ -350,9 +350,9 @@ Centered skew-t with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, $b=10\mathbf{1}/\s
 
 All five methods completed all ten seeds.
 
-![L2 error histograms for Experiment 16](experiment16_error_histograms.png)
+![L2 error histograms for Experiment 16](../artifacts/sanity_check/experiment16_error_histograms.png)
 
-Per-seed results: [experiment16_results.json](experiment16_results.json).
+Per-seed results: [experiment16_results.json](../artifacts/sanity_check/experiment16_results.json).
 
 ## Sanity check 17 (original Experiment 17)
 
@@ -370,9 +370,9 @@ Centered skew-t with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, $b=10\mathbf{1}/\s
 
 All five methods completed all ten seeds.
 
-![L2 error histograms for Experiment 17](experiment17_error_histograms.png)
+![L2 error histograms for Experiment 17](../artifacts/sanity_check/experiment17_error_histograms.png)
 
-Per-seed results: [experiment17_results.json](experiment17_results.json).
+Per-seed results: [experiment17_results.json](../artifacts/sanity_check/experiment17_results.json).
 
 ## Sanity check 18 (original Experiment 18)
 
@@ -390,9 +390,9 @@ Centered skew-t with $S=0.5I_d+0.5\mathbf{1}\mathbf{1}^\top$, $b=10\mathbf{1}/\s
 
 All five methods completed all ten seeds.
 
-![L2 error histograms for Experiment 18](experiment18_error_histograms.png)
+![L2 error histograms for Experiment 18](../artifacts/sanity_check/experiment18_error_histograms.png)
 
-Per-seed results: [experiment18_results.json](experiment18_results.json).
+Per-seed results: [experiment18_results.json](../artifacts/sanity_check/experiment18_results.json).
 <!-- algorithm1-runtime-scaling:start -->
 ## Sanity check 19: Algorithm 1 runtime versus dimension
 
@@ -445,9 +445,9 @@ Sample size 100 → 300 (3×) changes mean runtime by 34.823×. The default bloc
 
 For equal 2× input changes, mean runtime ratios are 3.698× for d:10 → 20 and 12.415× for n:100 → 200. Across the same seeds, the geometric mean ratio of these runtime multipliers is 0.450 (paired-seed bootstrap 95% interval 0.176–1.131); values above 1 favor a larger dimension effect. The observed average multiplier is larger for sample size (and its induced block count) in this setup. The interval spans 1, so these ten seeds do not clearly distinguish the two effects. This is a runtime comparison over these settings and seeds, not evidence of an asymptotic complexity law; seed difficulty and solve iteration counts can strongly affect the timings.
 
-![Algorithm 1 runtime versus dimension and sample size](algorithm1_runtime_scaling/runtime_comparison.png)
+![Algorithm 1 runtime versus dimension and sample size](../artifacts/sanity_check/algorithm1_runtime_scaling/runtime_comparison.png)
 
-[Detailed settings, seed-level metrics, solver diagnostics, and comparisons](algorithm1_runtime_scaling/results.json).
+[Detailed settings, seed-level metrics, solver diagnostics, and comparisons](../artifacts/sanity_check/algorithm1_runtime_scaling/results.json).
 <!-- random-block-sample-size:start -->
 
 **Comparison at fixed d=10.** The full method uses K=21,41,61. Coefficient 2 uses K_sub=17 for both sampling modes; without replacement these are always 17 distinct blocks. With-replacement coefficient 3 uses 23 draws.
@@ -479,9 +479,9 @@ Effect of replacing coefficient-2 sampling with replacement (WR2) by sampling wi
 
 Against WR2, WOR2 has lower mean L2 error in 3/5 settings. Mean support recovery improves in 2, worsens in 1, and is unchanged in 2. It has lower mean runtime than full Algorithm 1 in 5/5 settings. This remains a ten-seed pilot with one block selection per seed; timing ratios compare separate batches and do not establish an asymptotic complexity law. Objective gaps concern each selected-block collection.
 
-![Full and random-block methods: with and without replacement](random_block_selection_without_replacement/comparison.png)
+![Full and random-block methods: with and without replacement](../artifacts/sanity_check/random_block_selection_without_replacement/comparison.png)
 
-[Four-way paired results, selected indices, requested/actual block counts, diagnostics, and source hashes](random_block_selection_without_replacement/results.json). Historical comparisons: [WR coefficient 2](random_block_selection_scaling/results.json), [WR coefficient 3](random_block_selection_multiplier3/results.json).
+[Four-way paired results, selected indices, requested/actual block counts, diagnostics, and source hashes](../artifacts/sanity_check/random_block_selection_without_replacement/results.json). Historical comparisons: [WR coefficient 2](../artifacts/sanity_check/random_block_selection_scaling/results.json), [WR coefficient 3](../artifacts/sanity_check/random_block_selection_multiplier3/results.json).
 <!-- random-block-sample-size:end -->
 <!-- algorithm1-runtime-scaling:end -->
 
@@ -519,9 +519,9 @@ Batch status: **finished**, 160/160 attempts saved. Each method is scheduled for
 
 **Theorem conditions.** Both literature methods use practical K=21. DL requires $K\ge300|O|=3000$; CFB prescribes $K=\lceil3200\log(1/\delta)\rceil=9587$, exceeding n. CFB's iid theorem does not establish guarantees for this adaptive attack. Observed errors therefore describe this practical configuration. [DL paper](https://arxiv.org/abs/1906.03058), [CFB paper](https://proceedings.mlr.press/v99/cherapanamjeri19b.html), [PTZ solver](https://arxiv.org/abs/1201.5135).
 
-Excluded methods: Algorithm 2. See [scope record](non_sparse_sdp_comparison/method_selection.json).
+Excluded methods: Algorithm 2. See [scope record](../artifacts/sanity_check/non_sparse_sdp_comparison/method_selection.json).
 
-An initial Algorithm 2 seed-0 attempt was interrupted after 226.1s to move that slow method to the end of the queue. It produced no estimate and is separate from the retained attempts in the table. [Interruption record](non_sparse_sdp_comparison/interrupted_initial_attempt.json).
+An initial Algorithm 2 seed-0 attempt was interrupted after 226.1s to move that slow method to the end of the queue. It produced no estimate and is separate from the retained attempts in the table. [Interruption record](../artifacts/sanity_check/non_sparse_sdp_comparison/interrupted_initial_attempt.json).
 
 PTZ diagnostics: alpha=1.545e-12; conservative decision-iteration bound 2.522e+19. Actual retained decision calls used 1,000,000 updates total; final covering relative gaps range 11.729039–20.000000. The bound is not an observed runtime or a lower bound on practical work: valid certificates may stop earlier.
 
@@ -530,11 +530,11 @@ The specialized PTZ backend did not produce a certified final estimate in any se
 
 CFB returns its zero initial iterate for seeds [3, 4], because it has the smallest estimated distance among that seed's 100 evaluated iterates. Consequently its literal nonzero-support recovery is 80.0%. This follows the paper's best-iterate return rule; it is not a sparse feature-selection result.
 
-Contamination diagnostic: the full K=21 partition has 7–9 contaminated blocks. The nine-block subset contains a contaminated majority in 3/10 seeds. [Counts and paired errors](non_sparse_sdp_comparison/contamination_diagnostics.json) help interpret the random-block outliers; this is a diagnostic association, not a proof that contamination counts alone determine the error.
+Contamination diagnostic: the full K=21 partition has 7–9 contaminated blocks. The nine-block subset contains a contaminated majority in 3/10 seeds. [Counts and paired errors](../artifacts/sanity_check/non_sparse_sdp_comparison/contamination_diagnostics.json) help interpret the random-block outliers; this is a diagnostic association, not a proof that contamination counts alone determine the error.
 
-[Implementation details and deviations](../README_non_sparse.md). [Per-seed results and solver diagnostics](non_sparse_sdp_comparison/results.json). [Summary statistics and ranges](non_sparse_sdp_comparison/summary_statistics.json). [Data/source verification](non_sparse_sdp_comparison/validation.json). [Environment](non_sparse_sdp_comparison/environment.json). [Reproducible runner](non_sparse_sdp_comparison/run.py).
+[Implementation details and deviations](../README_non_sparse.md). [Per-seed results and solver diagnostics](../artifacts/sanity_check/non_sparse_sdp_comparison/results.json). [Summary statistics and ranges](../artifacts/sanity_check/non_sparse_sdp_comparison/summary_statistics.json). [Data/source verification](../artifacts/sanity_check/non_sparse_sdp_comparison/validation.json). [Environment](../artifacts/sanity_check/non_sparse_sdp_comparison/environment.json). [Reproducible runner](../artifacts/sanity_check/non_sparse_sdp_comparison/run.py).
 
-![Error and runtime by method](non_sparse_sdp_comparison/comparison.png)
+![Error and runtime by method](../artifacts/sanity_check/non_sparse_sdp_comparison/comparison.png)
 <!-- non-sparse-sdp:end -->
 
 <!-- non-sparse-sdp-d10-eps001:start -->
@@ -581,7 +581,7 @@ The literature methods still use practical block counts: DL's sufficient conditi
 
 Both d and epsilon change relative to sanity check 21, and several block counts change too. Cross-setting runtime ratios cannot isolate a dimension effect or establish nearly-linear scaling.
 
-[Per-seed results](non_sparse_sdp_d10_eps001/recorded_results.json). [Summary statistics](non_sparse_sdp_d10_eps001/summary_statistics.json). [Validation](non_sparse_sdp_d10_eps001/validation.json). [Settings](non_sparse_sdp_d10_eps001/config.json). [Frozen source hashes](non_sparse_sdp_d10_eps001/source_hashes.json). [Runner](non_sparse_sdp_d10_eps001/run.py). [Implementation details](../README_non_sparse.md).
+[Per-seed results](../artifacts/sanity_check/non_sparse_sdp_d10_eps001/recorded_results.json). [Summary statistics](../artifacts/sanity_check/non_sparse_sdp_d10_eps001/summary_statistics.json). [Validation](../artifacts/sanity_check/non_sparse_sdp_d10_eps001/validation.json). [Settings](../artifacts/sanity_check/non_sparse_sdp_d10_eps001/config.json). [Frozen source hashes](../artifacts/sanity_check/non_sparse_sdp_d10_eps001/source_hashes.json). [Runner](../artifacts/sanity_check/non_sparse_sdp_d10_eps001/run.py). [Implementation details](../README_non_sparse.md).
 
-![Non-sparse d=10 comparison](non_sparse_sdp_d10_eps001/comparison.png)
+![Non-sparse d=10 comparison](../artifacts/sanity_check/non_sparse_sdp_d10_eps001/comparison.png)
 <!-- non-sparse-sdp-d10-eps001:end -->
