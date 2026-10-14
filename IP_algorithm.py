@@ -1,47 +1,46 @@
-"""Algorithm 1: SOCP constraint generation with an integer separation oracle."""
+"""Algorithm 1: SOCP constraint generation with an integer separation oracle.
 
+F(mu) = max_{v in V} median_k <block_mean_k - mu, v>, with V the unit vectors having at most
+min(2s, d) nonzeros. Bounds and gaps hold within solver tolerances.
+"""
+
+from functools import partial
 from time import perf_counter
 
 import gurobipy as gp
 import numpy as np
 
-from utils import cutting_plane, mom_initialization
+from utils import check_sparsity, complexity, cutting_plane, gurobi_env, mom_blocks, new_model, odd_ceil, top_s
+
+MAX_INNER_ITER = 1000
 
 
 def _oracle_data(block_means, mu, s):
-    block_means = np.asarray(block_means, dtype=float)
-    mu = np.asarray(mu, dtype=float)
-    if block_means.ndim != 2 or min(block_means.shape) == 0:
-        raise ValueError("block_means must be a nonempty (K, d) array")
+    """Residuals, direction sparsity min(2s, d), and the median's top count h = (K+1)/2."""
+    block_means, mu = np.asarray(block_means, dtype=float), np.asarray(mu, dtype=float)
     K, d = block_means.shape
     if K % 2 != 1 or mu.shape != (d,):
         raise ValueError("require odd K and a length-d mu")
-    if not np.isfinite(block_means).all() or not np.isfinite(mu).all():
-        raise ValueError("block_means and mu must be finite")
-    if not isinstance(s, (int, np.integer)) or not 1 <= s <= d:
-        raise ValueError("s must be an integer with 1 <= s <= d")
     return block_means - mu, min(2 * s, d), (K + 1) // 2
 
 
 def _row_bounds(residuals, k):
+    """Euclidean norm of each row's k largest-magnitude entries."""
     largest = np.partition(np.abs(residuals), residuals.shape[1] - k, axis=1)[:, -k:]
     return np.linalg.norm(largest, axis=1)
 
 
 def deterministic_upper_bound(block_means, mu, s):
-    """Bound (10) by the median of the rows' largest-2s coordinate norms."""
+    """Bound F(mu) by the median of the rows' largest-2s coordinate norms."""
     residuals, k, _ = _oracle_data(block_means, mu, s)
     return float(np.median(_row_bounds(residuals, k)))
 
 
 def _sparse_direction(vector, k):
-    """Project a candidate onto the feasible sparse unit ball."""
+    """Keep the k largest-magnitude entries and normalize (zero stays zero)."""
     direction = np.array(vector, dtype=float, copy=True)
     if k < len(direction):
-        keep = np.argpartition(np.abs(direction), len(direction) - k)[-k:]
-        mask = np.ones(len(direction), dtype=bool)
-        mask[keep] = False
-        direction[mask] = 0.0
+        direction[np.argpartition(np.abs(direction), len(direction) - k)[:len(direction) - k]] = 0.0
     norm = np.linalg.norm(direction)
     if norm:
         direction /= norm
@@ -49,154 +48,158 @@ def _sparse_direction(vector, k):
 
 
 def _direction_witness(residuals, direction, h):
+    """(median projection, (S, B), direction), with the sign chosen to make the median >= 0."""
     projections = residuals @ direction
     lower = float(np.median(projections))
     if lower < 0:
-        direction = -direction
-        projections = -projections
-        lower = -lower
+        direction, projections, lower = -direction, -projections, -lower
     S = tuple(map(int, np.flatnonzero(direction))) or (0,)
     B = tuple(sorted(map(int, np.argsort(projections, kind="stable")[-h:])))
     return lower, (S, B), direction
 
 
-def heuristic_separation(
-    block_means, mu, s, *, decision_threshold=None, warm_start=None, env=None,
-):
-    """Return a feasible (lower_F, (S,B), direction) witness, never a certificate.
+def _heuristic_search(residuals, k, center, witness, fit_pair, propose, threshold, warm_start):
+    """Shared heuristic separation; returns the best feasible (lower_F, (S, B), direction).
 
-    Try deterministic sparse directions first, then at most four convex
-    fixed-(S,B) solves, alternating with top-half block selection and cheap
-    support proposals. A threshold violation stops the search immediately.
+    Evaluates cheap sparse candidates (warm start, best coordinate, sparse center and mean, a few
+    rows), then improves the two best distinct (S, B) pairs by at most two alternations of
+    fit_pair(S, B) (a convex fixed-pair solve) and the proposals built from the selected rows.
+    Returns as soon as a witness exceeds the threshold.
     """
-    residuals, k, h = _oracle_data(block_means, mu, s)
-    K, d = residuals.shape
-    if decision_threshold is not None and not np.isfinite(decision_threshold):
-        raise ValueError("decision_threshold must be finite")
-    candidates = []
-    if warm_start is not None:
-        warm_start = np.asarray(warm_start, dtype=float)
-        if warm_start.shape != (d,) or not np.isfinite(warm_start).all():
-            raise ValueError("warm_start must be a finite length-d direction")
-        candidates.append(_sparse_direction(warm_start, k))
-    coordinate_medians = np.median(residuals, axis=0)
+    n, d = residuals.shape
+    candidates = [] if warm_start is None else [_sparse_direction(warm_start, k)]
     coordinate = np.zeros(d)
-    coordinate[np.argmax(np.abs(coordinate_medians))] = 1.0
-    candidates.extend((coordinate, _sparse_direction(coordinate_medians, k),
-                       _sparse_direction(np.mean(residuals, axis=0), k)))
-    # Bound initialization cost even when there are many blocks.
+    coordinate[np.argmax(np.abs(center))] = 1.0
+    candidates += [coordinate, _sparse_direction(center, k), _sparse_direction(np.mean(residuals, axis=0), k)]
+    # A few large and evenly spread rows keep the start cheap even for many rows.
     row_bounds = _row_bounds(residuals, k)
-    row_ids = np.unique(np.r_[np.argsort(row_bounds)[-min(K, 6):],
-                             np.linspace(0, K - 1, min(K, 6), dtype=int)])
-    candidates.extend(_sparse_direction(residuals[i], k) for i in row_ids)
-    witnesses = [_direction_witness(residuals, direction, h) for direction in candidates]
-    witnesses.sort(key=lambda result: result[0], reverse=True)
+    rows = np.unique(np.r_[np.argsort(row_bounds)[-min(n, 6):], np.linspace(0, n - 1, min(n, 6), dtype=int)])
+    candidates += [_sparse_direction(residuals[i], k) for i in rows]
+    witnesses = sorted(map(witness, candidates), key=lambda w: w[0], reverse=True)
     best = witnesses[0]
 
-    def enough(result):
-        return (decision_threshold is not None
-                and result[0] > decision_threshold + 1e-8 * max(1.0, abs(decision_threshold)))
+    def enough(w):
+        return threshold is not None and w[0] > threshold + 1e-8 * max(1.0, abs(threshold))
 
     if enough(best):
         return best
-    tried = set()
-    # Two distinct initial pairs allow escaping a poor local block selection.
-    seeds = []
-    for witness in witnesses:
-        if witness[1] not in {seed[1] for seed in seeds}:
-            seeds.append(witness)
-        if len(seeds) == 2:
+    starts = []
+    for w in witnesses:
+        if w[1] not in {start[1] for start in starts}:
+            starts.append(w)
+        if len(starts) == 2:
             break
-    for seed in seeds:
-        current = seed
+    tried = set()
+    for current in starts:
         for _ in range(2):
-            S, B = current[1]
-            if (S, B) in tried:
+            if current[1] in tried:
                 break
-            tried.add((S, B))
+            tried.add(current[1])
             try:
-                with gp.Model(env=env) as model:
-                    model.Params.OutputFlag = 0
-                    model.Params.Threads = 1
-                    model.Params.NonConvex = 0
-                    model.Params.BarQCPConvTol = 1e-7
-                    v = model.addMVar(len(S), lb=-1, ub=1)
-                    level = model.addVar(lb=0)
-                    model.addConstr(v @ v <= 1)
-                    model.addConstr(residuals[np.ix_(B, S)] @ v >= level)
-                    model.setObjective(level, gp.GRB.MAXIMIZE)
-                    model.optimize()
-                    if model.Status != gp.GRB.OPTIMAL or not model.SolCount:
-                        break
-                    direction = np.zeros(d)
-                    direction[list(S)] = v.X
+                direction = fit_pair(*current[1])
             except gp.GurobiError:
-                # This routine never provides an upper bound; exact separation
-                # remains the caller's fallback if the local solve is unstable.
+                direction = None  # harmless: exact separation remains the fallback
+            if direction is None:
                 break
-            norm = np.linalg.norm(direction)
-            direction /= max(1.0, norm)
-            current = _direction_witness(residuals, direction, h)
-            if current[0] > best[0]:
-                best = current
+            current = witness(direction / max(1.0, np.linalg.norm(direction)))
+            best = max(best, current, key=lambda w: w[0])
             if enough(best):
                 return best
-            # New supports are proposed by the selected blocks and accepted
-            # only if their directly evaluated feasible witness improves.
-            selected = residuals[list(current[1][1])]
-            for vector in (np.mean(selected, axis=0), np.median(selected, axis=0)):
-                proposal = _direction_witness(residuals, _sparse_direction(vector, k), h)
-                if proposal[0] > current[0]:
-                    current = proposal
-                if proposal[0] > best[0]:
-                    best = proposal
+            # Proposals from the selected rows are kept only if they improve.
+            for vector in propose(residuals[list(current[1][1])]):
+                proposal = witness(_sparse_direction(vector, k))
+                current = max(current, proposal, key=lambda w: w[0])
+                best = max(best, proposal, key=lambda w: w[0])
             if enough(best):
                 return best
     return best
 
 
-def separation_oracle(
-    block_means, mu, s, tol, *, decision_threshold=None, env=None,
-    formulation="indicator", perspective=False, warm_start=None,
-):
+def _finish_separation(model, v, zeta, threshold, tol, witness, empty_pair, cap=np.inf):
+    """Solve a separation MIP and return (lower_F, upper_F, (S, B)) from its incumbent and bound.
+
+    With a threshold the solve stops once the incumbent exceeds it (a violated cut) or the bound
+    falls below it (a certificate); otherwise the absolute gap must be at most tol.
+    """
+    stopped = False
+    if threshold is None:
+        model.optimize()
+    else:
+        margin = 1e-5 * max(1.0, abs(threshold))
+
+        def decide(model, where):
+            nonlocal stopped
+            if where != gp.GRB.Callback.MIP:
+                return
+            incumbent = model.cbGet(gp.GRB.Callback.MIP_OBJBST)
+            bound = model.cbGet(gp.GRB.Callback.MIP_OBJBND)
+            if ((abs(incumbent) < gp.GRB.INFINITY / 2 and incumbent > threshold + margin)
+                    or (abs(bound) < gp.GRB.INFINITY / 2 and bound < threshold - margin)):
+                stopped = True
+                model.terminate()
+
+        model.optimize(decide)
+    if model.Status != gp.GRB.OPTIMAL and not (stopped and model.Status == gp.GRB.INTERRUPTED):
+        raise RuntimeError(f"Separation oracle failed: Gurobi status {model.Status}")
+    if model.SolCount == 0:
+        upper = min(cap, max(0.0, float(model.ObjBound)))
+        if threshold is None or upper > threshold:
+            raise RuntimeError("Separation oracle stopped without a certificate or incumbent")
+        return 0.0, upper, empty_pair
+    d = len(v.X)
+    S = np.flatnonzero(zeta.X > 0.5) if zeta is not None else np.arange(d)
+    direction = np.zeros(d)
+    direction[S] = v.X[S]
+    lower, pair, _ = witness(direction / max(1.0, np.linalg.norm(direction)))
+    upper = max(lower, 0.0, min(cap, float(model.ObjBound)))
+    if model.Status == gp.GRB.INTERRUPTED:
+        if not (lower > threshold or upper <= threshold):
+            raise RuntimeError("Separation oracle stopped without a valid cut or certificate")
+    elif upper - lower > tol:
+        raise RuntimeError("Separation oracle did not certify the requested absolute gap")
+    return lower, upper, pair
+
+
+def heuristic_separation(block_means, mu, s, *, decision_threshold=None, warm_start=None, env=None):
+    """Return a feasible (lower_F, (S, B), direction) witness for (10); never an upper certificate."""
+    residuals, k, h = _oracle_data(block_means, mu, s)
+
+    def fit_pair(S, B):
+        """Unit direction on S maximizing the smallest projection over the blocks in B."""
+        with new_model(env, NonConvex=0, BarQCPConvTol=1e-7) as model:
+            v = model.addMVar(len(S), lb=-1, ub=1)
+            level = model.addVar(lb=0)
+            model.addConstr(v @ v <= 1)
+            model.addConstr(residuals[np.ix_(B, S)] @ v >= level)
+            model.setObjective(level, gp.GRB.MAXIMIZE)
+            model.optimize()
+            if model.Status != gp.GRB.OPTIMAL or not model.SolCount:
+                return None
+            direction = np.zeros(residuals.shape[1])
+            direction[list(S)] = v.X
+            return direction
+
+    return _heuristic_search(residuals, k, np.median(residuals, axis=0),
+                             partial(_direction_witness, residuals, h=h), fit_pair,
+                             lambda selected: (np.mean(selected, axis=0), np.median(selected, axis=0)),
+                             decision_threshold, warm_start)
+
+
+def separation_oracle(block_means, mu, s, tol, *, decision_threshold=None, env=None, warm_start=None):
     """Solve (10), returning (lower_F, upper_F, (S, B)).
 
-    The incumbent direction gives lower_F; Gurobi's global maximization bound
-    gives upper_F. Symmetry in v makes maximizing the signed median equivalent
-    to maximizing its absolute value. Without a decision_threshold, tol is an
-    absolute objective gap. With one, stop as soon as either the incumbent
-    exceeds it (a violated cut) or the global bound falls below it (certified).
-    ``bigm`` uses explicit per-block bounds; ``indicator`` is an ablation.
-    Optional perspective cones strengthen the support relaxation when 2s < d.
+    The incumbent gives lower_F and Gurobi's global bound gives upper_F. Without a threshold,
+    tol is the absolute gap. With one, stop once the incumbent exceeds it (a violated cut) or
+    the bound falls below it (a certificate).
     """
     residuals, k, h = _oracle_data(block_means, mu, s)
     K, d = residuals.shape
-    if not np.isfinite(tol) or tol <= 0:
-        raise ValueError("tol must be positive and finite")
-    if decision_threshold is not None and not np.isfinite(decision_threshold):
-        raise ValueError("decision_threshold must be finite")
-    if formulation not in ("bigm", "indicator"):
-        raise ValueError("formulation must be 'bigm' or 'indicator'")
-    if warm_start is not None:
-        warm_start = np.asarray(warm_start, dtype=float)
-        if warm_start.shape != (d,) or not np.isfinite(warm_start).all():
-            raise ValueError("warm_start must be a finite length-d direction")
-        warm_start = _sparse_direction(warm_start, k)
-    row_bounds = _row_bounds(residuals, k)
-    upper_cutoff = float(np.median(row_bounds))
-    with gp.Model(env=env) as model:
-        model.Params.OutputFlag = 0
-        model.Params.Threads = 1
-        model.Params.MIPGap = 0
-        model.Params.MIPGapAbs = tol / 2
-        model.Params.FeasibilityTol = 1e-9
-        model.Params.IntFeasTol = 1e-9
-        model.Params.OptimalityTol = 1e-9
-        model.Params.BarQCPConvTol = 1e-8
-        model.Params.NonConvex = 0
+    witness = partial(_direction_witness, residuals, h=h)
+    upper_cutoff = float(np.median(_row_bounds(residuals, k)))
+    with new_model(env, MIPGap=0, MIPGapAbs=tol / 2, FeasibilityTol=1e-9, IntFeasTol=1e-9,
+                   OptimalityTol=1e-9, BarQCPConvTol=1e-8, NonConvex=0) as model:
         v = model.addMVar(d, lb=-1, ub=1)
-        # Dense directions need no support selection variables or constraints.
-        zeta = model.addMVar(d, vtype=gp.GRB.BINARY) if k < d else None
+        zeta = model.addMVar(d, vtype=gp.GRB.BINARY) if k < d else None  # dense: no support choice
         b = model.addMVar(K, vtype=gp.GRB.BINARY)
         level = model.addVar(lb=0, ub=upper_cutoff)
         model.addConstr(v @ v <= 1)
@@ -204,86 +207,25 @@ def separation_oracle(
             model.addConstr(v <= zeta)
             model.addConstr(-v <= zeta)
             model.addConstr(zeta.sum() <= k)
-            if perspective:
-                energy = model.addMVar(d, lb=0, ub=1)
-                for j in range(d):
-                    model.addConstr(v[j] * v[j] <= zeta[j] * energy[j])
-                model.addConstr(energy.sum() <= 1)
         model.addConstr(b.sum() == h)
         for i in range(K):
-            if formulation == "bigm":
-                # Inactive rows have projection >= -row_bounds[i], and level
-                # <= upper_cutoff, so this M is valid separately for each row.
-                big_m = upper_cutoff + row_bounds[i]
-                model.addConstr(residuals[i] @ v >= level - big_m * (1 - b[i]))
-            else:
-                model.addConstr((b[i] == 1) >> (residuals[i] @ v >= level))
+            model.addConstr((b[i] == 1) >> (residuals[i] @ v >= level))
         model.setObjective(level, gp.GRB.MAXIMIZE)
         if warm_start is not None:
-            start_lower, (start_S, start_B), warm_start = _direction_witness(residuals, warm_start, h)
-            v.Start = warm_start
+            start_lower, (start_S, start_B), direction = witness(_sparse_direction(warm_start, k))
+            v.Start = direction
             b.Start = np.isin(np.arange(K), start_B).astype(float)
             level.Start = min(start_lower, upper_cutoff)
             if zeta is not None:
                 zeta.Start = np.isin(np.arange(d), start_S).astype(float)
-                if perspective:
-                    energy.Start = warm_start ** 2
-
-        stopped = False
-
-        def stop_when_decided(model, where):
-            nonlocal stopped
-            if where != gp.GRB.Callback.MIP:
-                return
-            incumbent = model.cbGet(gp.GRB.Callback.MIP_OBJBST)
-            bound = model.cbGet(gp.GRB.Callback.MIP_OBJBND)
-            margin = 1e-5 * max(1.0, abs(decision_threshold))
-            if (abs(incumbent) < gp.GRB.INFINITY / 2
-                    and incumbent > decision_threshold + margin):
-                stopped = True
-                model.terminate()
-            elif (abs(bound) < gp.GRB.INFINITY / 2
-                  and bound < decision_threshold - margin):
-                stopped = True
-                model.terminate()
-
-        if decision_threshold is None:
-            model.optimize()
-        else:
-            model.optimize(stop_when_decided)
-        if model.Status != gp.GRB.OPTIMAL and not (stopped and model.Status == gp.GRB.INTERRUPTED):
-            raise RuntimeError(f"Separation oracle failed: Gurobi status {model.Status}")
-        if model.SolCount == 0:
-            upper = max(0.0, float(model.ObjBound))
-            if decision_threshold is None or upper > decision_threshold:
-                raise RuntimeError("Separation oracle stopped without a certificate or incumbent")
-            return 0.0, upper, ((0,), tuple(range(h)))
-        S = np.flatnonzero(zeta.X > 0.5) if zeta is not None else np.arange(d)
-        direction = np.zeros(d)
-        direction[S] = v.X[S]
-        direction /= max(1.0, np.linalg.norm(direction))
-        lower, pair, _ = _direction_witness(residuals, direction, h)
-        upper = max(lower, 0.0, float(model.ObjBound))
-        if model.Status == gp.GRB.INTERRUPTED:
-            if not (lower > decision_threshold or upper <= decision_threshold):
-                raise RuntimeError("Separation oracle stopped without a valid cut or certificate")
-        elif upper - lower > tol:
-            raise RuntimeError("Separation oracle did not certify the requested absolute gap")
-    return lower, upper, pair
+        return _finish_separation(model, v, zeta, decision_threshold, tol, witness, ((0,), tuple(range(h))))
 
 
 def solve_restricted_socp(block_means, support, M, pairs, *, env=None):
-    """Solve (17) over pairs, returning (feasible_mu, L, cut_gradient)."""
-    d = len(support)
-    with gp.Model(env=env) as model:
-        model.Params.OutputFlag = 0
-        model.Params.Threads = 1
-        model.Params.QCPDual = 1
-        model.Params.NonConvex = 0
-        model.Params.FeasibilityTol = 1e-9
-        model.Params.OptimalityTol = 1e-9
-        model.Params.BarQCPConvTol = 1e-8
-        mu = model.addMVar(d, lb=-gp.GRB.INFINITY)
+    """Solve (17) over the pairs, returning (feasible_mu, L, cut_gradient)."""
+    with new_model(env, QCPDual=1, NonConvex=0, FeasibilityTol=1e-9, OptimalityTol=1e-9,
+                   BarQCPConvTol=1e-8) as model:
+        mu = model.addMVar(len(support), lb=-gp.GRB.INFINITY)
         r = model.addVar(lb=0)
         upper = model.addConstr(mu <= M * support)
         lower = model.addConstr(-mu <= M * support)
@@ -292,8 +234,7 @@ def solve_restricted_socp(block_means, support, M, pairs, *, env=None):
             residual = model.addMVar(len(S), lb=-gp.GRB.INFINITY)
             model.addConstr(alpha.sum() == 1)
             model.addConstr(residual == block_means[np.ix_(B, S)].T @ alpha - mu[list(S)])
-            # r >= 0 makes this a convex second-order cone.
-            model.addConstr(residual @ residual <= r * r)
+            model.addConstr(residual @ residual <= r * r)  # convex because r >= 0
         model.setObjective(r, gp.GRB.MINIMIZE)
         model.optimize()
         if model.Status == gp.GRB.SUBOPTIMAL:
@@ -305,240 +246,138 @@ def solve_restricted_socp(block_means, support, M, pairs, *, env=None):
             model.optimize()
         if model.Status != gp.GRB.OPTIMAL:
             raise RuntimeError(f"Restricted SOCP failed: Gurobi status {model.Status}")
-        candidate = np.clip(mu.X, -M * support, M * support)
-        # Gurobi Pi for a <= constraint in a minimization problem is nonpositive.
-        gradient = M * (upper.Pi + lower.Pi)
-        return candidate, float(model.ObjVal), gradient
+        # Pi of a <= constraint in a minimization is nonpositive: g = -M * (lambda + rho).
+        return np.clip(mu.X, -M * support, M * support), float(model.ObjVal), M * (upper.Pi + lower.Pi)
 
 
-def initial_constraint(
-    block_means, center, initial_mu, s, sep_tol, *, env=None,
-    oracle_strategy="hybrid", oracle_formulation="indicator", perspective=False,
-):
-    """Initialize a certified upper bound, a valid (S,B) pair, and box bounds.
+class ConstraintGeneration:
+    """Inner loop of Algorithm 1, used as the solve_support callback of utils.cutting_plane.
 
-    Coordinate directions give |mu_j - center_j| <= F(mu) <= F(initial_mu),
-    so M_j = |center_j| + upper_F bounds every improving estimate.
-    Hybrid mode uses the deterministic bound and a cheap feasible direction;
-    exact mode solves (10) to sep_tol.
+    Alternates the restricted problem and separation on one support at a time, keeping the
+    generated (S, B) pairs, solver counters, and the last heuristic direction across supports.
+    Cheap heuristic cuts come first. A support's first visit returns a valid cut after at most
+    three restricted solves; a repeated support is solved until upper_F - L <= tol/4.
+    Algorithm 2 overrides the four statistic-specific methods below.
     """
-    if oracle_strategy == "hybrid":
-        upper = deterministic_upper_bound(block_means, initial_mu, s)
-        _, pair, _ = heuristic_separation(
-            block_means, initial_mu, s, decision_threshold=-1, env=env,
-        )
-    else:
-        _, upper, pair = separation_oracle(
-            block_means, initial_mu, s, sep_tol, env=env,
-            formulation=oracle_formulation, perspective=perspective,
-        )
-    M = np.abs(center) + upper + 1e-8 * max(1, np.max(np.abs(center)), upper)
-    return upper, pair, M
 
+    def __init__(self, data, s, tol, env, center, initial_mu):
+        self.data, self.s, self.env = data, s, env
+        self.inner_tol, self.sep_tol = tol / 4, tol / 8
+        self.stats = {"oracle_calls": 0, "heuristic_calls": 1, "heuristic_cuts": 0,
+                      "inner_iterations": 0, "deferred_supports": 0, "deterministic_certificates": 0}
+        self.direction, self.visited = None, set()
+        self.upper = self.upper_bound(initial_mu)
+        _, pair, _ = self.heuristic(initial_mu, -1, None)
+        self.pairs, self.seen = [pair], {pair}
+        # Coordinate directions give |mu_j - center_j| <= F(mu) <= upper for every improving mu.
+        self.M = np.abs(center) + self.upper + 1e-8 * max(1, np.max(np.abs(center)), self.upper)
 
-def constraint_generation(
-    block_means, support, M, pairs, s, sep_tol, inner_tol, stats, *,
-    max_inner_iter=1000, env=None, oracle_strategy="hybrid",
-    oracle_formulation="indicator", perspective=False, certify=True, oracle_state=None,
-):
-    """Alternate (17) and (10) on a fixed support, returning (mu, L, U, gradient).
+    def upper_bound(self, mu):
+        return deterministic_upper_bound(self.data, mu, self.s)
 
-    Hybrid separation tries feasible directions before an exact MIP. With
-    certify=False, return a valid restricted cut after at most three solves
-    (or a heuristic stall), with a deterministic objective upper bound. A
-    repeated support must use certify=True to prevent indefinite stalling.
-    New (S,B) pairs are appended to pairs in place; oracle_calls counts MIPs.
-    """
-    seen = set(pairs)
-    oracle_state = {} if oracle_state is None else oracle_state
-    for inner_iteration in range(max_inner_iter):
-        candidate, L, gradient = solve_restricted_socp(block_means, support, M, pairs, env=env)
-        stats["inner_iterations"] += 1
-        if oracle_strategy == "hybrid":
-            U = deterministic_upper_bound(block_means, candidate, s)
-            if U - L <= inner_tol:
-                stats["deterministic_certificates"] += 1
-                return candidate, L, U, gradient
-            lower, pair, direction = heuristic_separation(
-                block_means, candidate, s, decision_threshold=L + inner_tol,
-                warm_start=oracle_state.get("direction"), env=env,
-            )
-            stats["heuristic_calls"] += 1
-            oracle_state["direction"] = direction
-            violated = lower > L + inner_tol and pair not in seen
+    def heuristic(self, mu, threshold, warm_start):
+        return heuristic_separation(self.data, mu, self.s, decision_threshold=threshold,
+                                    warm_start=warm_start, env=self.env)
+
+    def oracle(self, mu, threshold, warm_start):
+        return separation_oracle(self.data, mu, self.s, self.sep_tol, decision_threshold=threshold,
+                                 warm_start=warm_start, env=self.env)
+
+    def restricted(self, support):
+        return solve_restricted_socp(self.data, support, self.M, self.pairs, env=self.env)
+
+    def info(self):
+        return {**self.stats, "constraints": len(self.pairs)}
+
+    def _add(self, pair):
+        self.pairs.append(pair)
+        self.seen.add(pair)
+
+    def __call__(self, support, certify=None):
+        """Return (mu, L, U, gradient) for a binary support."""
+        key = tuple(np.flatnonzero(support > 0.5))
+        certify = key in self.visited if certify is None else certify
+        self.visited.add(key)
+        for iteration in range(MAX_INNER_ITER):
+            mu, L, gradient = self.restricted(support)
+            self.stats["inner_iterations"] += 1
+            U = self.upper_bound(mu)
+            if U - L <= self.inner_tol:
+                self.stats["deterministic_certificates"] += 1
+                return mu, L, U, gradient
+            threshold = L + self.inner_tol
+            lower, pair, self.direction = self.heuristic(mu, threshold, self.direction)
+            self.stats["heuristic_calls"] += 1
+            violated = lower > threshold and pair not in self.seen
             if violated:
-                pairs.append(pair)
-                seen.add(pair)
-                stats["heuristic_cuts"] += 1
-            if not certify and (not violated or inner_iteration >= 2):
-                stats["deferred_supports"] += 1
-                return candidate, L, U, gradient
+                self._add(pair)
+                self.stats["heuristic_cuts"] += 1
+            if not certify and (not violated or iteration >= 2):
+                self.stats["deferred_supports"] += 1
+                return mu, L, U, gradient
             if violated:
                 continue
-        lower, U, pair = separation_oracle(
-            block_means, candidate, s, sep_tol, decision_threshold=L + inner_tol, env=env,
-            formulation=oracle_formulation, perspective=perspective,
-            warm_start=oracle_state.get("direction"),
-        )
-        stats["oracle_calls"] += 1
-        if U - L <= inner_tol:
-            return candidate, L, U, gradient
-        if lower <= L:
-            raise RuntimeError("Separation oracle did not find a violated constraint")
-        if pair in seen:
-            raise RuntimeError("An existing (S,B) constraint is still violated; check solver tolerances")
-        pairs.append(pair)
-        seen.add(pair)
-    raise RuntimeError("Inner constraint generation reached max_inner_iter before certification")
+            lower, U, pair = self.oracle(mu, threshold, self.direction)
+            self.stats["oracle_calls"] += 1
+            if U - L <= self.inner_tol:
+                return mu, L, U, gradient
+            if lower <= L:
+                raise RuntimeError("Separation oracle did not find a violated constraint")
+            if pair in self.seen:
+                raise RuntimeError("An existing (S,B) constraint is still violated; check solver tolerances")
+            self._add(pair)
+        raise RuntimeError("Inner constraint generation reached its iteration limit before certification")
 
 
-def _oracle_options(oracle_strategy, oracle_formulation):
-    if oracle_strategy not in ("hybrid", "exact"):
-        raise ValueError("oracle_strategy must be 'hybrid' or 'exact'")
-    if oracle_formulation not in ("bigm", "indicator"):
-        raise ValueError("oracle_formulation must be 'bigm' or 'indicator'")
+def dense_estimation(block_means, s, tol, env):
+    """Algorithm 1 on the full support (no support cutting plane), starting at the coordinate median.
 
-
-def _oracle_stats(oracle_strategy):
-    return {
-        "oracle_calls": int(oracle_strategy == "exact"),
-        "heuristic_calls": int(oracle_strategy == "hybrid"),
-        "heuristic_cuts": 0, "inner_iterations": 0,
-        "deferred_supports": 0, "deterministic_certificates": 0,
-    }
-
-
-def dense_estimation(
-    block_means, center, s, tol, *, max_inner_iter=1000, env=None,
-    oracle_strategy="hybrid", oracle_formulation="indicator", perspective=False,
-):
-    """Algorithm 1 without the support cutting plane, returning (mu, info).
-
-    Every coordinate stays active and the search starts at the dense
-    coordinate-wise MoM center. Directions are restricted to V_{min(2s,d)}.
-    info['objective'] is an upper bound within inner_tol=tol/4 of info['lower_bound'].
+    Directions stay in V_min(2s,d); info['objective'] is within tol/4 of info['lower_bound'].
     """
-    inner_tol, sep_tol = tol / 4, tol / 8
-    _oracle_options(oracle_strategy, oracle_formulation)
-    stats = _oracle_stats(oracle_strategy)
-    _, first_pair, M = initial_constraint(
-        block_means, center, center, s, sep_tol, env=env,
-        oracle_strategy=oracle_strategy, oracle_formulation=oracle_formulation,
-        perspective=perspective,
-    )
-    pairs = [first_pair]
-    estimate, L, U, _ = constraint_generation(
-        block_means, np.ones(len(center)), M, pairs, s, sep_tol, inner_tol, stats,
-        max_inner_iter=max_inner_iter, env=env,
-        oracle_strategy=oracle_strategy, oracle_formulation=oracle_formulation,
-        perspective=perspective,
-    )
-    stats.update({"objective": U, "lower_bound": L, "constraints": len(pairs),
-                  "oracle_strategy": oracle_strategy, "oracle_formulation": oracle_formulation,
-                  "perspective": perspective})
-    return estimate, stats
-
-
-def ip_estimation_from_block_means(
-    block_means, s, *, tol=1e-5, max_iter=1000, max_inner_iter=1000,
-    oracle_strategy="hybrid", oracle_formulation="indicator", perspective=False,
-):
-    """Run Algorithm 1 on an existing odd collection of block means.
-
-    Rows are used as supplied, including repeated rows. Initialization, bounds,
-    and every separation call use only these rows. No repartitioning occurs.
-    Runtime covers initialization and optimization, excluding block construction.
-    """
-    start = perf_counter()
-    _oracle_options(oracle_strategy, oracle_formulation)
-    for name, value in (("max_iter", max_iter), ("max_inner_iter", max_inner_iter)):
-        if not isinstance(value, (int, np.integer)) or value < 1:
-            raise ValueError(f"{name} must be a positive integer")
-    block_means = np.asarray(block_means, dtype=float)
-    if (block_means.ndim != 2 or min(block_means.shape) == 0
-            or not np.isfinite(block_means).all()):
-        raise ValueError("block_means must be a finite, nonempty (K, d) array")
-    K, d = block_means.shape
-    if K % 2 != 1:
-        raise ValueError("the number of block means must be odd")
-    if isinstance(s, (bool, np.bool_)) or not isinstance(s, (int, np.integer)) or not 1 <= s <= d:
-        raise ValueError("s must be an integer satisfying 1 <= s <= d")
-    tol = 1e-5 if tol is None else tol
-    if not np.isfinite(tol) or tol <= 0:
-        raise ValueError("tol must be positive and finite")
     center = np.median(block_means, axis=0)
-    support = np.zeros(d)
-    support[np.argsort(-np.abs(center))[:s]] = 1
-    initial_mu = center * support
-    inner_tol, sep_tol = tol / 4, tol / 8
-    stats = _oracle_stats(oracle_strategy)
-
-    with gp.Env(empty=True) as env:
-        env.setParam("OutputFlag", 0)
-        env.start()
-        initial_upper, first_pair, M = initial_constraint(
-            block_means, center, initial_mu, s, sep_tol, env=env,
-            oracle_strategy=oracle_strategy, oracle_formulation=oracle_formulation,
-            perspective=perspective,
-        )
-        pairs = [first_pair]
-        visited_supports = set()
-        oracle_state = {}
-
-        def solve_support(current_support):
-            key = tuple(np.flatnonzero(current_support > 0.5))
-            certify = oracle_strategy == "exact" or key in visited_supports
-            visited_supports.add(key)
-            return constraint_generation(
-                block_means, current_support, M, pairs, s, sep_tol, inner_tol, stats,
-                max_inner_iter=max_inner_iter, env=env,
-                oracle_strategy=oracle_strategy, oracle_formulation=oracle_formulation,
-                perspective=perspective, certify=certify, oracle_state=oracle_state,
-            )
-
-        estimate, info = cutting_plane(
-            s, support, initial_mu, initial_upper, solve_support, tol, max_iter=max_iter,
-        )
-
-    info.update(stats)
-    info.update({
-        "K": len(block_means), "constraints": len(pairs),
-        "inner_tol": inner_tol, "sep_tol": sep_tol, "runtime": perf_counter() - start,
-        "oracle_strategy": oracle_strategy, "oracle_formulation": oracle_formulation,
-        "perspective": perspective,
-    })
-    return estimate, info
+    solver = ConstraintGeneration(block_means, s, tol, env, center, center)
+    mu, L, U, _ = solver(np.ones(len(center)), certify=True)
+    return mu, {**solver.info(), "objective": U, "lower_bound": L}
 
 
-def ip_estimation(
-    data, s, epsilon, lambda_upper, delta=0.05, *, tol=1e-5, seed=None, C=2,
-    max_iter=1000, max_inner_iter=1000, oracle_strategy="hybrid",
-    oracle_formulation="indicator", perspective=False,
-):
-    """Return (mu_hat, info) using Algorithm 1 and the shared outer cutting plane.
+def ip_estimation_from_block_means(block_means, s, *, tol=1e-5, max_iter=1000):
+    """Algorithm 1 on the supplied odd collection of block means (used as given); returns (mu, info).
 
-    Initialization shares the block rule with brute_force_estimation: C=2 by default.
-    tol defaults to 1e-5 (also when None). inner_tol=tol/4 and sep_tol=tol/8.
-    Hybrid mode uses partial restricted solves on a support's first visit;
-    later visits certify upper_F - L <= inner_tol. Generated (S,B) pairs
-    persist across outer iterations. Bounds concern the continuous-direction
-    objective, within solver tolerances; info['objective'] is an upper bound.
-    Inner/oracle failures raise rather than returning an uncertified result.
-    An outer iteration limit instead returns info['converged']=False.
+    Starts from the hard-thresholded coordinate median. Bounds refer to the continuous-direction
+    objective; info['objective'] is a certified upper bound. Inner failures raise, while the
+    outer iteration limit returns info['converged'] = False.
     """
     start = perf_counter()
-    _oracle_options(oracle_strategy, oracle_formulation)
-    for name, value in (("max_iter", max_iter), ("max_inner_iter", max_inner_iter)):
-        if not isinstance(value, (int, np.integer)) or value < 1:
-            raise ValueError(f"{name} must be a positive integer")
-    tol = 1e-5 if tol is None else tol
-    block_means, _, _, _, tol = mom_initialization(
-        data, s, epsilon, lambda_upper, delta, tol, seed, C=C,
-    )
-    estimate, info = ip_estimation_from_block_means(
-        block_means, s, tol=tol, max_iter=max_iter, max_inner_iter=max_inner_iter,
-        oracle_strategy=oracle_strategy, oracle_formulation=oracle_formulation,
-        perspective=perspective,
-    )
-    info.update({"C": C, "runtime": perf_counter() - start})
-    return estimate, info
+    block_means = np.asarray(block_means, dtype=float)
+    if block_means.ndim != 2 or len(block_means) % 2 != 1 or not np.isfinite(block_means).all():
+        raise ValueError("block_means must be a finite (K, d) array with odd K")
+    check_sparsity(s, block_means.shape[1])
+    center = np.median(block_means, axis=0)
+    support = top_s(center, s)
+    initial_mu = center * support
+    with gurobi_env() as env:
+        solver = ConstraintGeneration(block_means, s, tol, env, center, initial_mu)
+        mu, info = cutting_plane(s, support, initial_mu, solver.upper, solver, tol, max_iter)
+    return mu, {**info, **solver.info(), "K": len(block_means), "runtime": perf_counter() - start}
+
+
+def ip_estimation(data, s, epsilon, *, delta=0.05, C=2, seed=None, tol=1e-5, max_iter=1000, subsample=False):
+    """Algorithm 1 on MoM block means; returns (mu, info).
+
+    subsample=True is block subsampling: only K_sub = min(K, smallest odd integer >=
+    C*max(s*log(e*d/s), log(4/delta))) blocks of the same partition, chosen uniformly without
+    replacement (independent seed stream) and kept in block order, enter the optimization.
+    With K_sub = K this is exactly Algorithm 1. Runtime includes block construction.
+    """
+    start = perf_counter()
+    blocks = mom_blocks(data, s, epsilon, delta=delta, C=C, seed=seed)
+    K, d = blocks.shape
+    extra = {}
+    if subsample:
+        K_sub = min(K, odd_ceil(C * max(complexity(s, d), np.log(4.) - np.log(delta))))
+        rng = np.random.default_rng(np.random.SeedSequence(seed, spawn_key=(2,)))
+        selected = np.sort(rng.permutation(K)[:K_sub])
+        blocks = blocks[selected]
+        extra = {"K_sub": K_sub, "selected_block_indices": selected.tolist()}
+    mu, info = ip_estimation_from_block_means(blocks, s, tol=tol, max_iter=max_iter)
+    return mu, {**info, **extra, "C": C, "K": K, "runtime": perf_counter() - start}

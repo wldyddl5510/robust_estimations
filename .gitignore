@@ -1,24 +1,28 @@
-# Local execution artifacts (scientific results, figures and sources stay tracked).
+# Only code, tests, and documentation are tracked; experiment outputs stay local.
+
+# Python and OS
 __pycache__/
 *.pyc
 *.pyo
 .DS_Store
+
+# Experiments run before the October 2026 refactor (kept locally only)
+previous_experiments/
+
+# New experiment outputs; results.md itself is tracked
+results/
+logs/
+
+# Generated records, figures, data, and run state anywhere
+*.json
+*.csv
+*.png
+*.pdf
+*.svg
+*.npz
+*.npy
+*.pkl
 *.log
 *.lock
 *.tmp
 *.pid
-*.status.json
-active.json
-launch_status.json
-*_pid.json
-*_pid_*.json
-
-# Live progress and process lifecycle state.
-*progress*.json
-publication_status.json
-previous_runner_cancelled_cfb.json
-
-# Generated records and figures belong under artifacts/.
-/*.json
-/*.png
-/*.npz
