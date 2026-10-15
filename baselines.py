@@ -15,7 +15,7 @@ def sample_mean_ht_estimation(data, s):
     return mean * top_s(mean, s), {"converged": True, "runtime": perf_counter() - start}
 
 
-def coordinate_mom_estimation(data, s, epsilon, *, delta=0.05, C=2, seed=None):
+def coordinate_mom_estimation(data, s, epsilon, *, delta=0.05, C=3, seed=None):
     """Coordinate-wise median of the MoM block means, keeping its s largest-magnitude coordinates."""
     start = perf_counter()
     blocks = mom_blocks(data, s, epsilon, delta=delta, C=C, seed=seed)
@@ -24,7 +24,7 @@ def coordinate_mom_estimation(data, s, epsilon, *, delta=0.05, C=2, seed=None):
     return estimate, {"converged": True, "C": C, "K": len(blocks), "runtime": perf_counter() - start}
 
 
-def geometric_mom_estimation(data, s, epsilon, *, delta=0.05, C=2, seed=None):
+def geometric_mom_estimation(data, s, epsilon, *, delta=0.05, C=3, seed=None):
     """Geometric median of the MoM block means, keeping its s largest-magnitude coordinates.
 
     Weiszfeld iterations from the mean, with the Vardi-Zhang step at a block mean.

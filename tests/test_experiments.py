@@ -24,7 +24,8 @@ class RegistryTests(unittest.TestCase):
                 mock.patch.object(experiments, "ip_estimation", return_value=result) as ip:
             experiments.run_method("haar", self.data, s=1, epsilon=.05, seed=3, r=2, J=5)
             experiments.run_method("block_subsampling", self.data, s=1, epsilon=.05, tol=1e-4)
-        self.assertEqual(haar.call_args.kwargs, {"delta": .05, "C": 2, "seed": 3, "tol": 1e-5, "r": 2, "J": 5})
+        # Without tol each method keeps its own default.
+        self.assertEqual(haar.call_args.kwargs, {"delta": .05, "C": 3, "seed": 3, "r": 2, "J": 5})
         self.assertTrue(ip.call_args.kwargs["subsample"])
         self.assertEqual(ip.call_args.kwargs["tol"], 1e-4)
         with self.assertRaises(TypeError):

@@ -56,7 +56,7 @@ def aggregate_coordinates(projections, estimates, d, s, *, tol=1e-5, max_iter=10
     return cutting_plane(s, np.zeros(d), np.zeros(d), constant, solve_support, tol, max_iter, rtol=tol)
 
 
-def partition_estimation(data, s, epsilon, *, r, delta=0.05, C=2, seed=None, tol=1e-5, max_iter=1000):
+def partition_estimation(data, s, epsilon, *, r, delta=0.05, C=3, seed=None, tol=1e-5, max_iter=1000):
     """Random partition into J = d/r coordinate blocks; returns (mu, info).
 
     Each dense fit replaces (d, s) by (r, min(r, s)) in the block rule, uses directions in
@@ -141,7 +141,7 @@ def aggregate_haar(P, y, s, M, *, tol=1e-5, max_iter=1000, env=None):
                          lambda z: haar_support_ls(P, y, z, M, tol=tol / 4, env=env), tol, max_iter, rtol=tol)
 
 
-def haar_estimation(data, s, epsilon, *, r, J, delta=0.05, C=2, seed=None, tol=1e-5, max_iter=1000):
+def haar_estimation(data, s, epsilon, *, r, J, delta=0.05, C=3, seed=None, tol=1e-5, max_iter=1000):
     """J independent Haar projections of rank r; returns (mu, info).
 
     Each dense fit uses the full sphere V_r and the block rule for (r, r, delta/J); all projections

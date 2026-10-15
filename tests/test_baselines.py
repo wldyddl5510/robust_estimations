@@ -22,7 +22,7 @@ class BaselineTests(unittest.TestCase):
         top = np.argsort(-np.abs(center))[:2]
         np.testing.assert_array_equal(estimate[top], center[top])
         self.assertEqual(np.count_nonzero(estimate), 2)
-        self.assertEqual(info["K"], 7)
+        self.assertEqual(info["K"], 11)  # oddceil(3 * 2(1 + log 2))
 
     def test_geometric_median_then_hard_threshold(self):
         data = np.array([[-1.0, 0.0], [1.0, 0.0], [0.0, 1.0]])

@@ -135,7 +135,7 @@ class PartitionEstimatorTests(unittest.TestCase):
         np.testing.assert_allclose(estimate, truth, atol=1e-6)
         self.assertTrue(info["converged"])
         self.assertAlmostEqual(info["objective"], 0, places=6)
-        self.assertEqual((info["J"], info["K"], info["oracle_calls"]), (2, 7, 0))
+        self.assertEqual((info["J"], info["K"], info["oracle_calls"]), (2, 9, 0))
         _, limited = partition_estimation(data, 2, 0, r=2, seed=1, max_iter=1)
         self.assertFalse(limited["converged"])
         self.assertEqual(limited["iterations"], 1)

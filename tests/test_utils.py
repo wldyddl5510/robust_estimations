@@ -55,16 +55,18 @@ class BlockTests(unittest.TestCase):
     def test_block_rule_and_balanced_partition(self):
         data = np.arange(1000., dtype=float).reshape(100, 10)
         # Full support uses complexity d: K = oddceil(2 * max(10, 1, log 20)) = 21.
-        blocks = mom_blocks(data, 10, .01, seed=4)
+        blocks = mom_blocks(data, 10, .01, C=2, seed=4)
         groups = np.array_split(np.random.default_rng(4).permutation(100), 21)
         np.testing.assert_array_equal(blocks, [data[group].mean(axis=0) for group in groups])
         np.testing.assert_array_equal(blocks, block_means(data, 21, 4))
         self.assertEqual({len(group) for group in groups}, {4, 5})
         # s < d: K = oddceil(2 * 2*log(5e)) = 11.
-        self.assertEqual(len(mom_blocks(data, 2, .01, seed=4)), 11)
+        self.assertEqual(len(mom_blocks(data, 2, .01, C=2, seed=4)), 11)
         # C scales K, and epsilon*n can dominate.
         self.assertEqual(len(mom_blocks(data, 10, .01, C=3, seed=4)), 31)
-        self.assertEqual(len(mom_blocks(data, 2, .2, seed=4)), 41)
+        self.assertEqual(len(mom_blocks(data, 2, .2, C=2, seed=4)), 41)
+        # The default multiplier is C = 3.
+        self.assertEqual(len(mom_blocks(data, 10, .01, seed=4)), 31)
 
     def test_invalid_settings(self):
         data = np.ones((100, 10))

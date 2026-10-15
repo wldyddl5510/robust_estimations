@@ -120,7 +120,7 @@ class NetTests(unittest.TestCase):
         estimate, info = brute_force_estimation(np.tile(truth, (40, 1)), 2, 0, seed=1)
         np.testing.assert_array_equal(estimate, truth)
         self.assertTrue(info["converged"])
-        self.assertEqual((info["objective"], info["C"], info["K"], info["tol"]), (0, 2, 7, 1e-5))
+        self.assertEqual((info["objective"], info["C"], info["K"], info["tol"]), (0, 3, 9, 1e-5))
         data = np.random.default_rng(9).standard_t(5, size=(80, 3)) + [2, 0, 0]
         _, info = brute_force_estimation(data, 1, 0.05, seed=4, tol=1e-6, max_iter=1)
         self.assertFalse(info["converged"])
@@ -189,9 +189,10 @@ class RandomDirectionTests(unittest.TestCase):
             with self.subTest(s=s):
                 estimate, info = random_trimmed_estimation(data, s, 0, delta=.9, tilde_J=23, seed=7, tol=1e-6)
                 directions = sample_sparse_directions(3, s, 23, seed=7)
-                targets = np.sort(data @ directions.T, axis=0)[1:-1].mean(axis=0)
+                k = 2 if s == 1 else 1  # ceil(log(2*C(3, min(2s, 3))/.9))
+                targets = np.sort(data @ directions.T, axis=0)[k:len(data) - k].mean(axis=0)
                 self.assert_optimum(estimate, info, directions, targets, s)
-                self.assertEqual((info["k"], info["effective_n"]), (1, len(data) - 2))
+                self.assertEqual((info["k"], info["effective_n"]), (k, len(data) - 2 * k))
         np.testing.assert_array_equal(data, original)
 
     def test_constant_data_and_sample_size_limits(self):

@@ -88,6 +88,32 @@ class OracleTests(unittest.TestCase):
         self.assertAlmostEqual(lower, 2.0, places=6)
         self.assertAlmostEqual(upper, 2.0, places=6)
 
+    def test_screened_decisions_match_exact_value(self):
+        rng = np.random.default_rng(0)
+        for trial in range(6):
+            K, d, s = (3, 4, 1) if trial < 3 else (7, 5, 2)
+            means, mu = rng.normal(size=(K, d)) * 2, rng.normal(size=d) * 0.3
+            exact = (segment_supremum(means, mu, s) if K == 3 else
+                     ip.separation_oracle(means, mu, s, 1e-7, env=self.env)[1])
+            for G in exact * np.array([0.3, 0.8, 0.97, 1.03, 1.3, 3.0]):
+                with self.subTest(trial=trial, ratio=G / exact):
+                    lower, upper, _ = ip.separation_oracle(means, mu, s, 1e-6, decision_threshold=G, env=self.env)
+                    self.assertGreaterEqual(upper, exact - 1e-6)  # never an invalid certificate
+                    self.assertLessEqual(lower, exact + 1e-6)
+                    if exact > G:
+                        self.assertGreater(lower, G)
+                    else:
+                        self.assertLessEqual(upper, G)
+
+    def test_screening_infeasibility_is_a_certificate(self):
+        # Every row norm is below the threshold, so screening leaves no row and F <= max ||r_i||.
+        means, mu = np.array([[1., 0.], [0., 1.], [-1., -1.]]), np.zeros(2)
+        exact = segment_supremum(means, mu, 1)
+        lower, upper, _ = ip.separation_oracle(means, mu, 1, 1e-6, decision_threshold=2., env=self.env)
+        self.assertEqual(lower, 0.)
+        self.assertAlmostEqual(upper, np.sqrt(2))
+        self.assertGreaterEqual(upper, exact - 1e-9)
+
     def test_heuristic_witness_and_deterministic_bound_on_degenerate_data(self):
         cases = (
             (np.zeros((3, 4)), np.zeros(4), 1),
@@ -176,6 +202,20 @@ class OracleTests(unittest.TestCase):
                 self.assertGreater(upper - lower, 1e-3)
                 self.assertEqual(solver.stats["deferred_supports"], 1)
 
+    def test_revisit_prune_skips_certification_with_a_valid_bound(self):
+        means = np.array([[2.], [3.], [4.]])
+        first_pair = ((0,), (0, 1))
+        with mock.patch.object(ip, "heuristic_separation", return_value=(0., first_pair, np.zeros(1))), \
+                mock.patch.object(ip, "separation_oracle", wraps=ip.separation_oracle) as exact:
+            solver = ip.ConstraintGeneration(means, 1, 4e-3, self.env, np.median(means, axis=0), np.zeros(1))
+            solver(np.zeros(1))  # first visit: deferred, U = 3 from the deterministic bound
+            solver.best_upper = 1.  # an incumbent the restricted value L = 2 cannot beat by more than tol
+            _, lower, upper, _ = solver(np.zeros(1))
+        exact.assert_not_called()
+        self.assertEqual(solver.stats["revisit_prunes"], 1)
+        self.assertAlmostEqual(lower, 2., places=6)
+        self.assertGreaterEqual(upper, 3. - 1e-9)  # still a valid upper bound for F(0) = 3
+
 
 class EstimatorTests(unittest.TestCase):
     data = np.random.default_rng(2).standard_t(5, size=(35, 3)) + [1, 0, 0]
@@ -209,11 +249,29 @@ class EstimatorTests(unittest.TestCase):
         np.testing.assert_allclose(estimate, truth, atol=1e-8)
         self.assertTrue(info["converged"])
         self.assertAlmostEqual(info["objective"], 0, places=7)
-        self.assertEqual((info["C"], info["K"], info["tol"]), (2, 7, 1e-5))
+        # The initial deterministic bound is 0 on constant data, so tol falls back to rtol.
+        self.assertEqual((info["C"], info["K"], info["tol"]), (3, 9, ip.RTOL))  # K = oddceil(3 * log 20)
         _, info = ip.ip_estimation(self.data, 1, 0, delta=0.4, tol=0.01, seed=4, max_iter=1)
         self.assertFalse(info["converged"])
         with mock.patch.object(ip, "MAX_INNER_ITER", 1), self.assertRaisesRegex(RuntimeError, "iteration limit"):
             ip.ip_estimation(self.data, 1, 0, delta=0.4, tol=0.01, seed=4)
+
+    def test_default_tolerance_is_relative_to_the_initial_bound(self):
+        means = mom_blocks(self.data, 1, 0, delta=.4, seed=4)
+        center = np.median(means, axis=0)
+        upper = ip.deterministic_upper_bound(means, center * (np.abs(center) == np.abs(center).max()), 1)
+        for rtol in (ip.RTOL, 1e-2):
+            with self.subTest(rtol=rtol):
+                _, info = ip.ip_estimation(self.data, 1, 0, delta=.4, seed=4, rtol=rtol)
+                self.assertAlmostEqual(info["tol"], rtol * upper, places=12)
+                self.assertTrue(info["converged"])
+                self.assertLessEqual(info["gap"], info["tol"])
+        # The same data scaled by 10 gives a 10x tolerance.
+        _, scaled = ip.ip_estimation(10 * self.data, 1, 0, delta=.4, seed=4)
+        self.assertAlmostEqual(scaled["tol"], 10 * ip.RTOL * upper, places=10)
+        self.assertEqual(ip.ip_estimation(self.data, 1, 0, delta=.4, seed=4, tol=.01)[1]["tol"], .01)
+        with self.assertRaises(ValueError):
+            ip.ip_estimation(self.data, 1, 0, delta=.4, seed=4, rtol=0)
 
     def test_block_solver_matches_estimator_and_rejects_invalid_blocks(self):
         estimate, info = ip.ip_estimation(self.data, 1, 0, delta=.4, tol=.01, seed=4)
@@ -239,7 +297,7 @@ class BlockSubsamplingTests(unittest.TestCase):
 
     def test_selected_blocks_of_the_original_partition_reach_the_solver(self):
         data = np.arange(1500., dtype=float).reshape(300, 5)
-        info, received = self.subsample(data, 2, .1, seed=3)
+        info, received = self.subsample(data, 2, .1, seed=3, C=2)
         self.assertEqual((info["K"], info["K_sub"]), (61, 9))
         blocks = np.array_split(np.random.default_rng(3).permutation(300), 61)
         means = np.array([data[block].mean(axis=0) for block in blocks])
@@ -249,11 +307,11 @@ class BlockSubsamplingTests(unittest.TestCase):
 
     def test_subsample_counts(self):
         # K_sub = min(K, oddceil(C * max(s*log(e*d/s), log(4/delta)))); full support gives d.
-        info, _ = self.subsample(np.arange(1000., dtype=float).reshape(100, 10), 10, .01, seed=4)
+        info, _ = self.subsample(np.arange(1000., dtype=float).reshape(100, 10), 10, .01, seed=4, C=2)
         self.assertEqual((info["K"], info["K_sub"], info["selected_block_indices"]), (21, 21, list(range(21))))
         for d, expected in [(5, 9), (10, 11), (20, 15)]:
             with self.subTest(d=d):
-                self.assertEqual(self.subsample(np.ones((100, d)), 2, .1, seed=0)[0]["K_sub"], expected)
+                self.assertEqual(self.subsample(np.ones((100, d)), 2, .1, seed=0, C=2)[0]["K_sub"], expected)
         for C, K, K_sub in [(1, 11, 5), (2, 21, 11), (3, 31, 15), (4, 41, 21), (5, 51, 25)]:
             with self.subTest(C=C):
                 info, _ = self.subsample(np.ones((1000, 5)), 5, .01, seed=7, C=C)

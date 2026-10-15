@@ -23,7 +23,7 @@ def complexity(s, d):
     return s * (1 + np.log(d / s))
 
 
-def mom_blocks(data, s, epsilon, *, delta=0.05, C=2, seed=None):
+def mom_blocks(data, s, epsilon, *, delta=0.05, C=3, seed=None):
     """Block means with K the smallest odd integer >= C * max(s*log(e*d/s), epsilon*n, log(1/delta))."""
     data = check_data(data, s)
     n, d = data.shape

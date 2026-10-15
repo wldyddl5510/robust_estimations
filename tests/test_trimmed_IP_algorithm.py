@@ -68,7 +68,8 @@ class TrimmedInitializationTests(unittest.TestCase):
 
     def test_initialization_formula_and_support(self):
         data = np.arange(90., dtype=float).reshape(30, 3) - [0., 40., 60.]
-        for epsilon, delta, expected_k in ((0., .05, 4), (.1, .9, 5), (.1, .05, 7)):
+        # k = floor(eps n) + max(ceil(log(2*C(3,2)/delta)), ceil(n*min(eps, 1/2-eps)/2)) with n = 30.
+        for epsilon, delta, expected_k in ((0., .05, 5), (.1, .9, 5), (.1, .05, 8), (.4, .9, 14)):
             with self.subTest(epsilon=epsilon, delta=delta):
                 center, support, k = trimmed.trimmed_initialization(data, 1, epsilon, delta)
                 expected_center = np.sort(data, axis=0)[expected_k:-expected_k].mean(axis=0)
@@ -78,13 +79,76 @@ class TrimmedInitializationTests(unittest.TestCase):
                 self.assertEqual(np.argmax(support), np.argmax(np.abs(expected_center)))
 
     def test_invalid_k_is_asserted_instead_of_clipped(self):
-        for n, epsilon, delta in ((100, .4, .05), (8, 0., .05), (5, 0., 1e-8),
+        for n, epsilon, delta in ((10, .4, .05), (8, 0., .05), (5, 0., 1e-8),
                                   (5, 0., 1e-310)):
             with self.subTest(n=n, epsilon=epsilon, delta=delta):
                 with self.assertRaises(AssertionError):
                     trimmed.trimmed_initialization(np.ones((n, 2)), 1, epsilon, delta)
                 with self.assertRaises(AssertionError):
                     trimmed.trimmed_ip_estimation(np.ones((n, 2)), 1, epsilon, delta=delta)
+
+
+class TrimmedSubsamplingTests(unittest.TestCase):
+    def subsample(self, data, s, epsilon, **kwargs):
+        """Run subsampled Algorithm 2 with the solver mocked; return (info, solver arguments)."""
+        with patch.object(trimmed, "TrimmedConstraintGeneration") as solver, \
+                patch.object(trimmed, "cutting_plane", return_value=(np.zeros(data.shape[1]), {})):
+            solver.return_value.info.return_value = {}
+            _, info = trimmed.trimmed_ip_estimation(data, s, epsilon, subsample=True, **kwargs)
+        return info, solver.call_args.args
+
+    def test_counts(self):
+        # d=20, s=5: D_s = 5*log(4e) + log(80) = 16.31 and log C(20, 10) = 12.13.
+        self.assertEqual(trimmed.trimming_count(1000, 20, 5, .02), 20 + max(16, 10))
+        self.assertEqual(trimmed.subsample_counts(1000, 20, 5, .02), (816, 20, 20 + max(17, 10)))
+        # n_sub = 164 and h = floor(16.4 + sqrt(2*16.4*log 40) + 2*log(40)/3) = 29 < floor(eps*n) = 100.
+        self.assertEqual(trimmed.subsample_counts(1000, 20, 5, .1), (164, 29, 29 + max(17, 15)))
+        self.assertEqual(trimmed.subsample_counts(1000, 20, 5, 0.), (250, 0, 17))
+        # A higher moment needs more rows; n_sub >= n falls back to Algorithm 2.
+        self.assertEqual(trimmed.subsample_counts(1000, 20, 5, .02, p=4), (1000, 20, 36))
+        # 2s > d uses C(d, d) = 1: k = ceil(log(2/.05)) = 4.
+        self.assertEqual(trimmed.trimming_count(100, 3, 2, 0.), 4)
+        with self.assertRaises(ValueError):
+            trimmed.subsample_counts(1000, 20, 5, .02, p=1)
+        with self.assertRaises(ValueError):
+            trimmed.trimming_count(1000, 20, 5, .5)
+        with self.assertRaises(AssertionError):
+            trimmed.subsample_counts(20, 20, 5, 0.)  # n_sub = 5 but k_sub = 17
+
+    def test_selected_rows_and_count_reach_the_solver(self):
+        data = np.arange(3000., dtype=float).reshape(1000, 3)
+        info, (rows, s, k, *_) = self.subsample(data, 1, .05, seed=3)
+        n_sub, h, k_sub = trimmed.subsample_counts(1000, 3, 1, .05)
+        selected = info["selected_indices"]
+        self.assertEqual((info["n_sub"], info["h"], info["k_sub"], info["k"], k), (n_sub, h, k_sub, k_sub, k_sub))
+        self.assertEqual(len(selected), n_sub)
+        self.assertEqual(selected, sorted(set(selected)))
+        np.testing.assert_array_equal(rows, data[selected])
+        self.assertEqual((info["n"], info["effective_n"]), (1000, n_sub - 2 * k_sub))
+
+    def test_full_sample_when_n_sub_reaches_n(self):
+        data = np.random.default_rng(0).normal(size=(40, 3))
+        info, (rows, _, k, *_) = self.subsample(data, 1, .05, delta=.9)  # n_sub = 72 >= 40
+        np.testing.assert_array_equal(rows, data)
+        self.assertEqual((info["n_sub"], k), (40, trimmed.trimming_count(40, 3, 1, .05, .9)))
+
+    def test_reproducible_selection_leaves_global_rng_alone(self):
+        data = np.random.default_rng(1).normal(size=(500, 3))
+        np.random.seed(5)
+        state = np.random.get_state()
+        first = self.subsample(data, 1, .05, seed=4)[0]["selected_indices"]
+        self.assertEqual(first, self.subsample(data, 1, .05, seed=4)[0]["selected_indices"])
+        self.assertNotEqual(first, self.subsample(data, 1, .05, seed=6)[0]["selected_indices"])
+        after = np.random.get_state()
+        np.testing.assert_array_equal(state[1], after[1])
+
+    def test_end_to_end(self):
+        data = np.random.default_rng(2).normal(size=(100, 2)) + [2., 0.]
+        data[:20] += 30.
+        estimate, info = trimmed.trimmed_ip_estimation(data, 1, .2, delta=.9, subsample=True, seed=1)
+        self.assertTrue(info["converged"])
+        self.assertEqual((info["n_sub"], info["h"], info["k_sub"]), (16, 5, 7))
+        self.assertLessEqual(np.count_nonzero(estimate), 1)
 
 
 class TrimmedIPAlgorithmTests(unittest.TestCase):
@@ -254,12 +318,13 @@ class TrimmedIPAlgorithmTests(unittest.TestCase):
     def test_estimator_against_full_support_and_pair_enumeration(self):
         data = np.array([[-3., 1., .1], [0., 2., 2.5], [2., -3., -1.],
                          [5., 0., -2.], [-1., 4., 3.]])
-        for s in (1, 2):
+        # k = ceil(log(2*C(3, min(2s, 3))/.9)): 2 for s = 1 and 1 for s = 2.
+        for s, k in ((1, 2), (2, 1)):
             with self.subTest(s=s):
-                optimum = self.full_optimum(data, s, 1)
+                optimum = self.full_optimum(data, s, k)
                 original = data.copy()
                 estimate, info = trimmed.trimmed_ip_estimation(data, s, 0., delta=.9, tol=.001)
-                actual = exhaustive_oracle(data, estimate, s, 1)
+                actual = exhaustive_oracle(data, estimate, s, k)
                 np.testing.assert_array_equal(data, original)
                 self.assertTrue(info["converged"])
                 self.assertLessEqual(np.count_nonzero(estimate), s)
@@ -268,7 +333,7 @@ class TrimmedIPAlgorithmTests(unittest.TestCase):
                 self.assertGreaterEqual(actual, optimum - 2e-6)
                 self.assertLessEqual(info["objective"] - optimum, info["tol"] + 2e-6)
                 self.assertLessEqual(info["gap"], info["tol"])
-                self.assertEqual((info["k"], info["n"], info["effective_n"]), (1, len(data), len(data) - 2))
+                self.assertEqual((info["k"], info["n"], info["effective_n"]), (k, len(data), len(data) - 2 * k))
                 self.assertGreater(info["runtime"], 0)
 
     def test_constant_data_defaults_and_iteration_limits(self):
@@ -277,7 +342,7 @@ class TrimmedIPAlgorithmTests(unittest.TestCase):
         np.testing.assert_allclose(estimate, truth, atol=1e-8)
         self.assertTrue(info["converged"])
         self.assertAlmostEqual(info["objective"], 0., places=7)
-        self.assertEqual((info["tol"], info["k"], info["effective_n"]), (1e-5, 4, 1))
+        self.assertEqual((info["tol"], info["k"], info["effective_n"]), (IP_algorithm.RTOL, 4, 1))
         data = np.array([[-3., 1., .1], [0., 2., 2.5], [2., -3., -1.],
                          [5., 0., -2.], [-1., 4., 3.]])
         _, info = trimmed.trimmed_ip_estimation(data, 1, 0., delta=.9, tol=.001, max_iter=1)
@@ -290,23 +355,24 @@ class TrimmedIPAlgorithmTests(unittest.TestCase):
                          [5., 0., -2.], [-1., 4., 3.]])
         # A feasible zero direction supplies no useful lower bound. Revisited
         # supports must still get exact separation before declaring convergence.
+        k = trimmed.trimming_count(5, 3, 1, 0., .9)
         with patch.object(trimmed, "heuristic_separation",
-                          return_value=(0., ((0,), (0, 1, 2, 3)), np.zeros(3))), \
+                          return_value=(0., ((0,), tuple(range(5 - k))), np.zeros(3))), \
              patch.object(trimmed, "separation_oracle", wraps=trimmed.separation_oracle) as exact:
             estimate, info = trimmed.trimmed_ip_estimation(data, 1, 0., delta=.9, tol=.001)
-        optimum = self.full_optimum(data, 1, 1)
+        optimum = self.full_optimum(data, 1, k)
         self.assertTrue(info["converged"])
         self.assertGreater(exact.call_count, 0)
         self.assertGreater(info["deferred_supports"], 0)
         self.assertLessEqual(info["objective"] - optimum, info["tol"] + 2e-6)
-        self.assertGreaterEqual(info["objective"], exhaustive_oracle(data, estimate, 1, 1) - 2e-6)
+        self.assertGreaterEqual(info["objective"], exhaustive_oracle(data, estimate, 1, k) - 2e-6)
 
     def test_default_tolerance_on_nonconstant_data(self):
         # Regression: an apparently optimal QCP had noisy cone duals and could
-        # trigger duplicate-cut failure at the default absolute tolerance.
+        # trigger duplicate-cut failure at the former default absolute tolerance 1e-5.
         data = np.random.default_rng(12).normal(size=(7, 3)) + [1., 0., 0.]
-        estimate, info = trimmed.trimmed_ip_estimation(data, 1, 0., delta=.9)
-        actual = exhaustive_oracle(data, estimate, 1, 1)
+        estimate, info = trimmed.trimmed_ip_estimation(data, 1, 0., delta=.9, tol=1e-5)
+        actual = exhaustive_oracle(data, estimate, 1, info["k"])
         self.assertTrue(info["converged"])
         self.assertLessEqual(info["gap"], 1e-5)
         self.assertGreaterEqual(info["objective"], actual - 1e-7)

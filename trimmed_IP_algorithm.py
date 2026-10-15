@@ -9,11 +9,12 @@ from time import perf_counter
 
 import gurobipy as gp
 import numpy as np
+from scipy.special import gammaln
 
 from IP_algorithm import (
-    ConstraintGeneration, _finish_separation, _heuristic_search, _row_bounds, _sparse_direction,
+    RTOL, ConstraintGeneration, default_tol, _finish_separation, _heuristic_search, _row_bounds, _sparse_direction,
 )
-from utils import check_data, cutting_plane, gurobi_env, new_model, top_s
+from utils import check_data, complexity, cutting_plane, gurobi_env, new_model, top_s
 
 
 def _validate_k(n, k):
@@ -31,15 +32,54 @@ def trimmed_mean(values, k, axis=0):
     return np.take(np.sort(values, axis=axis), np.arange(k, n - k), axis=axis).mean(axis=axis)
 
 
-def trimmed_initialization(data, s, epsilon, delta=0.05):
-    """Return (coordinate trimmed mean, its top-s indicator, k).
+def _log_directions(d, s):
+    """log C(d, min(2s, d)), the union bound over the supports of the 2s-sparse directions."""
+    m = min(2 * s, d)
+    return float(gammaln(d + 1) - gammaln(m + 1) - gammaln(d - m + 1))
 
-    k = floor(epsilon*n) + max(ceil(log(2/delta)), ceil(epsilon*n/2)), as in the draft.
-    """
+
+def _check_rates(epsilon, delta):
     if not 0 <= epsilon < 0.5 or not 0 < delta < 1:
-        raise ValueError("require 0 <= epsilon < 0.5 and 0 < delta < 1")
-    n = len(data)
-    k = int(np.floor(epsilon * n)) + max(int(np.ceil(np.log(2.) - np.log(delta))), int(np.ceil(epsilon * n / 2)))
+        raise ValueError("require 0 <= epsilon < 1/2 and 0 < delta < 1")
+
+
+def trimming_count(n, d, s, epsilon, delta=0.05):
+    """k = floor(eps*n) + max(ceil(log(2 C(d, min(2s,d)) / delta)), ceil(n * min(eps, 1/2 - eps) / 2))."""
+    _check_rates(epsilon, delta)
+    union = np.log(2.) + _log_directions(d, s) - np.log(delta)
+    return int(np.floor(epsilon * n)) + max(int(np.ceil(union)), int(np.ceil(n * min(epsilon, .5 - epsilon) / 2)))
+
+
+def subsample_counts(n, d, s, epsilon, delta=0.05, p=2):
+    """Return (n_sub, h, k_sub) for subsampled Algorithm 2 with a finite p-th moment (p > 1).
+
+    n_sub = ceil(D_s / eps^(2 - 2/p)) with D_s = s*log(e*d/s) + log(4/delta), or ceil(n/4) when
+    eps = 0. h bounds the outliers drawn into the subsample, and
+    k_sub = h + max(ceil(log(4 C(d, min(2s,d)) / delta)), ceil(n_sub * min(h/n_sub, 1/2 - h/n_sub) / 2)).
+    When n_sub >= n there is no subsampling: (n, floor(eps*n), trimming_count) is returned.
+    """
+    _check_rates(epsilon, delta)
+    if not p > 1:
+        raise ValueError("the moment order p must exceed 1")
+    if epsilon == 0:
+        n_sub, h = int(np.ceil(n / 4)), 0
+    else:
+        n_sub = int(np.ceil((complexity(s, d) + np.log(4 / delta)) / epsilon ** (2 - 2 / p)))
+        log_count = np.log(2 / delta)
+        h = min(int(np.floor(epsilon * n)),
+                int(np.floor(epsilon * n_sub + np.sqrt(2 * epsilon * n_sub * log_count) + 2 * log_count / 3)))
+    if n_sub >= n:
+        return n, int(np.floor(epsilon * n)), trimming_count(n, d, s, epsilon, delta)
+    union = np.log(4.) + _log_directions(d, s) - np.log(delta)
+    k_sub = h + max(int(np.ceil(union)), int(np.ceil(min(h, n_sub / 2 - h) / 2)))
+    _validate_k(n_sub, k_sub)
+    return n_sub, h, k_sub
+
+
+def trimmed_initialization(data, s, epsilon, delta=0.05):
+    """Return (coordinate trimmed mean, its top-s indicator, k) with k = trimming_count."""
+    n, d = np.shape(data)
+    k = trimming_count(n, d, s, epsilon, delta)
     center = trimmed_mean(data, k)
     return center, top_s(center, s), k
 
@@ -290,7 +330,8 @@ class TrimmedConstraintGeneration(ConstraintGeneration):
 
     def __init__(self, data, s, k, tol, env, center, initial_mu):
         self.k = k
-        super().__init__(data, s, tol, env, center, initial_mu)
+        # The block-count SDP certifies a median of block means, not this trimmed objective.
+        super().__init__(data, s, tol, env, center, initial_mu, sdp_time_limit=0)
 
     def upper_bound(self, mu):
         return deterministic_upper_bound(self.data, mu, self.s, self.k)
@@ -308,18 +349,34 @@ class TrimmedConstraintGeneration(ConstraintGeneration):
                                      tol=self.inner_tol / 4)
 
 
-def trimmed_ip_estimation(data, s, epsilon, *, delta=0.05, tol=1e-5, max_iter=1000):
+def trimmed_ip_estimation(data, s, epsilon, *, delta=0.05, tol=None, rtol=RTOL, max_iter=1000, subsample=False,
+                          p=2, seed=None):
     """Return (mu, info) using Algorithm 2 on the raw observations.
 
     No blocks, block multiplier, or covariance bound. Separation is hybrid as in Algorithm 1;
     inner failures raise, while the outer iteration limit returns info['converged'] = False.
+    subsample=True runs Algorithm 2 on n_sub rows drawn uniformly without replacement (independent
+    seed stream, original order kept) with k_sub removals per tail, for moment order p (see
+    subsample_counts); with n_sub = n this is exactly Algorithm 2. Runtime includes the draw.
+    tol defaults to rtol times the deterministic upper bound at the start, as in Algorithm 1.
     """
     start = perf_counter()
     data = check_data(data, s)
-    center, support, k = trimmed_initialization(data, s, epsilon, delta)
+    n, d = data.shape
+    k = trimming_count(n, d, s, epsilon, delta)
+    extra = {}
+    if subsample:
+        n_sub, h, k = subsample_counts(n, d, s, epsilon, delta, p)
+        rng = np.random.default_rng(np.random.SeedSequence(seed, spawn_key=(2,)))
+        selected = np.sort(rng.permutation(n)[:n_sub]) if n_sub < n else np.arange(n)
+        data = data[selected]
+        extra = {"n_sub": n_sub, "h": h, "k_sub": k, "selected_indices": selected.tolist()}
+    center = trimmed_mean(data, k)
+    support = top_s(center, s)
     initial_mu = center * support
+    tol = default_tol(tol, rtol, deterministic_upper_bound(data, initial_mu, s, k))
     with gurobi_env() as env:
         solver = TrimmedConstraintGeneration(data, s, k, tol, env, center, initial_mu)
         mu, info = cutting_plane(s, support, initial_mu, solver.upper, solver, tol, max_iter)
-    return mu, {**info, **solver.info(), "n": len(data), "k": k, "effective_n": len(data) - 2 * k,
+    return mu, {**info, **solver.info(), **extra, "n": n, "k": k, "effective_n": len(data) - 2 * k,
                 "runtime": perf_counter() - start}

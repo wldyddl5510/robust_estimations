@@ -167,7 +167,7 @@ def _fit(directions, targets, center, support, s, tol, max_iter):
         return cutting_plane(s, support, initial_mu, initial, solve_support, tol, max_iter)
 
 
-def brute_force_estimation(data, s, epsilon, *, delta=0.05, C=2, seed=None, tol=1e-5, max_iter=1000):
+def brute_force_estimation(data, s, epsilon, *, delta=0.05, C=3, seed=None, tol=1e-5, max_iter=1000):
     """MoM objective over the full radius-1/4 covering net; returns (mu, info).
 
     Raises NetSizeError (a ValueError) when the net exceeds MAX_NET_POINTS rows.
@@ -182,7 +182,7 @@ def brute_force_estimation(data, s, epsilon, *, delta=0.05, C=2, seed=None, tol=
     return mu, {**info, "C": C, "K": len(blocks), "net_size": len(net), "runtime": perf_counter() - start}
 
 
-def random_mom_estimation(data, s, epsilon, *, tilde_J, delta=0.05, C=2, seed=None, tol=1e-5, max_iter=1000):
+def random_mom_estimation(data, s, epsilon, *, tilde_J, delta=0.05, C=3, seed=None, tol=1e-5, max_iter=1000):
     """MoM objective over d coordinate plus tilde_J random sparse directions; returns (mu, info).
 
     The bank and the block partition both come from seed (independent streams) and stay fixed.
