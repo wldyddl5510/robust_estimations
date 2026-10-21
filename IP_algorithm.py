@@ -5,17 +5,18 @@ min(2s, d) nonzeros. Bounds and gaps hold within solver tolerances.
 """
 
 from functools import partial
-from fractions import Fraction
 from time import perf_counter
 
 import gurobipy as gp
 import numpy as np
+from scipy.optimize import nnls
 
 from utils import check_sparsity, complexity, cutting_plane, gurobi_env, mom_blocks, new_model, odd_ceil, top_s
 
 MAX_INNER_ITER = 1000
-SDP_TIME_LIMIT = 0.25  # suggested native budget (seconds) per SDP screen; pass sdp_time_limit=SDP_TIME_LIMIT to enable
 RTOL = 1e-3  # default tol = RTOL * deterministic upper bound at the initial estimate
+SWAP_HITS = 8  # violated pairs the swap search collects before returning the deepest
+SWAP_BUDGET = 0.5  # swap-search time as a share of the mean exact-oracle call (taken as 0.5 s before one)
 
 
 def _oracle_data(block_means, mu, s):
@@ -207,6 +208,92 @@ def heuristic_separation(block_means, mu, s, *, decision_threshold=None, warm_st
                              decision_threshold, warm_start)
 
 
+def _pair_direction(residuals, S, B):
+    """(unit direction on S maximizing min_{k in B} <residual_k, v>, simplex weights on B).
+
+    The direction is the normalized min-norm point c = sum_k alpha_k residual_k of the rows' convex
+    hull, found by NNLS with a penalty row for sum(alpha) = 1; then <residual_k, c> >= ||c||^2 for
+    every k in B. The direction is None for a zero min-norm point, and both are None if NNLS fails.
+    """
+    rows = residuals[np.ix_(B, S)]
+    weight = 1e4 * max(1.0, np.abs(rows).max())
+    try:
+        alpha, _ = nnls(np.vstack([rows.T, np.full(len(B), weight)]), np.r_[np.zeros(len(S)), weight])
+    except RuntimeError:
+        return None, None
+    if not alpha.sum() > 0:
+        return None, None
+    alpha = alpha / alpha.sum()
+    c = rows.T @ alpha
+    norm = np.linalg.norm(c)
+    if not norm > 0:
+        return None, alpha
+    direction = np.zeros(residuals.shape[1])
+    direction[list(S)] = c / norm
+    return direction, alpha
+
+
+def swap_separation(block_means, mu, s, pairs, weights, level, threshold, excluded, deadline):
+    """Search swaps and corral drops around the active restricted pairs; return the deepest witness or None.
+
+    A pair is active when its restricted convex combination c = sum_k alpha_k (block_mean_k - mu) has
+    norm at least level on S. Each active pair is refined as is and with one support coordinate i
+    replaced by j, in decreasing order of c_j^2 - c_i^2 (the change of ||c_S||^2 at fixed alpha),
+    alternating the fixed-pair direction and its top-h blocks. If none of these moves finds a
+    witness, each is refined again without one block of its min-norm corral (the blocks with
+    alpha_k > 0, largest weight first): only those can raise the fixed-pair value when dropped, and
+    the top-h reselection picks the replacement. Witnesses above threshold and not in excluded are
+    collected until SWAP_HITS or the deadline, and the deepest (lower_F, (S, B), direction) is
+    returned. Like the heuristic, it never certifies.
+    """
+    residuals, _, h = _oracle_data(block_means, mu, s)
+    d = residuals.shape[1]
+    moves = []
+    for (S, B), alpha in zip(pairs, weights):
+        alpha = np.maximum(alpha, 0)
+        c = residuals[list(B)].T @ (alpha / alpha.sum())
+        if np.linalg.norm(c[list(S)]) < level:
+            continue
+        moves.append((np.inf, S, B))
+        for i in S:
+            moves += [(c[j] ** 2 - c[i] ** 2, tuple(sorted(set(S) - {i} | {j})), B)
+                      for j in range(d) if j not in S]
+    moves.sort(key=lambda move: -move[0])
+    hits = {}
+
+    def refine(S, B):
+        """Alternate the fixed-pair direction and its top-h blocks; return the weights of (S, B)."""
+        tried, first = set(), None
+        for step in range(6):
+            if B in tried:
+                break
+            tried.add(B)
+            direction, alpha = _pair_direction(residuals, S, B)
+            if step == 0:
+                first = alpha
+            if direction is None:
+                break
+            lower, pair, direction = _direction_witness(residuals, direction, h)
+            if lower > threshold and pair not in excluded:
+                hits.setdefault(pair, (lower, pair, direction))
+                break
+            B = pair[1]
+        return first
+
+    corrals = []
+    for _, S, B in moves:
+        if len(hits) >= SWAP_HITS or perf_counter() > deadline:
+            break
+        corrals.append((S, B, refine(S, B)))
+    drops = [] if hits else [(S, B[:i] + B[i + 1:]) for S, B, alpha in corrals if alpha is not None
+                             for i in np.argsort(-alpha) if alpha[i] > 1e-9]
+    for S, B in drops:
+        if len(hits) >= SWAP_HITS or perf_counter() > deadline:
+            break
+        refine(S, B)
+    return max(hits.values(), key=lambda witness: witness[0], default=None)
+
+
 def _pair_minima(rows, k, iterations=30):
     """For all row pairs (i < j), golden-section values of min_a ||a rows_i + (1-a) rows_j||_(k).
 
@@ -293,19 +380,21 @@ def separation_oracle(block_means, mu, s, tol, *, decision_threshold=None, env=N
 
 
 def solve_restricted_socp(block_means, support, M, pairs, *, env=None):
-    """Solve (17) over the pairs, returning (feasible_mu, L, cut_gradient)."""
+    """Solve (17) over the pairs, returning (feasible_mu, L, cut_gradient, simplex weights per pair)."""
     with new_model(env, QCPDual=1, NonConvex=0, FeasibilityTol=1e-9, OptimalityTol=1e-9,
                    BarQCPConvTol=1e-8) as model:
         mu = model.addMVar(len(support), lb=-gp.GRB.INFINITY)
         r = model.addVar(lb=0)
         upper = model.addConstr(mu <= M * support)
         lower = model.addConstr(-mu <= M * support)
+        alphas = []
         for S, B in pairs:
             alpha = model.addMVar(len(B), lb=0)
             residual = model.addMVar(len(S), lb=-gp.GRB.INFINITY)
             model.addConstr(alpha.sum() == 1)
             model.addConstr(residual == block_means[np.ix_(B, S)].T @ alpha - mu[list(S)])
             model.addConstr(residual @ residual <= r * r)  # convex because r >= 0
+            alphas.append(alpha)
         model.setObjective(r, gp.GRB.MINIMIZE)
         model.optimize()
         if model.Status == gp.GRB.SUBOPTIMAL:
@@ -318,7 +407,8 @@ def solve_restricted_socp(block_means, support, M, pairs, *, env=None):
         if model.Status != gp.GRB.OPTIMAL:
             raise RuntimeError(f"Restricted SOCP failed: Gurobi status {model.Status}")
         # Pi of a <= constraint in a minimization is nonpositive: g = -M * (lambda + rho).
-        return np.clip(mu.X, -M * support, M * support), float(model.ObjVal), M * (upper.Pi + lower.Pi)
+        return (np.clip(mu.X, -M * support, M * support), float(model.ObjVal), M * (upper.Pi + lower.Pi),
+                [alpha.X for alpha in alphas])
 
 
 class ConstraintGeneration:
@@ -332,34 +422,21 @@ class ConstraintGeneration:
     cut ends the outer search if the master returns to it, so certification is skipped.
     best_upper tracks the smallest returned U, which is the incumbent of utils.cutting_plane
     when this object is its solve_support with the same tol.
-    Before exact separation, a bounded-effort SDP can certify F(mu) < L + inner_tol.
-    An optional geometric screen runs before the SDP: plane cuts, then sparse-support box
-    certification. In that mode the heuristic cut threshold is L + sep_tol; the certificate
-    threshold remains L + inner_tol. Algorithm 2 disables both MoM screens.
+    When certifying, a failed heuristic is followed by swap_separation around the pairs active in
+    the restricted problem, with a time budget of SWAP_BUDGET times the mean exact call, and then
+    by the exact separation MIP. Algorithm 2 disables the swap search.
     """
 
-    def __init__(self, data, s, tol, env, center, initial_mu, *, sdp_time_limit=0.,
-                 geometric_time_limit=0., geometric_max_nodes=5000):
-        if not np.isfinite(sdp_time_limit) or sdp_time_limit < 0:
-            raise ValueError("sdp_time_limit must be finite and nonnegative (0 disables the SDP)")
-        if not np.isfinite(geometric_time_limit) or geometric_time_limit < 0:
-            raise ValueError("geometric_time_limit must be finite and nonnegative")
-        if not isinstance(geometric_max_nodes, (int, np.integer)) or geometric_max_nodes < 0:
-            raise ValueError("geometric_max_nodes must be a nonnegative integer")
+    swap_search = True  # needs (S, B) pairs with the restricted simplex weights
+
+    def __init__(self, data, s, tol, env, center, initial_mu):
         self.data, self.s, self.env = data, s, env
-        self.sdp_time_limit, self._sdp_certifier = sdp_time_limit, None
-        self.geometric_time_limit = geometric_time_limit
-        self.geometric_max_nodes = geometric_max_nodes
         self.tol, self.inner_tol, self.sep_tol = tol, tol / 4, tol / 8
         self.stats = {"oracle_calls": 0, "oracle_cuts": 0, "oracle_certificates": 0, "heuristic_calls": 1,
                       "heuristic_cuts": 0, "inner_iterations": 0, "deferred_supports": 0,
-                      "deterministic_certificates": 0, "revisit_prunes": 0,
-                      "sdp_calls": 0, "sdp_certificates": 0, "sdp_fallbacks": 0,
-                      "geometric_calls": 0, "geometric_cuts": 0, "geometric_certificates": 0,
-                      "geometric_fallbacks": 0, "geometric_nodes": 0, "geometric_supports": 0,
-                      "restricted_time": 0.0, "heuristic_time": 0.0, "oracle_time": 0.0,
-                      "sdp_certificate_time": 0.0, "geometric_time": 0.0}
-        self.direction, self.visited = None, set()
+                      "deterministic_certificates": 0, "revisit_prunes": 0, "swap_calls": 0, "swap_cuts": 0,
+                      "restricted_time": 0.0, "heuristic_time": 0.0, "swap_time": 0.0, "oracle_time": 0.0}
+        self.direction, self.visited, self.weights = None, set(), []
         self.upper = self.best_upper = self.upper_bound(initial_mu)
         _, pair, _ = self._timed("heuristic", initial_mu, -1, None)
         self.pairs, self.seen = [pair], {pair}
@@ -377,54 +454,15 @@ class ConstraintGeneration:
         return separation_oracle(self.data, mu, self.s, self.sep_tol, decision_threshold=threshold,
                                  warm_start=warm_start, env=self.env)
 
-    def geometric(self, mu, cut_threshold, cert_threshold, warm_start):
-        """Bounded plane search and verified geometric certification, for Algorithm 1 only."""
-        from geometric_separation import GeometricResult, geometric_separation
-        start = perf_counter()
-        residuals, q, _ = _oracle_data(self.data, mu, self.s)
-        # The geometric kernel certifies the represented residuals. Account for the
-        # rounding in data-mu as well: |v_j| <= 1 bounds each row error by its top-q
-        # absolute coordinate errors. This uniform bound also bounds median error.
-        mu_exact = [Fraction(float(value)) for value in mu]
-        error = max(sum(sorted((abs(Fraction(float(value)) - center - Fraction(float(residual)))
-                                for value, center, residual in zip(row, mu_exact, residual_row)),
-                               reverse=True)[:q], Fraction(0))
-                    for row, residual_row in zip(self.data, residuals))
-
-        def outward(value, upward):
-            rounded = float(value)
-            needs_rounding = Fraction(rounded) < value if upward else Fraction(rounded) > value
-            if needs_rounding:
-                rounded = float(np.nextafter(rounded, np.inf if upward else -np.inf))
-            return rounded
-
-        cut = outward(Fraction(float(cut_threshold)) + error, True)
-        cert = outward(Fraction(float(cert_threshold)) - error, False)
-        if not 0 < cut < cert:
-            return GeometricResult("UNKNOWN", reason="residual_roundoff_exhausted_threshold_gap")
-        result = geometric_separation(residuals, q, cut, cert,
-                                      time_limit=max(0., self.geometric_time_limit - (perf_counter() - start)),
-                                      max_nodes=self.geometric_max_nodes,
-                                      max_nodes_per_support=self.geometric_max_nodes,
-                                      warm_start=warm_start)
-        result.stats["residual_roundoff_bound"] = outward(error, True)
-        if result.status == "CUT":
-            result.lower = outward(Fraction(float(result.lower)) - error, False)
-        return result
-
-    def sdp_certificate(self, mu, threshold):
-        """Only a corrected SDP count upper bound < h certifies F(mu) < threshold."""
-        try:
-            if self._sdp_certifier is None:
-                from sdp_separation import SDPSeparationCertifier
-                self._sdp_certifier = SDPSeparationCertifier(self.data, self.s, time_limit=self.sdp_time_limit)
-            count_upper = self._sdp_certifier.upper_bound(mu, threshold)
-        except ImportError:
-            return False  # SDP dependencies are optional for the exact Gurobi path.
-        return bool(np.isfinite(count_upper) and count_upper < (len(self.data) + 1) // 2)
-
     def restricted(self, support):
-        return solve_restricted_socp(self.data, support, self.M, self.pairs, env=self.env)
+        mu, L, gradient, self.weights = solve_restricted_socp(self.data, support, self.M, self.pairs, env=self.env)
+        return mu, L, gradient
+
+    def swap(self, mu, L, threshold):
+        calls = self.stats["oracle_calls"]
+        budget = SWAP_BUDGET * (self.stats["oracle_time"] / calls if calls else 0.5)
+        return swap_separation(self.data, mu, self.s, self.pairs, self.weights, L - self.inner_tol,
+                               threshold, self.seen, perf_counter() + budget)
 
     def info(self):
         return {**self.stats, "constraints": len(self.pairs)}
@@ -460,10 +498,9 @@ class ConstraintGeneration:
                 self.stats["revisit_prunes"] += 1
                 return self._result(mu, L, U, gradient)
             threshold = L + self.inner_tol
-            cut_threshold = L + self.sep_tol if self.geometric_time_limit > 0 else threshold
-            lower, pair, self.direction = self._timed("heuristic", mu, cut_threshold, self.direction)
+            lower, pair, self.direction = self._timed("heuristic", mu, threshold, self.direction)
             self.stats["heuristic_calls"] += 1
-            violated = lower > cut_threshold and pair not in self.seen
+            violated = lower > threshold and pair not in self.seen
             if violated:
                 self._add(pair)
                 self.stats["heuristic_cuts"] += 1
@@ -472,44 +509,14 @@ class ConstraintGeneration:
                 return self._result(mu, L, U, gradient)
             if violated:
                 continue
-            if self.geometric_time_limit > 0:
-                result = self._timed("geometric", mu, cut_threshold, threshold, self.direction)
-                self.stats["geometric_calls"] += 1
-                self.stats["geometric_nodes"] += result.stats.get("nodes", 0)
-                self.stats["geometric_supports"] += result.stats.get("supports", 0)
-                if result.status == "CERTIFIED":
-                    self.stats["geometric_certificates"] += 1
-                    return self._result(mu, L, min(U, threshold), gradient)
-                if result.status == "CUT" and result.direction is not None:
-                    residuals, q, h = _oracle_data(self.data, mu, self.s)
-                    direction = np.asarray(result.direction, dtype=float)
-                    if (direction.shape == (self.data.shape[1],) and np.isfinite(direction).all()
-                            and np.count_nonzero(direction) <= q and np.linalg.norm(direction) > 0):
-                        direction = direction / max(1., np.linalg.norm(direction))
-                        lower, pair, direction = _direction_witness(residuals, direction, h)
-                        if lower > cut_threshold and pair not in self.seen:
-                            # Recheck the actual selected pair after any normalization/sign
-                            # change, using the original data and mu without rounded subtraction.
-                            values = {j: Fraction(float(direction[j])) for j in pair[0]}
-                            ball_feasible = sum((v * v for v in values.values()), Fraction(0)) <= 1
-                            strict_pair = ball_feasible and all(
-                                sum(((Fraction(float(self.data[k, j])) - Fraction(float(mu[j]))) * v
-                                     for j, v in values.items()), Fraction(0)) > Fraction(float(cut_threshold))
-                                for k in pair[1])
-                            if strict_pair:
-                                self.direction = direction
-                                self._add(pair)
-                                self.stats["geometric_cuts"] += 1
-                                continue
-                self.stats["geometric_fallbacks"] += 1
-            if self.sdp_time_limit > 0:
-                certified = self._timed("sdp_certificate", mu, threshold)
-                self.stats["sdp_calls"] += 1
-                if certified:
-                    self.stats["sdp_certificates"] += 1
-                    # The SDP objective is a block count. The F upper bound is the threshold.
-                    return self._result(mu, L, min(U, threshold), gradient)
-                self.stats["sdp_fallbacks"] += 1
+            if self.swap_search:
+                witness = self._timed("swap", mu, L, threshold)
+                self.stats["swap_calls"] += 1
+                if witness is not None:
+                    lower, pair, self.direction = witness
+                    self._add(pair)
+                    self.stats["swap_cuts"] += 1
+                    continue
             lower, U, pair = self._timed("oracle", mu, threshold, self.direction)
             self.stats["oracle_calls"] += 1
             if U - L <= self.inner_tol:
@@ -524,32 +531,24 @@ class ConstraintGeneration:
         raise RuntimeError("Inner constraint generation reached its iteration limit before certification")
 
 
-def dense_estimation(block_means, s, tol, env, *, sdp_time_limit=0.,
-                     geometric_time_limit=0., geometric_max_nodes=5000):
+def dense_estimation(block_means, s, tol, env):
     """Algorithm 1 on the full support (no support cutting plane), starting at the coordinate median.
 
     Directions stay in V_min(2s,d); info['objective'] is within tol/4 of info['lower_bound'].
     """
     center = np.median(block_means, axis=0)
-    solver = ConstraintGeneration(block_means, s, tol, env, center, center, sdp_time_limit=sdp_time_limit,
-                                  geometric_time_limit=geometric_time_limit,
-                                  geometric_max_nodes=geometric_max_nodes)
+    solver = ConstraintGeneration(block_means, s, tol, env, center, center)
     mu, L, U, _ = solver(np.ones(len(center)), certify=True)
     return mu, {**solver.info(), "objective": U, "lower_bound": L}
 
 
-def ip_estimation_from_block_means(block_means, s, *, tol=None, rtol=RTOL, max_iter=1000,
-                                   sdp_time_limit=0., geometric_time_limit=0.,
-                                   geometric_max_nodes=5000):
+def ip_estimation_from_block_means(block_means, s, *, tol=None, rtol=RTOL, max_iter=1000):
     """Algorithm 1 on the supplied odd collection of block means (used as given); returns (mu, info).
 
     Starts from the hard-thresholded coordinate median. Bounds refer to the continuous-direction
     objective; info['objective'] is a certified upper bound. The absolute tol defaults to rtol times
     the deterministic upper bound at the start (see default_tol). Inner failures raise, while the
-    outer iteration limit returns info['converged'] = False. The SDP screen is optional: sdp_time_limit > 0
-    enables it with that native budget per screen (seconds); the default 0 disables it. Model construction is included in sdp_certificate_time.
-    geometric_time_limit > 0 enables the optional plane/BnB screen before the SDP and MIP;
-    geometric_max_nodes is a global node budget per call (0 allows plane search only).
+    outer iteration limit returns info['converged'] = False.
     """
     start = perf_counter()
     block_means = np.asarray(block_means, dtype=float)
@@ -561,25 +560,20 @@ def ip_estimation_from_block_means(block_means, s, *, tol=None, rtol=RTOL, max_i
     initial_mu = center * support
     tol = default_tol(tol, rtol, deterministic_upper_bound(block_means, initial_mu, s))
     with gurobi_env() as env:
-        solver = ConstraintGeneration(block_means, s, tol, env, center, initial_mu, sdp_time_limit=sdp_time_limit,
-                                      geometric_time_limit=geometric_time_limit,
-                                      geometric_max_nodes=geometric_max_nodes)
+        solver = ConstraintGeneration(block_means, s, tol, env, center, initial_mu)
         mu, info = cutting_plane(s, support, initial_mu, solver.upper, solver, tol, max_iter)
     return mu, {**info, **solver.info(), "K": len(block_means), "runtime": perf_counter() - start}
 
 
 def ip_estimation(data, s, epsilon, *, delta=0.05, C=3, seed=None, tol=None, rtol=RTOL, max_iter=1000,
-                  subsample=False, sdp_time_limit=0., geometric_time_limit=0.,
-                  geometric_max_nodes=5000):
+                  subsample=False):
     """Algorithm 1 on MoM block means; returns (mu, info).
 
     subsample=True is block subsampling: only K_sub = min(K, smallest odd integer >=
     C*max(s*log(e*d/s), log(4/delta))) blocks of the same partition, chosen uniformly without
     replacement (independent seed stream) and kept in block order, enter the optimization.
-    With K_sub = K this is exactly Algorithm 1. Runtime includes block construction.
-    sdp_time_limit > 0 enables the optional SDP screen with that native budget in seconds (default 0: off). tol and rtol
+    With K_sub = K this is exactly Algorithm 1. Runtime includes block construction. tol and rtol
     are as in ip_estimation_from_block_means, computed on the blocks that enter the optimization.
-    geometric_time_limit and geometric_max_nodes configure its optional geometric screen.
     """
     start = perf_counter()
     blocks = mom_blocks(data, s, epsilon, delta=delta, C=C, seed=seed)
@@ -591,8 +585,5 @@ def ip_estimation(data, s, epsilon, *, delta=0.05, C=3, seed=None, tol=None, rto
         selected = np.sort(rng.permutation(K)[:K_sub])
         blocks = blocks[selected]
         extra = {"K_sub": K_sub, "selected_block_indices": selected.tolist()}
-    mu, info = ip_estimation_from_block_means(blocks, s, tol=tol, rtol=rtol, max_iter=max_iter,
-                                              sdp_time_limit=sdp_time_limit,
-                                              geometric_time_limit=geometric_time_limit,
-                                              geometric_max_nodes=geometric_max_nodes)
+    mu, info = ip_estimation_from_block_means(blocks, s, tol=tol, rtol=rtol, max_iter=max_iter)
     return mu, {**info, **extra, "C": C, "K": K, "runtime": perf_counter() - start}

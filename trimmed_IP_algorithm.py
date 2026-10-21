@@ -328,10 +328,11 @@ def solve_restricted_socp(data, support, M, pairs, k, *, env=None, tol=1e-7):
 class TrimmedConstraintGeneration(ConstraintGeneration):
     """Algorithm 1's inner loop with the trimmed-mean oracles (21) and (22) on raw samples."""
 
+    swap_search = False  # the swap search uses median blocks and uncapped simplex weights
+
     def __init__(self, data, s, k, tol, env, center, initial_mu):
         self.k = k
-        # The block-count SDP certifies a median of block means, not this trimmed objective.
-        super().__init__(data, s, tol, env, center, initial_mu, sdp_time_limit=0)
+        super().__init__(data, s, tol, env, center, initial_mu)
 
     def upper_bound(self, mu):
         return deterministic_upper_bound(self.data, mu, self.s, self.k)

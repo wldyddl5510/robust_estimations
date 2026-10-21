@@ -120,3 +120,179 @@ Before the warm-start fix in `separation_oracle`, seed 51 ($\nu = 3$) and seed 8
 ![Experiment 2 summary](results/experiment2_t_noise/experiment2_summary.png)
 
 Per-seed records (estimates, errors, support, runtimes): [records_nu3.json](results/experiment2_t_noise/records_nu3.json), [records_nu5.json](results/experiment2_t_noise/records_nu5.json). Plot: `results/experiment2_t_noise/plot.py`.
+
+## MoM Algorithm 1: before versus after dualization (October 15, 2026)
+
+The LP formulation was not adopted; its code, tests and runner moved to `previous_experiments/oracle_speedups_2026_10/directional_lp/` on October 21, 2026.
+
+This paired benchmark compares the pre-dualization directional LP (`formulation="lp"`) with the existing post-dualization `(S,B)` SOCP (`formulation="socp"`). Both use the same support MILP, initializer, coordinate box, heuristic separation, exact separation MIP, row/pair screening, warm starts, support deferral/pruning, and gap tests. The optional SDP and geometric screens are off. Both restricted models are rebuilt at every solve.
+
+Each pair receives byte-identical saved block arrays and the same absolute tolerance `1e-3 * U0`; the inner and separation tolerances are `tol/4` and `tol/8`. Fits run sequentially in fresh processes with one Gurobi/BLAS thread, alternating method order by seed. The reported estimator time includes model construction and optimization on precomputed blocks; data generation, imports and initial license warmup are excluded. The small case uses seeds 0–4. The existing Experiment 1 subsampled case uses seeds 0–4, whose inputs were independently checked for exact agreement with the original generator and block-selection rule. Full-block cases use seeds 0–2. Process cutoffs are 180 s for the first two cases and 120 s for full blocks, including process startup.
+
+| Case | Completed pairs | LP median (s), paired | SOCP median (s), paired | Median paired SOCP / LP | LP faster pairs | LP / SOCP timeouts |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Small (n=400, d=8, s=2, K=15) | 5/5 | 0.326 | 0.449 | 1.311 | 5/5 | 0 / 0 |
+| Experiment 1 subsampled (n=1000, d=16, s=4, K=29) | 5/5 | 20.489 | 18.851 | 0.959 | 2/5 | 0 / 0 |
+| Experiment 1 full (n=1000, d=16, s=4, K=61) | 0/3 | — | — | — | — | 3 / 3 |
+
+A ratio above one means LP is faster. The paired ratio is computed per seed before taking its median; it is not the ratio of the two runtime medians. Timeouts are retained and are not assigned a completed-solve runtime or included in a completed-only speed ranking.
+
+The small cases favor LP, while the existing subsampled workload shows no consistent large advantage: LP wins two seeds and SOCP wins three. The median paired comparison is about 4.1% less time for SOCP. Five seeds with one timing per method/seed are an initial measurement, not a statistically established general ranking.
+
+For the existing subsampled workload, the mechanism is visible in the mean phase times:
+
+| Phase or count | LP | SOCP |
+| --- | ---: | ---: |
+| Restricted minimization (s) | 0.472 | 5.470 |
+| Separation MIP (s) | 19.323 | 12.722 |
+| Heuristic (s) | 0.307 | 0.234 |
+| Support master and other (s) | 1.395 | 0.940 |
+| Separation calls | 79.200 | 41.000 |
+| Restricted solves | 304.800 | 144.000 |
+
+The cheaper restricted LP is offset by more generated directions, restricted iterations, and expensive separation calls. LP `constraints` counts directions (two linear inequalities each); SOCP `constraints` counts `(S,B)` convex-hull distance constraints, so those counts are different units.
+
+All completed paired runs use the same input hashes and tolerance. Their final certified optimality intervals overlap, and each successful run has `gap <= tol`. Agreement is in the objective and certificates; estimates need not coincide when the objective is flat or nearly flat. New tests compare the LP against independent HiGHS LP solutions and tiny exhaustive/analytic MoM references, check global support-cut validity including zero/fractional supports, verify returned oracle directions and certificate-only results, and ensure distinct directions sharing `(S,B)` are not incorrectly deduplicated. The complete regression suite passed: **141 tests**, including six new tests.
+
+Code was based on commit `358a62978719deb42ec77df09ac4b9a108783a9a`. Source hashes, environment information, raw per-run results and exact block arrays are retained with the experiment. Full-block timeout results alone do not establish which formulation is faster.
+
+![Controlled LP/SOCP runtime comparison](results/mom_dualization_comparison/report/runtime_comparison.png)
+
+Artifacts: [summary](results/mom_dualization_comparison/report/summary.json), [per-run CSV](results/mom_dualization_comparison/report/runs.csv), [full records and metadata](results/mom_dualization_comparison/report/records.json). Inputs and original run records are under `results/mom_dualization_comparison/subsampled/` and `full/`; a frozen implementation is in `source/`. The reproducible runner is [`compare_mom_formulations.py`](previous_experiments/oracle_speedups_2026_10/directional_lp/compare_mom_formulations.py).
+
+## MoM Algorithm 1: optional sorting–IHT (October 15, 2026)
+
+Sorting–IHT was not adopted; its code, tests and runner moved to `previous_experiments/oracle_speedups_2026_10/sorting_iht/` on October 21, 2026.
+
+The primary proposed heuristic is implemented as an opt-in accelerator: an instance-owned direction cache, threshold squared-hinge sorting–IHT with exact sparse-ball projection and fixed-B backtracking, bounded support swaps, then the existing fixed-pair polishing and exact separator. Each emitted cut is checked using actual sparse residual projections. `UNKNOWN` is never used as an upper bound or an optimality certificate. Dense relaxation seed generation and raw median-gradient ascent are not part of this implementation.
+
+Algorithm 1 accepts `iht_time_limit=0.02` for either restricted formulation; the default remains `0` (off). The time budget is soft and applies per search. Both formulations retain identical cut thresholds and certified gap tolerances. The internal descent uses ball projection, while emitted/cache directions are unit-normalized to strengthen LP cuts. Initial seeds are compared before descent. After eight consecutive IHT cuts, the shared policy runs one legacy-search pass: otherwise threshold-feasibility cuts can cause a long sequence of tiny improvements in the directional LP.
+
+Fresh on/off timings use seeds 0–2, identical saved block arrays and absolute `tol = 1e-3 * U0`, sequential fresh processes, one Gurobi/BLAS thread, alternating method order, and disabled SDP/geometric screens. Successful timings include estimator/model work on the supplied blocks but exclude data generation, imports, and initial license warmup. Every process has a 120-second cutoff. All 24 fits completed and converged.
+
+| Case | Formulation | Off median (s) | On median (s) | Median paired off / on | IHT faster pairs |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Small (n=400, d=8, s=2, K=15) | SOCP | 0.441 | 0.599 | 0.828 | 0/3 |
+| Small (n=400, d=8, s=2, K=15) | LP | 0.338 | 0.462 | 0.775 | 0/3 |
+| Experiment 1 subsampled (n=1000, d=16, s=4, K=29) | SOCP | 19.765 | 22.099 | 0.943 | 1/3 |
+| Experiment 1 subsampled (n=1000, d=16, s=4, K=29) | LP | 21.145 | 31.979 | 0.952 | 0/3 |
+
+A paired ratio above one means IHT is faster. Ratios are computed within each seed before taking the median, rather than dividing the runtime medians. These three-seed measurements show no consistent speed improvement at the tested budget. Small fits are slower with IHT in every pair. On the 29-block workload, SOCP is faster in one of three pairs and LP in none. SOCP mean total time does decrease slightly (20.813 to 19.805 seconds), driven by the faster seed, despite its unfavorable median paired ratio. No general speed ranking is established by three single timings.
+
+Mean phase times and counts on the 29-block workload:
+
+| Metric | SOCP off | SOCP on | LP off | LP on |
+| --- | ---: | ---: | ---: | ---: |
+| Restricted minimization (s) | 4.922 | 5.559 | 0.443 | 0.887 |
+| Exact separation (s) | 14.601 | 12.411 | 21.272 | 24.962 |
+| All heuristic work (s) | 0.233 | 1.083 | 0.309 | 1.909 |
+| IHT time, included above (s) | 0.000 | 0.909 | 0.000 | 1.636 |
+| Exact separator calls | 38.000 | 32.333 | 77.667 | 82.333 |
+| Exact certificates | 1.333 | 1.333 | 2.000 | 2.000 |
+| IHT cuts | 0.000 | 39.333 | 0.000 | 260.333 |
+| Cache cuts, included above | 0.000 | 2.667 | 0.000 | 10.667 |
+| Forced legacy refreshes | 0.000 | 0.667 | 0.000 | 24.333 |
+
+The heuristic finds valid cuts, but additional direction cuts can change the support path and increase subsequent exact work. For example, LP seed 0 discovers 391 IHT cuts yet uses 108 exact calls instead of 71, increasing total runtime from 17.690 to 33.647 seconds. Thus IHT cut counts alone are not a speed measure. In these runs the extra heuristic work and changed cutting-plane paths offset most or all of the intended savings.
+
+Every on/off pair has matching input hashes and tolerances and overlapping final certified objective intervals; all final gaps are at most `tol`. The largest objective difference is below 0.20 tolerances. Source, runner, and generator hashes were unchanged throughout measurement. The complete regression suite passed **162 tests**, including 21 new tests for projection, descent, support changes, cache isolation/signs, extreme-outlier numerical guards, stronger emitted witnesses, duplicate-pair handling, periodic polishing, UNKNOWN fallback, and exhaustive LP/SOCP on/off certificates.
+
+Reproduce with `python previous_experiments/oracle_speedups_2026_10/sorting_iht/compare_sorting_iht.py --seeds 3 --budget 0.02 --formulations socp,lp --timeout 120`. The runner also supports `--cases experiment1_full`, but the new heuristic was not timed on that 61-block case here.
+
+Artifacts: [paired summary](results/sorting_iht_comparison/summary.json), [per-run CSV](results/sorting_iht_comparison/runs.csv), [full records and metadata](results/sorting_iht_comparison/records.json), [verification](results/sorting_iht_comparison/verification.json), and [test log](results/sorting_iht_comparison/tests.txt). Exact inputs, frozen implementation, and the previous implementation snapshot are retained in the same ignored results directory. The reusable runner is [`compare_sorting_iht.py`](previous_experiments/oracle_speedups_2026_10/sorting_iht/compare_sorting_iht.py).
+
+## MoM Algorithm 1: active-pair swap search (October 16, 2026)
+
+### Why exact separation was needed
+
+Instrumented runs on the Experiment 1 instance (`generate` in `previous_experiments/oracle_speedups_2026_10/directional_lp/compare_mom_formulations.py`, the Experiment 1 generator; default tolerance; subsampled K=29 seeds 0–5 and full K=61 seeds 0–2) logged every exact-oracle call and, at each call, also solved the separation MIP to optimality for the true F(mu). Counts are for K=29 unless stated.
+
+- Exact calls happen only while certifying the final one to three revisited supports; first visits never call the oracle. 229 of 238 calls returned a cut and 9 a certificate, and certificates took 6–15% of exact-oracle time at both K (K=61: 32 of 33, 69 of 70 and 68 of 70 calls were cuts).
+- The legacy heuristic found a cut in 284 of 599 first-visit calls but 8 of 246 revisit calls. At the exact cut calls F(mu) − L had seed medians of 17–41 tol (maximum 182), while the heuristic's best witness had seed medians between 0 and −127 tol relative to L. In 59% of revisit calls its best pair was already in the restricted problem.
+- First-visit heuristic cuts follow the signal: ⟨mu* − mu, v⟩ is a median 51–86% of the violation (seeds 0, 3, 5). Exact cuts on the final support are noise extremes (2–7%) that keep every contaminated block above the median. When the certification loops started, the legacy candidates (coordinate median, mean, large rows) were 78–163 tol below L.
+- The restricted problem has about five pairs within tol/4 of L, and 85% of the exact cuts are within one support-coordinate swap, with the blocks reselected, of a pair it already contains. Searching those swaps found a violated pair at 223 of 229 logged cut states (K=61, seeds 0–1: 100 of 101).
+- Exact cuts are the first incumbent above the threshold: median depth 3–10 tol, and 3–16% are the most violated pair. Returning the most violated pair instead cut exact calls from 238 to 90 but made the runs slower overall (full solves without screening). Loosening rtol from 1e-3 to 1e-2 cut them only to 188 and changed the support selected for seed 4.
+
+### Swap search
+
+`ConstraintGeneration` now runs `swap_separation` after a failed heuristic on supports being certified (README, Algorithm 1). Code before and after the change ran on identical generated instances and tolerances, with eight one-thread workers running both versions concurrently; imports and license warm-up are excluded.
+
+| Case | Before (s) | After (s) | Paired speedup, median (range) | Exact calls |
+| --- | ---: | ---: | ---: | ---: |
+| Subsampled, K=29, seeds 0–5 | 210.8 | 136.3 | 1.61 (1.21–1.75) | 238 → 57 |
+| Full, K=61, seeds 1–2 | 767.6 | 377.1 | 2.09 (1.88–2.30) | 140 → 37 |
+
+All 16 runs converged; certified objectives agree within 0.19 tol and L2 errors within 5e-5. The swap search took 4.9 s (K=29, six seeds) and 4.4 s (K=61, two seeds) in total. The exact calls it leaves are the costly ones, certificates and violations outside the swap neighbourhood: 0.84 s per call at K=29 (0.57 s before) and 8.6 s at K=61 (5.2 s before). Restricted SOCP time rose from 63.6 to 72.0 s (K=29) and from 40.0 to 50.8 s (K=61), because certification loops add more, shallower pairs.
+
+### Proximal stabilization (measured, not adopted)
+
+A bundle-type certification loop separated at the proximal point argmin F_P(mu) + ||mu − center||²/(2t) instead of the restricted minimizer. The center moved there whenever the heuristic and the swap search found nothing, and the exact oracle ran once F_P at the center was within tol/8 of L. t started at 32 or 128 tol, doubled after each such step and halved (not below its start) after each cut. L and the support cuts still came from the unregularized restricted SOCP. Same instances, rerun against the new code (paired speedup medians in parentheses):
+
+| Case | Plain (s) | t₀ = 32 tol (s) | t₀ = 128 tol (s) | Certification-loop cuts, plain / 32 / 128 | Exact calls, plain / 32 / 128 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Subsampled, K=29, seeds 0–5 | 142.0 | 177.9 (0.81) | 158.0 (0.83) | 249 / 267 / 255 | 57 / 70 / 54 |
+| Full, K=61, seeds 1–2 | 418.9 | 503.9 (0.81) | 479.0 (0.87) | 144 / 153 / 147 | 37 / 43 / 35 |
+
+All runs converged with objectives within 0.24 tol of the plain loop. Stabilization needs fewer unregularized restricted solves but adds proximal solves, and it does not reduce the number of pairs a certification loop adds. That number follows the depth of the cuts, as the most-violated-pair run above shows, not the point where they are separated.
+
+The full test suite passes (164 tests, including new tests for the NNLS fixed-pair direction and the swap search).
+
+Artifacts (local, git-ignored) in `results/swap_search_comparison/`: `benchmark/` (runner `bench_worker.py`, `run_bench1.sh`, `run_bench2.sh`, `table_b.py`, the stabilization prototype `stabilized.py`, and per-run records), `diagnosis/` (instrumented runs, analysis scripts, and `certification_loop_seed0.png`), and the frozen code in `source_before/` and `source_after/`.
+
+## MoM Algorithm 1: corral drops in the swap search (October 20, 2026)
+
+### Why
+
+Every exact-oracle call of the current code was logged on the Experiment 1 instance (full K=61, seeds 0–3: 63 calls; subsampled K=29, seeds 0–2: 29 calls). The number of exact calls hardly changes with K (12–24 at K=61, 4–14 at K=29), but one call does: a cut call takes 3.5–14 s at K=61 against 0.2–0.8 s at K=29 (seed medians), a certificate 9–33 s against 0.7–2.2 s. At K=61, 75–86% of the exact time goes to cut calls, not certificates.
+
+At these cut states the support-swap neighbourhood is exhausted: run without a deadline, the swap search finds no violated pair at any of the 57 K=61 states. Dropping one block of an active pair's min-norm corral (the blocks with positive NNLS weight), optionally after one support swap, and then alternating the fixed-pair direction with its top-h blocks finds one at 52 of the 57 states, in a median 0.18 s (the exact MIP took 2–34 s). Only corral blocks matter: dropping a block with zero weight leaves the min-norm point, and hence the fixed-pair value, unchanged.
+
+`swap_separation` now runs these drops as a second pass when its support swaps find nothing, under the same deadline and hit limit; `_pair_direction` also returns the NNLS weights.
+
+### Benchmark
+
+Code before and after the change (frozen copies) ran on identical generated instances and tolerances, four one-thread workers with the two versions of a seed next to each other in the queue (Apple M4); imports and license warm-up are excluded.
+
+| Case | Before (s) | After (s) | Paired speedup, median (range) | Exact calls |
+| --- | ---: | ---: | ---: | ---: |
+| Full, K=61, seeds 0–3 | 772.4 | 477.3 | 1.67 (1.11–2.15) | 63 → 27 |
+| Subsampled, K=29, seeds 0–5 | 141.3 | 139.6 | 0.93 (0.89–1.54) | 57 → 32 |
+
+All 20 runs converged with the same selected supports; certified objectives agree within 0.12 tol and L2 errors within 6e-5. Certificates are unchanged (6 and 9 calls); the swap search took 24.0 s instead of 8.9 s at K=61. At K=29 an avoided exact call saved about 0.8 s of MIP time, and the extra searches and restricted solves cost about as much (exact oracle −19 s, swap search +10 s, restricted SOCP +7 s over the six seeds), so the runs did not get shorter; at K=61 an avoided call saved 8.6 s for about 0.4 s. The exact cuts that remain are 1–3 support swaps and 3–13 block swaps away from the active pairs and out of reach of cheap neighbourhoods (two drops, drop then swap).
+
+The same comparison on the Experiment 2 data (Student-t noise, `results/experiment2_t_noise/run.py`'s generator, `ip_estimation` called as in that experiment), same setup:
+
+| Case | Before (s) | After (s) | Paired speedup, median (range) | Exact calls |
+| --- | ---: | ---: | ---: | ---: |
+| ν = 3, full, K=61, seeds 0–3 | 756.4 | 503.6 | 1.43 (0.96–2.01) | 73 → 35 |
+| ν = 3, subsampled, K=29, seeds 0–5 | 79.5 | 76.3 | 1.05 (0.96–1.08) | 39 → 23 |
+| ν = 5, full, K=61, seeds 0–3 | 545.9 | 364.2 | 1.40 (1.20–1.62) | 54 → 26 |
+| ν = 5, subsampled, K=29, seeds 0–5 | 109.5 | 97.6 | 1.10 (0.85–1.32) | 83 → 37 |
+
+All 40 runs converged with the same selected supports; certified objectives agree within 0.17 tol and L2 errors within 3e-4, and certificate counts are unchanged.
+
+### Measured, not adopted
+
+Suggestions from an external review of the oracle, measured on the same instances. Per-call numbers replay the 63 logged K=61 exact calls with the same threshold and warm start (time relative to the current MIP, cut calls / certificates); end-to-end numbers are paired speedups at K=61.
+
+| Change | Result |
+| --- | --- |
+| Ranking constraints: unselected blocks below the level (`r_k @ v <= level + R_k b_k`) | 1.01× / 1.20× the time (nodes 0.81×) |
+| Same with `level >= T` and big-M `max(R_k - T, 0)` | 2.3× / 2.5×, 11 time-outs |
+| Threshold count form (level fixed at T, `sum(b) >= h`), without / with ranking | 1.01× / 0.97×; 1.07× / 1.09× |
+| Gurobi `Cutoff = T`; level capped at T + 2·margin | 1.11× / 1.46×; certificates 2.7× |
+| Support-aware conflict cuts from the restricted pairs' corrals, capped / lifted coefficients | certificates 1.9× / 1.6×, 0 of 6 faster |
+| Root quantile and star (mixing) cuts along the relaxation direction | 1.07× / 1.26×; on the count form 0.88× / 0.80× (3 of 6 certificates faster) |
+| Branching priority on the support binaries | 4.5×, all certificates time out |
+| `MIQCPMethod=1` | 0.90× / 1.18×; end to end 0.97× alone, 1.74× with the corral drop (seed 1 slower in two batches) |
+| Pair-graph screen (core peeling, colouring, pairwise quantile bound) | certifies 0 of 92 calls: a compatible h-clique always exists |
+| Swap search returning its three deepest pairs; exact direction as warm start | end to end 0.91×; 0.78× |
+| Exact MIP branching 1 s past the first cut, adding its pool pairs | exact calls 63 → 56, no oracle-time gain |
+| Local branching (two support swaps, free blocks) for half the mean exact-call time before the MIP | 6 of 30 calls resolved; with the corral drop 1.22× against 1.33× without |
+| Pair-screening budget, completing supports below q, Lipschitz cache of certificates | 0.06–0.16% of exact time; 3 of 857 pairs; 0 of 92 calls |
+
+Restrictions valid only for solutions with level ≥ T (the conflict, mixing and count cuts, `level >= T`, `Cutoff`) make the MIP bound no longer an upper bound of F(mu); a certificate from such a model must report U = T, not the bound.
+
+The full test suite passes (170 tests, including a new test in which only a corral drop finds the violated pair).
+
+Artifacts (local, git-ignored) in `results/corral_drop_comparison/`: `benchmark/` (runner, worker and per-run records), the frozen code in `source_before/` and `source_after/`, and `evaluation/` (call logging, per-call replays of the variants above, and their summaries).

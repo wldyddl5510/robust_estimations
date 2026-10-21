@@ -18,7 +18,6 @@ baseline uses CVXPY/Clarabel.
 | `utils.py` | MoM blocks and the block rule, hard thresholding `top_s`, the shared support cutting plane, Gurobi setup |
 | `data.py` | (skew-)t sample generation and the adversarial sparse contamination |
 | `IP_algorithm.py` | Algorithm 1: separation oracle (10), heuristic separation, restricted SOCP (17), the inner loop `ConstraintGeneration`, `ip_estimation` (with optional block subsampling), and `dense_estimation` |
-| `sdp_separation.py` | Algorithm 1: one-sided block-count SDP certificate before exact separation, with corrected dual upper bounds |
 | `trimmed_IP_algorithm.py` | Algorithm 2: the trimmed-mean oracles (21), (22) plugged into the same inner loop |
 | `finite_directions.py` | Brute force over a covering net, and MoM/trimmed objectives over a random direction bank |
 | `projection.py` | Projected Algorithm 1: coordinate partitions or Haar projections, dense fits, sparse LS aggregation |
@@ -70,60 +69,29 @@ alternates the restricted SOCP (17) over generated (S, B) pairs with separation 
 - Generated (S, B) pairs persist across supports.
 - Cheap separation comes first: sparse candidate directions and at most four fixed-(S, B) convex
   solves. Its values are only lower bounds and never certificates.
+- On a support being certified, a failed heuristic is followed by `swap_separation`. The pairs
+  whose restricted convex combination `c = sum_k alpha_k (block_mean_k - mu)` is within tol/4 of L
+  are refined as they are and with one support coordinate i replaced by j, in decreasing order of
+  `c_j^2 - c_i^2`, alternating the fixed-pair direction (the NNLS min-norm point of the rows' hull)
+  with its top-h blocks. If no move finds a violated pair, each move is refined again without one
+  block of its min-norm corral (the blocks with positive NNLS weight, largest first): only those can
+  raise the fixed-pair value when dropped, and the top-h reselection picks the replacement. It adds
+  the deepest of up to `SWAP_HITS = 8` violated new pairs found within `SWAP_BUDGET = 0.5` times the
+  mean exact-call time (0.25 s before the first call), and otherwise falls through to the exact MIP.
+  It never certifies. Algorithm 2 does not use it.
 - A support's first visit returns a valid cut after at most three restricted solves, bounded above
   by the deterministic bound `median_k ||block_mean_k - mu||_(min(2s,d), 2)`. A repeated support
-  must certify `upper_F - L <= tol/4` with that bound, the SDP screen below, or the exact MIP (10), which stops as soon as
+  must certify `upper_F - L <= tol/4` with that bound or the exact MIP (10), which stops as soon as
   it finds a violated cut (incumbent above the threshold by half its gap tolerance) or certifies the bound. A repeated support whose restricted value L is
   already within tol of the incumbent upper bound returns its cut without certification: it cannot
   improve the incumbent by more than tol, and the outer search ends if the master returns to it.
-- Immediately before an exact MIP call, the SDP screen uses the existing
-  `threshold = L + inner_tol`, where L is the restricted SOCP value r and `inner_tol = tol/4`.
-  With `a_k = block_mean_k - mu`, it maximizes `sum(p)` subject to
-  `[1, w'; w, Q] >= 0` (PSD), `tr(Q) <= 1`, `sum_ij abs(Q_ij) <= 2s tr(Q)`,
-  `||w||_1 <= sqrt(2s)`, `0 <= p <= 1`, and, for each block,
-  `[1, p_k, a_k'w; p_k, p_k, c_k; a_k'w, c_k, a_k'Q a_k] >= 0` (PSD),
-  `c_k >= threshold*p_k`. A corrected dual upper bound strictly below `h = (K+1)/2`
-  certifies `F(mu) < threshold`; the returned F upper bound is **threshold**, never the SDP
-  block-count objective. A large SDP value does not establish a violated direction or add a cut.
-  Missing dependencies, solver failures, time/iteration limits, and noncertifying bounds all
-  fall back to exact separation. The SDP is specific to Algorithm 1; Algorithm 2 disables it.
-  The screen is optional and off by default (`sdp_time_limit=0`); pass e.g. `sdp_time_limit=0.25`
-  (seconds of native solve budget per screen, `IP_algorithm.SDP_TIME_LIMIT`) to `ip_estimation`,
-  `ip_estimation_from_block_means`, or `dense_estimation` to enable it. The reusable
-  CVXPY/Clarabel model has a 60-iteration limit. Python construction/canonicalization
-  is outside that native time limit, so the extra screen need not improve every runtime.
-  Certification uses dual multipliers with explicit stationarity and PSD-residual corrections
-  plus floating-point safeguards; an approximate primal objective is never an upper certificate.
-- An optional geometric oracle in `geometric_separation.py` runs before the SDP/MIP when
-  `geometric_time_limit > 0` (default: **0, disabled**). It first sweeps sparse planes for an
-  actual median witness, then branches over `q-2` coordinates on each size-`q` support, with
-  `q = min(2s,d)`. In this mode both the existing heuristic and plane cuts use
-  `T_cut = L + tol/8`; certification uses `T_cert = L + tol/4`. These decision conditions
-  overlap: a cut and a certificate can both be valid when `T_cut < F(mu) < T_cert`.
-  Global certification requires covering every support and every remaining box. Otherwise it
-  returns `UNKNOWN` and continues to the enabled SDP screen or exact MIP. A count upper bound
-  is never returned as an F upper bound: a geometric certificate returns `T_cert`.
-  The certificate kernel uses exact rational arithmetic on the represented residuals and
-  outward rational square-root bounds. The half-angle parameterization of the circle turns
-  each angular condition into a quadratic inequality, including the omitted direction
-  `(-1,0)` explicitly. Heuristic trigonometry is used only to propose rechecked witnesses.
-  Integration also computes an exact bound on residual subtraction error and adjusts both
-  thresholds conservatively before calling the geometric kernel.
-  `geometric_max_nodes=5000` is the **total** BnB node budget per call; setting it to 0 enables
-  plane search without BnB. The time budget is checked between work units and is a soft limit.
-  For example, `ip_estimation(..., geometric_time_limit=0.25)` enables this
-  alternative with exact-MIP fallback. All three Algorithm 1 entry points accept these options.
-  Algorithm 2 keeps the geometric oracle disabled.
 - The MIP (10) writes each block row as a big-M constraint with M_i = ||r_i||_(min(2s,d)) + max
   level. With a threshold G it also screens rows with ||r_i|| < G and adds b_i + b_j <= 1 for row
   pairs whose segment has top-k norm below G; a certificate then reports
   max(MIP bound, largest screened value), and an infeasible screened model is itself a certificate.
 - `info` counts `oracle_cuts`, `oracle_certificates`, `revisit_prunes`, deferred supports and
-  deterministic certificates, plus `sdp_calls`, `sdp_certificates`, and `sdp_fallbacks`.
-  It records `restricted_time`, `heuristic_time`, `oracle_time`, and `sdp_certificate_time`
-  (including SDP import, model construction, canonicalization, solve and bound correction).
-  Geometric diagnostics add `geometric_calls`, `geometric_cuts`, `geometric_certificates`,
-  `geometric_fallbacks`, `geometric_nodes`, `geometric_supports`, and `geometric_time`.
+  deterministic certificates, plus `swap_calls` and `swap_cuts`. It records `restricted_time`,
+  `heuristic_time`, `swap_time`, and `oracle_time`.
 - Coordinate directions give the box |mu_j| <= |center_j| + F(initial), so the restricted problems
   are bounded.
 
@@ -188,3 +156,12 @@ aggregation with its refinement, the separation-oracle ablation options (benchma
 Algorithm 1 wrapper (`ip_estimation` with s = d optimizes the same objective), block subsampling with
 replacement, and the `lambda_upper` argument (it only entered a tolerance check). Their last versions
 remain in commit `1686be1` and in the frozen snapshots under `previous_experiments/`.
+
+A second pass (October 21, 2026) kept only the separation speedups with a measured gain (the swap
+search and its corral drops, see `results.md`). The block-count SDP screen (`sdp_separation.py`,
+`sdp_time_limit`), the geometric plane/BnB oracle (`geometric_separation.py`, `geometric_time_limit`,
+`geometric_max_nodes`; for q = 2 an exact arc sweep), the sorting–IHT witness search (`sorting_iht.py`,
+`iht_time_limit`), the pre-dualization directional LP (`directional_mom.py`, `formulation="lp"`), the
+oracle's `return_direction` option, their tests and benchmark runners, and the separation-MIP
+prototypes are in `previous_experiments/oracle_speedups_2026_10/`, together with the Algorithm 1
+source they ran against (`source_snapshot/`).

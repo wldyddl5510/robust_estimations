@@ -1,6 +1,7 @@
 """Algorithm 1 against exhaustive (S, B) and support enumeration and analytic optima."""
 
 from itertools import combinations, product
+from time import perf_counter
 import unittest
 from unittest import mock
 
@@ -158,7 +159,7 @@ class OracleTests(unittest.TestCase):
             return np.linalg.norm(np.maximum(np.abs(target) - M * z, 0))
 
         for support in (np.zeros(2), np.array([0.2, 0.1]), np.ones(2)):
-            mu, value, gradient = ip.solve_restricted_socp(means, support, M, pairs, env=self.env)
+            mu, value, gradient, _ = ip.solve_restricted_socp(means, support, M, pairs, env=self.env)
             self.assertAlmostEqual(value, exact(support), places=6)
             self.assertLessEqual(np.linalg.norm(mu - target), value + 1e-6)
             self.assertTrue(np.all(np.abs(mu) <= M * support + 1e-9))
@@ -172,13 +173,87 @@ class OracleTests(unittest.TestCase):
     def test_incomplete_constraint_set_still_gives_global_support_cut(self):
         means = np.array([[-3., 1., 0.1], [0., 2., 2.5], [2., -3., -1.]])
         M, source = np.full(3, 8.), np.zeros(3)
-        _, lower, gradient = ip.solve_restricted_socp(means, source, M, [((0, 1), (0, 1))], env=self.env)
+        _, lower, gradient, _ = ip.solve_restricted_socp(means, source, M, [((0, 1), (0, 1))], env=self.env)
         # The set really is incomplete where its dual cut is made.
         self.assertGreater(segment_supremum(means, np.zeros(3), 1), lower + 0.01)
         all_pairs = [(S, B) for S in combinations(range(3), 2) for B in combinations(range(3), 2)]
         for support in (np.zeros(3), *np.eye(3)):
-            _, full_value, _ = ip.solve_restricted_socp(means, support, M, all_pairs, env=self.env)
+            _, full_value, _, _ = ip.solve_restricted_socp(means, support, M, all_pairs, env=self.env)
             self.assertLessEqual(lower + gradient @ (support - source), full_value + 1e-6)
+
+    def test_pair_direction_attains_the_fixed_pair_value(self):
+        rng = np.random.default_rng(1)
+        S, B = (0, 2, 3), (1, 2, 4, 6)
+        for offset in (0., 0.5, 2.):
+            residuals = rng.normal(size=(7, 5)) + offset
+            with gp.Model(env=self.env) as model:
+                v = model.addMVar(len(S), lb=-1, ub=1)
+                level = model.addVar(lb=0)
+                model.addConstr(v @ v <= 1)
+                model.addConstr(residuals[np.ix_(B, S)] @ v >= level)
+                model.setObjective(level, gp.GRB.MAXIMIZE)
+                model.optimize()
+                best = model.ObjVal
+            with self.subTest(offset=offset, best=best):
+                direction, alpha = ip._pair_direction(residuals, S, B)
+                value = 0. if direction is None else float(np.min(residuals[list(B)] @ direction))
+                self.assertTrue(np.all(alpha >= 0))
+                self.assertAlmostEqual(alpha.sum(), 1.)
+                point = residuals[np.ix_(B, S)].T @ alpha  # the min-norm point the direction normalizes
+                self.assertAlmostEqual(np.linalg.norm(point), best, places=6)
+                if direction is not None:
+                    self.assertAlmostEqual(np.linalg.norm(direction), 1.)
+                    self.assertTrue(set(np.flatnonzero(direction)) <= set(S))
+                    np.testing.assert_allclose(direction[list(S)], point / np.linalg.norm(point), atol=1e-8)
+                self.assertAlmostEqual(value, best, places=6)
+
+    def test_swap_search_returns_only_new_verified_witnesses(self):
+        rng = np.random.default_rng(3)
+        means, s, h = rng.normal(size=(9, 6)), 2, 5
+        support, M = np.array([1., 1., 0., 0., 0., 0.]), np.full(6, 10.)
+        pairs = [ip.heuristic_separation(means, np.zeros(6), s, env=self.env)[1]]
+        mu, L, _, weights = ip.solve_restricted_socp(means, support, M, pairs, env=self.env)
+        exact = ip.separation_oracle(means, mu, s, 1e-7, env=self.env)[1]
+        self.assertGreater(exact, L + 1e-3)  # the single pair leaves violations to find
+        never = perf_counter() - 1
+        level = L - 1e-6
+        self.assertIsNone(ip.swap_separation(means, mu, s, pairs, weights, level, L, set(pairs), never))
+        found = ip.swap_separation(means, mu, s, pairs, weights, level, L + 1e-3, set(pairs), perf_counter() + 5)
+        self.assertIsNotNone(found)
+        lower, pair, direction = found
+        self.assertNotIn(pair, pairs)
+        self.assertGreater(lower, L + 1e-3)
+        self.assertLessEqual(lower, exact + 1e-7)
+        self.assertLessEqual(np.count_nonzero(direction), 2 * s)
+        self.assertLessEqual(np.linalg.norm(direction), 1 + 1e-12)
+        projections = (means - mu) @ direction
+        self.assertAlmostEqual(np.sort(projections)[-h], lower)
+        self.assertEqual(pair[1], tuple(sorted(np.argsort(projections, kind="stable")[-h:])))
+        # Nothing exceeds the exact maximum.
+        self.assertIsNone(ip.swap_separation(means, mu, s, pairs, weights, level, exact + 1e-6, set(pairs),
+                                             perf_counter() + 5))
+
+    def test_swap_search_drops_a_corral_block(self):
+        # d = q = 2, so there are no support swaps, and alternating the pair as is stays at (0, 1, 3).
+        means, mu, s, h = np.array([[-2., 3.], [2., -4.], [-1., 3.], [0., -4.], [2., 2.]]), np.zeros(2), 1, 3
+        residuals, pair, threshold = means - mu, ((0, 1), (0, 1, 3)), 1.
+        direction, alpha = ip._pair_direction(residuals, *pair)
+        lower, start, _ = ip._direction_witness(residuals, direction, h)
+        self.assertEqual(start, pair)
+        self.assertLess(lower, threshold)
+        corral = {pair[1][i] for i in np.flatnonzero(alpha > 1e-9)}
+        self.assertEqual(corral, {0, 1})
+        found = ip.swap_separation(means, mu, s, [pair], [alpha], 0., threshold, {pair}, perf_counter() + 5)
+        self.assertIsNotNone(found)
+        lower, (S, B), direction = found
+        self.assertTrue(corral - set(B))  # a corral block was dropped and replaced
+        projections = residuals @ direction
+        self.assertGreater(lower, threshold)
+        self.assertAlmostEqual(np.sort(projections)[-h], lower)
+        self.assertEqual(B, tuple(sorted(np.argsort(projections, kind="stable")[-h:])))
+        self.assertLessEqual(lower, ip.separation_oracle(means, mu, s, 1e-8, env=self.env)[1] + 1e-7)
+        # The drops are verified like the swaps: nothing above the exact maximum is returned.
+        self.assertIsNone(ip.swap_separation(means, mu, s, [pair], [alpha], 0., 2.5, {pair}, perf_counter() + 5))
 
     def test_stalled_heuristic_cannot_certify_or_replace_upper_bound(self):
         means = np.array([[2.], [3.], [4.]])
@@ -193,7 +268,8 @@ class OracleTests(unittest.TestCase):
                 _, lower, upper, _ = solver(np.zeros(1), certify=certify)
             self.assertAlmostEqual(upper, 3., places=6)
             if certify:
-                self.assertGreaterEqual(exact.call_count, 1)
+                # The missing pair comes from the swap search or the exact oracle, never the heuristic.
+                self.assertGreaterEqual(exact.call_count + solver.stats["swap_cuts"], 1)
                 self.assertLessEqual(upper - lower, 1e-3)
                 self.assertGreater(len(solver.pairs), 1)
             else:
