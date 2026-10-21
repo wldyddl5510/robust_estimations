@@ -37,6 +37,7 @@ class RegistryTests(unittest.TestCase):
         metrics = experiments.metrics(np.array([2., 0., 1e-9, 4.]), np.array([3., 1., 0., 4.]))
         self.assertAlmostEqual(metrics["error"], np.sqrt(2))
         self.assertAlmostEqual(metrics["support_recovery"], 2 / 3)
+        self.assertAlmostEqual(metrics["f1"], 2 * 2 / (2 + 3))
 
 
 if __name__ == "__main__":

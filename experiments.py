@@ -7,19 +7,21 @@ from depersin_lecue import depersin_lecue_estimation
 from finite_directions import brute_force_estimation, random_mom_estimation, random_trimmed_estimation
 from IP_algorithm import ip_estimation
 from projection import haar_estimation, partition_estimation
+from sparse_dl_descent import sparse_dl_descent_estimation
 from trimmed_IP_algorithm import trimmed_ip_estimation
 
 METHODS = ("sample_mean", "coordinate_mom", "geometric_mom", "algorithm_1", "block_subsampling",
-           "algorithm_2", "trimmed_subsampling", "brute_force", "random_mom", "random_trimmed", "partition", "haar", "dl")
+           "algorithm_2", "trimmed_subsampling", "brute_force", "random_mom", "random_trimmed", "partition", "haar", "dl",
+           "sparse_dl_descent")
 
 
 def run_method(name, data, *, s, epsilon, delta=0.05, C=3, seed=None, tol=None, **options):
     """Return (estimate, info) of the named method.
 
     options are method-specific: tilde_J (random_*), r (partition), r and J (haar), K (dl),
-    p (trimmed_subsampling), max_iter (optimization methods). Methods ignore setting entries they
-    do not use, e.g. C for Algorithm 2 and seed for Algorithm 2 without subsampling. tol=None
-    keeps each method's own default tolerance.
+    p (trimmed_subsampling), max_iter (optimization methods), alpha and gamma
+    (sparse_dl_descent). Methods ignore setting entries they do not use, e.g. C for Algorithm 2 and
+    seed for Algorithm 2 without subsampling. tol=None keeps each method's own default tolerance.
     """
     mom = {"delta": delta, "C": C, "seed": seed}
     tols = {} if tol is None else {"tol": tol}
@@ -39,6 +41,7 @@ def run_method(name, data, *, s, epsilon, delta=0.05, C=3, seed=None, tol=None, 
         "partition": lambda: partition_estimation(data, s, epsilon, **mom, **tols, **options),
         "haar": lambda: haar_estimation(data, s, epsilon, **mom, **tols, **options),
         "dl": lambda: depersin_lecue_estimation(data, seed=seed, **tols, **options),
+        "sparse_dl_descent": lambda: sparse_dl_descent_estimation(data, s, epsilon, **mom, **options),
     }
     if name not in calls:
         raise ValueError(f"unknown method {name!r}; choose from {METHODS}")
@@ -46,6 +49,8 @@ def run_method(name, data, *, s, epsilon, delta=0.05, C=3, seed=None, tol=None, 
 
 
 def metrics(estimate, truth):
-    """L2 error and the fraction of true support coordinates estimated as nonzero (|x| > 1e-8)."""
-    return {"error": float(np.linalg.norm(estimate - truth)),
-            "support_recovery": float(np.sum((np.abs(estimate) > 1e-8) & (truth != 0)) / np.count_nonzero(truth))}
+    """L2 error, the fraction of true support coordinates estimated as nonzero (|x| > 1e-8), and the support F1."""
+    selected, true = np.abs(estimate) > 1e-8, truth != 0
+    hits = np.sum(selected & true)
+    return {"error": float(np.linalg.norm(estimate - truth)), "support_recovery": float(hits / np.count_nonzero(true)),
+            "f1": float(2 * hits / (np.count_nonzero(selected) + np.count_nonzero(true)))}

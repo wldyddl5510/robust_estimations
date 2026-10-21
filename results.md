@@ -83,6 +83,20 @@ Within the restricted SOCP phase, calls to `optimize` averaged **8.844536 s**, o
 
 Profiling artifacts: [summary.json](results/experiment1_support_confusion/runtime_profile_100seeds/summary.json), [per-seed times (CSV)](results/experiment1_support_confusion/runtime_profile_100seeds/per_seed_times.csv), [full records](results/experiment1_support_confusion/runtime_profile_100seeds/records.json), and [metadata and source hashes](results/experiment1_support_confusion/runtime_profile_100seeds/metadata.json). Runners: `results/experiment1_support_confusion/runtime_profile_100seeds/profile_seeds.py` and `analyze.py`; frozen inputs and source files are in its `source/` directory. Like the other experiment artifacts, these files remain local under the git-ignored `results/` directory.
 
+### Sparse Depersin–Lecué descent (October 2026)
+
+`sparse_dl_descent_estimation` (`sparse_dl_descent.py`) on the same data and the same $K = 61$ partition ($C = 3$, MoM seed = seed), with all 61 blocks (no subsampling), trimming level $\alpha = 0.35$, $\gamma = 0.95$, `max_iter=30`, `patience=3`. Each iteration certifies the sparse game value $E_q(x)$ to $L \ge \gamma U$ by the support branch-and-bound, steps $x \leftarrow H_s(x + m v)$ along the leading eigenvector $v$ with the median step $m$, and the estimator returns the iterate with the smallest certified $U$.
+
+$\alpha = 0.35$ is fixed for Experiments 1 and 2; it has the smallest mean L2 error among the values run here at $K = 61$: 0.1 (0.494), 0.2 (0.494), 0.27 (0.411), 0.3 (0.272), **0.35 (0.181)**, 0.4 (0.183), 0.45 (0.186). The trimming must cover the blocks that contain outliers (13–20 of 61 here): with $\alpha K$ below that count the outliers dominate $E_q$, and $\alpha = 0.1, 0.2$ return coordinate-wise MoM + HT on every seed. $\alpha = 0.35$ lies outside the range covered by the contraction argument, so it is an empirical choice.
+
+| Method | Mean L2 error | Median L2 error | Mean support recovery | Exact support | Mean runtime (s) | Completed seeds |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Sparse DL descent ($\alpha = 0.35$) | 0.180754 | 0.167636 | 0.960000 | 84/100 | 0.170245 | 100/100 |
+
+Per seed, the descent has a smaller L2 error than coordinate-wise MoM + HT and geometric MoM + HT on 100/100 seeds (median ratios 2.85 and 2.58), and than Algorithm 1 (block subsampling) on 45/100 (median ratio 0.91). It does not break down: its largest error is 0.324, against 27.19 for block subsampling on seed 23. On the 32 seeds of full Algorithm 1 its mean error is 0.167703 against 0.109967, smaller on 6/32 (median ratio 0.66), with exact support on 27/32 against 30/32. Every iteration was certified; 97 seeds stopped after three iterations without a smaller $U$ and 3 at `max_iter` (median 5 iterations). Runtime: median 0.12 s, max 0.75 s, measured sequentially in one one-thread process, so it is not comparable with the eight-worker runtimes above; those Algorithm 1 runtimes also predate later speedups.
+
+Per-seed records: [records_descent_a0.35.json](results/sparse_matrix_game/records_descent_a0.35.json) (the other $\alpha$ values sit beside it). Runner: `results/sparse_matrix_game/run_descent.py` (usage `run_descent.py ALPHA`).
+
 ## Experiment 2
 
 Support confusion as in Experiment 1, with heavy-tailed noise. Results for $(d, s, \delta, \epsilon, n) = (16, 4, 0.05, 0.02, 1000)$ and $\nu \in \{3, 5\}$; $C=3$, $K=61$, block subsampling $K_{\mathrm{sub}}=29$; default tolerance $e_{\mathrm{tol}} = 10^{-3}\,U_{\det}^{(0)}$; SDP screen off. Seeds 0–99; $\nu = 3$ and $\nu = 5$ ran at the same time with five one-thread workers each.
@@ -120,6 +134,19 @@ Before the warm-start fix in `separation_oracle`, seed 51 ($\nu = 3$) and seed 8
 ![Experiment 2 summary](results/experiment2_t_noise/experiment2_summary.png)
 
 Per-seed records (estimates, errors, support, runtimes): [records_nu3.json](results/experiment2_t_noise/records_nu3.json), [records_nu5.json](results/experiment2_t_noise/records_nu5.json). Plot: `results/experiment2_t_noise/plot.py`.
+
+### Sparse Depersin–Lecué descent (October 2026)
+
+`sparse_dl_descent_estimation` as in Experiment 1, on the same data and $K = 61$ partition, with all 61 blocks and the same $\alpha = 0.35$, $\gamma = 0.95$, `max_iter=30`, `patience=3`. Mean L2 errors for $\alpha = 0.3, 0.35, 0.4, 0.45$ were 0.233, 0.180, 0.180, 0.181 ($\nu = 3$) and 0.256, 0.184, 0.183, 0.184 ($\nu = 5$): 0.35–0.45 differ by at most 0.002, below the seed-to-seed variation, and 0.3 fails on the seeds whose contaminated blocks exceed $0.3K$. The blocks containing outliers numbered 14–20 ($\nu = 3$) and 15–20 ($\nu = 5$) of 61.
+
+| Setting | Mean L2 error | Median L2 error | Mean support recovery | Exact support | Mean runtime (s) | Completed seeds |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| $\nu = 3$, sparse DL descent ($\alpha = 0.35$) | 0.179669 | 0.169013 | 0.962500 | 85/100 | 0.304539 | 100/100 |
+| $\nu = 5$, sparse DL descent ($\alpha = 0.35$) | 0.183819 | 0.170093 | 0.960000 | 84/100 | 0.304334 | 100/100 |
+
+Per seed, the descent has a smaller L2 error than Algorithm 1 (block subsampling) on 48/100 ($\nu = 3$) and 49/100 ($\nu = 5$) seeds (median ratios 0.97 and 0.98), so the typical error is the same; its largest error is 0.339 and 0.338 against 0.82 for block subsampling, and it finds the exact support more often (85 and 84 against 66 and 65). It beats coordinate-wise MoM + HT on 99/100 and 100/100 seeds (median ratios 2.51 and 3.00) and geometric MoM + HT on 100/100 and 99/100 (2.33 and 2.56). Every iteration was certified; at most 2 seeds per $\nu$ stopped at `max_iter`. Runtime: median 0.24 s ($\nu = 3$) and 0.23 s ($\nu = 5$), max 1.6 s, with the eight $(\nu, \alpha)$ runs as concurrent one-thread processes.
+
+Per-seed records: [records_descent_exp2_nu3_a0.35.json](results/sparse_matrix_game/records_descent_exp2_nu3_a0.35.json), [records_descent_exp2_nu5_a0.35.json](results/sparse_matrix_game/records_descent_exp2_nu5_a0.35.json) (the other $\alpha$ values sit beside them). Runner: `results/sparse_matrix_game/run_descent_exp2.py` (usage `run_descent_exp2.py NU ALPHA`).
 
 ## MoM Algorithm 1: before versus after dualization (October 15, 2026)
 

@@ -23,6 +23,7 @@ baseline uses CVXPY/Clarabel.
 | `projection.py` | Projected Algorithm 1: coordinate partitions or Haar projections, dense fits, sparse LS aggregation |
 | `baselines.py` | Sample mean + HT, coordinate-wise MoM, geometric MoM |
 | `depersin_lecue.py` | Depersin–Lecué covSDPofMeans with a Clarabel covering SDP |
+| `sparse_dl_descent.py` | Sparse Depersin–Lecué descent: support branch-and-bound over Clarabel SDPs, hard-thresholded steps |
 | `experiments.py` | `run_method(name, data, ...)` registry for experiment runners, and `metrics` |
 | `plot_histograms.py` | Per-method error histograms from an errors JSON file |
 
@@ -147,6 +148,26 @@ unboxed optimum lies inside.
 with an explicit K, balanced blocks that keep every sample, the conservative outer iteration bound,
 and rho bisection with the [0.9981, 1] acceptance interval derived for eta = 1e-4. `tol` only sets
 the SDP solver tolerances. A practical K does not confer the paper's guarantee.
+
+## Sparse Depersin–Lecué descent
+
+`sparse_dl_descent_estimation(data, s, epsilon, alpha=0.35, gamma=0.95, C=3, ...)` uses the MoM blocks of the
+block rule. For the current s-sparse x it bounds E_q(x), the maximum over trace-one PSD M on at most
+q = min(2s, d) coordinates of the average of the smallest (1 - alpha) K values (Z_k - x)' M (Z_k - x). A fixed
+support is the SDP min_w lambda_max(sum_k w_k r_kS r_kS') over weights capped at 1/((1-alpha)K), solved with
+Clarabel; its bounds are recomputed from the solver output (feasible weights for U, the PSD unit-trace dual
+matrix for L), so they hold at any solver accuracy. `support_search` is a best-first branch-and-bound over
+(included, allowed) coordinate sets, bounded by the dense SDP on the allowed set and by interlacing, trace and
+Gershgorin bounds at an ancestor's weights; it stops once L >= gamma U. The step is x <- H_s(x + m v), v the
+leading eigenvector of the incumbent M and m the median of v'(Z_k - x). Without the radius R the paper's
+stopping test is unavailable: the estimator returns the iterate with the smallest certified U and stops after
+`max_iter=30` iterations, after `patience=3` iterations without a smaller U, or at a fixed point.
+`info["history"]` records U, L, the root (dense) bound and node/SDP counts per iteration.
+
+alpha must exceed the fraction of blocks that contain outliers, or the outliers dominate E_q and the estimator
+returns its start. The defaults alpha = 0.35 with the shared C = 3 were the most accurate in Experiments 1 and 2
+(`results.md`). They are empirical: the contraction argument needs alpha < 0.276, and the patience rule keeps its
+guarantee only for a much smaller alpha (about 0.15 or less).
 
 ## Removed in the October 2026 cleanup
 
