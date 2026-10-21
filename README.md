@@ -1,7 +1,8 @@
 # Robust estimation via Integer Programming
 
 [`results.md`](results.md) collects experiments run with the current code. Their outputs (JSON,
-figures, logs) stay local: `.gitignore` excludes them, so only code, tests, and documents are tracked.
+logs, runners) stay local: `.gitignore` excludes them, so only code, tests, documents, and the PNG
+figures under `results/` (shown in `results.md`) are tracked.
 
 Experiments run before the October 2026 refactor, with their results, runners, and frozen `source/`
 code snapshots, are kept locally in `previous_experiments/` (also excluded from git). They used the

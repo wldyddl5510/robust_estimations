@@ -9,8 +9,8 @@ __pycache__/
 # Experiments run before the October 2026 refactor (kept locally only)
 previous_experiments/
 
-# New experiment outputs; results.md itself is tracked
-results/
+# New experiment outputs; results.md itself is tracked (figures: see the end of this file)
+results/**
 logs/
 
 # Generated records, figures, data, and run state anywhere
@@ -26,3 +26,7 @@ logs/
 *.lock
 *.tmp
 *.pid
+
+# Figures shown in results.md stay tracked so that it renders on GitHub
+!results/**/
+!results/**/*.png
